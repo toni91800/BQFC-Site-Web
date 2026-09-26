@@ -228,7 +228,7 @@ p{ margin:0 0 1em; }
  
 /* Smartphone (<= 600px) */
 @media (max-width:600px){
-  .hero{ aspect-ratio: 3 / 4; min-height:560px; max-height:640px; }
+  .hero{ aspect-ratio: 3 / 4; min-height:420px; max-height:640px; }
   .hero-inner{ padding:22px 16px 10%; }
   .hero-logo{ gap:12px; margin-bottom:16px; }
   .hero-logo .logo-img, .hero-logo .logo-fallback{ width:56px; height:56px; }
