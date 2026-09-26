@@ -246,7 +246,7 @@ p{ margin:0 0 1em; }
   .hero h1{ font-size:clamp(1.9rem,9vw,2.6rem); }
   .hero p.lead{ font-size:.95rem; }
   .hero-actions{ flex-direction:column;}
-  .hero-actions .btn{ width:70%; justify-content:center; align-items: center; font-size: .80rem;}
+  .hero-actions .btn{ width:75%; justify-content:center; align-items: center; font-size: .80rem;}
 }
 
 /* bandeau infos rapides sous le hero */
