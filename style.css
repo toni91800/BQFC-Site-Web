@@ -234,8 +234,8 @@ p{ margin:0 0 1em; }
   .hero-logo .logo-img, .hero-logo .logo-fallback{ width:56px; height:56px; }
   .hero h1{ font-size:clamp(1.9rem,9vw,2.6rem); }
   .hero p.lead{ font-size:.95rem; }
-  .hero-actions{ flex-direction:column; font-size: small;}
-  .hero-actions .btn{ width:80%; justify-content:center; }
+  .hero-actions{ flex-direction:column; font-size: smaller;}
+  .hero-actions .btn{ width:80%; justify-content:center; align-items: center; }
 }
  
 .btn{
