@@ -215,6 +215,17 @@ p{ margin:0 0 1em; }
 }
 .hero-actions{ display:flex; gap:14px; margin-top:22px; flex-wrap:wrap; }
  
+.btn{
+  display:inline-flex; align-items:center; gap:8px;
+  padding:13px 26px; border-radius:2px; font-weight:700;
+  font-size:.85rem; letter-spacing:.05em; text-transform:uppercase;
+  border:2px solid transparent; cursor:pointer; transition:.15s;
+}
+.btn-primary{ background:var(--gold); color:var(--black); }
+.btn-primary:hover{ background:var(--white); }
+.btn-outline{ border-color:var(--white); color:var(--white); background:transparent; }
+.btn-outline:hover{ background:var(--white); color:var(--black); }
+
 /* ---------- Hero : proportion et taille adaptées selon l'écran ----------
    On change l'aspect-ratio (plus "carré"/"haut" sur petit écran, car le
    texte y prend proportionnellement plus de place) plutôt que d'utiliser
@@ -234,20 +245,9 @@ p{ margin:0 0 1em; }
   .hero-logo .logo-img, .hero-logo .logo-fallback{ width:56px; height:56px; }
   .hero h1{ font-size:clamp(1.9rem,9vw,2.6rem); }
   .hero p.lead{ font-size:.95rem; }
-  .hero-actions{ flex-direction:column; font-size: smaller;}
-  .hero-actions .btn{ width:80%; justify-content:center; align-items: center; }
+  .hero-actions{ flex-direction:column;}
+  .hero-actions .btn{ width:70%; justify-content:center; align-items: center; font-size: .70rem;}
 }
- 
-.btn{
-  display:inline-flex; align-items:center; gap:8px;
-  padding:13px 26px; border-radius:2px; font-weight:700;
-  font-size:.85rem; letter-spacing:.05em; text-transform:uppercase;
-  border:2px solid transparent; cursor:pointer; transition:.15s;
-}
-.btn-primary{ background:var(--gold); color:var(--black); }
-.btn-primary:hover{ background:var(--white); }
-.btn-outline{ border-color:var(--white); color:var(--white); background:transparent; }
-.btn-outline:hover{ background:var(--white); color:var(--black); }
 
 /* bandeau infos rapides sous le hero */
 .quick-strip{
