@@ -90,7 +90,7 @@
     <div class="quick-strip">
       <div class="qs"><span class="label">Prochain match</span><div class="val">Séniors vs Lissois FC — Dim. 16h15</div></div>
       <div class="qs"><span class="label">Licenciés</span><div class="val">— joueurs et joueuses</div></div>
-      <div class="qs"><span class="label">Équipes engagées</span><div class="val">10 catégories, de l'école de Foot aux Vétérans</div></div>
+      <div class="qs"><span class="label">Équipes engagées</span><div class="val">14 catégories, de l'école de Foot aux Vétérans</div></div>
     </div>
 
     <section>
@@ -291,14 +291,16 @@
               </div>
             </div>
  
-            <div class="form-checkbox-row">
-              <input type="checkbox" id="pre-club-etranger" name="clubEtranger">
-              <label for="pre-club-etranger">Le joueur / la joueuse vient d'un club étranger</label>
-            </div>
-            <div class="form-checkbox-row">
-              <input type="checkbox" id="pre-habite-etranger" name="habiteEtranger">
-              <label for="pre-habite-etranger">Le joueur / la joueuse habite à l'étranger</label>
-            </div>
+            <fieldset class="form-choice-group">
+              <legend>Le joueur / la joueuse vient d'un club étranger</legend>
+              <label><input type="radio" name="clubEtranger" value="Oui" required> Oui</label>
+              <label><input type="radio" name="clubEtranger" value="Non" required> Non</label>
+            </fieldset>
+            <fieldset class="form-choice-group">
+              <legend>Le joueur / la joueuse habite à l'étranger</legend>
+              <label><input type="radio" name="habiteEtranger" value="Oui" required> Oui</label>
+              <label><input type="radio" name="habiteEtranger" value="Non" required> Non</label>
+            </fieldset>
  
             <div class="form-two">
               <div class="form-row"><label for="pre-email">Email</label><input id="pre-email" name="email" type="email" required></div>
@@ -518,8 +520,8 @@
       <div>
         <h4>Contact</h4>
         <ul>
-          <li>1 Rue de Rochopt, 91800 Boussy-Saint-Antoine</li>
-          <li>581835@lpiff.fr</li>
+          <li>Adresse : 1 Rue de Rochopt, 91800 Boussy-Saint-Antoine</li>
+          <li>Email : 581835@lpiff.fr</li>
         </ul>
       </div>
     </div>

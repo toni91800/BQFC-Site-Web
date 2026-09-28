@@ -475,6 +475,13 @@ table.results td.score{ font-family:var(--font-display); font-size:1rem; }
 .form-radio-group{ display:flex; gap:24px; }
 .form-radio-group label{ display:flex; align-items:center; gap:6px; font-weight:600; font-size:.9rem; cursor:pointer; }
 .form-radio-group input[type="radio"]{ width:auto; accent-color:var(--bronze); }
+.form-choice-group{
+  display:flex; flex-wrap:wrap; align-items:center; gap:16px;
+  border:0; padding:0; margin:0 0 16px;
+}
+.form-choice-group legend{ width:100%; margin-bottom:6px; font-size:.88rem; font-weight:600; }
+.form-choice-group label{ display:flex; align-items:center; gap:6px; font-size:.9rem; cursor:pointer; }
+.form-choice-group input[type="radio"]{ width:auto; accent-color:var(--bronze); }
 .form-checkbox-row{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
 .form-checkbox-row input[type="checkbox"]{ width:auto; accent-color:var(--bronze); }
 .form-checkbox-row label{ font-size:.88rem; cursor:pointer; }

@@ -151,9 +151,10 @@ function showSubPanel(pageId, subId){
   page.querySelectorAll('.subpanel').forEach(p=>p.classList.remove('active'));
   const panel = page.querySelector('#'+subId);
   if(panel) panel.classList.add('active');
-  page.querySelectorAll('.subtabs button').forEach(b=>{
+  page.querySelectorAll('.subtabs[data-page] button').forEach(b=>{
     b.classList.toggle('active', b.dataset.target === subId);
   });
+  if(pageId === 'club' && subId === 'club-adhesion') showAdhesionPanel('nouveau');
 }
  
 /* ---------- 3. Génération dynamique : Les Équipes ---------- */
@@ -385,16 +386,23 @@ function buildAgenda(){
 }
 
 /* ---------- 5quater. Adhésion : sous-sous-onglets + envoi du formulaire de préinscription ---------- */
+function showAdhesionPanel(adhId){
+  const nav = document.getElementById('adhesion-subtabs');
+  if(!nav) return;
+  nav.querySelectorAll('button').forEach(btn=>{
+    btn.classList.toggle('active', btn.dataset.adh === adhId);
+  });
+  document.querySelectorAll('#club-adhesion .adh-panel').forEach(panel=>{
+    panel.classList.toggle('active', panel.id === `adh-${adhId}`);
+  });
+}
+
 function bindAdhesionTabs(){
   const nav = document.getElementById('adhesion-subtabs');
   if(!nav) return;
   nav.querySelectorAll('button').forEach(btn=>{
     btn.addEventListener('click', ()=>{
-      nav.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('#club-adhesion .adh-panel').forEach(p=>p.classList.remove('active'));
-      const target = document.getElementById('adh-'+btn.dataset.adh);
-      if(target) target.classList.add('active');
+      showAdhesionPanel(btn.dataset.adh);
     });
   });
 }
