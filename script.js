@@ -9,16 +9,34 @@
    -> Pour ajouter/retirer/renommer une catégorie, modifiez
       simplement ce tableau : tout le site se met à jour tout seul. */
 const CATEGORIES = [
-  { id: "baby",   label: "Baby Foot",   full: "Baby Foot (U4 - U5)", coach: "À définir", jour: "Mercredi 10h - 11h", terrain: "Terrain d'honneur" },
-  { id: "u6u7",   label: "U6 - U7",     full: "U6 - U7",             coach: "À définir", jour: "Mercredi 10h - 11h30", terrain: "Terrain synthétique" },
-  { id: "u8u9",   label: "U8 - U9",     full: "U8 - U9",             coach: "À définir", jour: "Mardi et Vendredi 18h - 19h", terrain: "Terrain synthétique" },
-  { id: "u10u11", label: "U10 - U11",   full: "U10 - U11",           coach: "À définir", jour: "Mardi et Vendredi 18h - 19h30", terrain: "Terrain d'honneur" },
-  { id: "u12u13", label: "U12 - U13",   full: "U12 - U13",           coach: "À définir", jour: "Lundi et Jeudi 18h30 - 20h", terrain: "Terrain d'honneur" },
-  { id: "u14",    label: "U14",         full: "U14",                 coach: "À définir", jour: "Lundi et Jeudi 18h30 - 20h", terrain: "Terrain synthétique" },
-  { id: "u15u16", label: "U15 - U16",   full: "U15 - U16",           coach: "À définir", jour: "Mardi et Vendredi 19h - 20h30", terrain: "Terrain d'honneur" },
-  { id: "u17u18", label: "U17 - U18",   full: "U17 - U18",           coach: "À définir", jour: "Mardi et Vendredi 19h - 20h30", terrain: "Terrain synthétique" },
-  { id: "seniors",label: "Séniors",     full: "Séniors",             coach: "À définir", jour: "Mardi et Jeudi 19h30 - 21h", terrain: "Terrain d'honneur" },
-  { id: "veterans",label:"Vétérans",    full: "Vétérans",            coach: "À définir", jour: "Vendredi 19h30 - 21h", terrain: "Terrain synthétique" },
+  { id: "u6u7",   label: "U6 - U7",     full: "U6 - U7",    annee:"2020 à 2021" ,        coach: "À définir", jour: "Mercredi 14h15-15h45", terrain: "Terrain synthétique"},
+  { id: "u8",   label: "U8",     full: "U8",  annee:"2018" ,      coach: "À définir", jour: "Lundi 17h30-19h et Mercredi 14h15-15h45", terrain: "Terrain synthétique" },
+  { id: "u9",   label: "U9",     full: "U9",  annee:"2019" ,             coach: "À définir", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain synthétique" },
+  { id: "u10u11", label: "U10 - U11",   full: "U10 - U11",   annee:"2016 à 2017" ,     coach: "À définir", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain d'honneur" },
+  { id: "u12", label: "U12",   full: "U12",   annee:"2015" ,     coach: "À définir", jour: "Mardi 18h-19h15, Mercredi 17h30-19h et Vendredi 18h-19h15", terrain: "Terrain d'honneur" },
+  { id: "u13F",   label: "U13 F",     full: "U13 F",  annee:"2014" ,   coach: "À définir", jour: "Mercredi 17h30-19h et Jeudi 17h30-19h", terrain: "Terrain synthétique" },
+  { id: "u13",   label: "U13",     full: "U13",  annee:"2014" ,     coach: "À définir", jour: "Mardi 18h-19h15, Mercredi 17h30-19h et Vendredi 18h-19h15", terrain: "Terrain synthétique" },
+  { id: "u14", label: "U14",   full: "U14", annee:"2013" ,    coach: "À définir", jour: "Lundi 19h-20h30 et Jeudi 19h-20h30", terrain: "Terrain d'honneur" },
+  { id: "u15F",   label: "U15 F",     full: "U15 F", annee:"2012 à 2014",    coach: "À définir", jour: "Lundi 19h-20h30 et Mercredi 19h-20h30", terrain: "Terrain synthétique" },
+  { id: "u16",   label: "U16",     full: "U16",  annee:"2011 à 2012" , coach: "À définir", jour: "Mercredi 19h-20h30 et Vendredi 19h-20h30", terrain: "Terrain synthétique" },
+  { id: "u18", label: "U18",   full: "U18",   annee:"2009 à 2010" ,    coach: "À définir", jour: "Mardi 19h-20h30 et Vendredi 19h-20h30", terrain: "Terrain synthétique" },
+  { id: "seniorsF", label: "Séniors F", annee:"Avant 2011" ,     full: "Séniors F",             coach: "À définir", jour: "Lundi 20h30-22h et Mercredi 20h30-22h", terrain: "Terrain d'honneur" },
+  { id: "seniors", label: "Séniors",     full: "Séniors",   annee:"avant 2009" ,     coach: "À définir", jour: "Mardi 20h45-22h15 et Vendredi 20h45-22h15", terrain: "Terrain d'honneur" },
+  { id: "veterans35", label:"Vétérans +35",    full: "Vétérans +35",   annee:"Avant 1992" ,     coach: "À définir", jour: "Jeudi 20h30-22h", terrain: "Terrain synthétique" },
+  { id: "veterans45", label:"Vétérans +45",    full: "Vétérans +45",    annee:"Avant 1982" ,       coach: "À définir", jour: "Mercredi 20h30-22h", terrain: "Terrain synthétique" },
+];
+
+/* Format : identifiant de catégorie -> { name, phone }. */
+const TEAM_CONTACTS = {};
+const CLUB_CONTACTS = [
+  { role: "Président", name: "", phone: "" },
+  { role: "Vice-Président", name: "", phone: "" },
+  { role: "Trésorier", name: "", phone: "" },
+  { role: "Secrétaire", name: "", phone: "" },
+  { role: "Directeur sportif", name: "", phone: "" },
+  { role: "Responsable Écoles de foot", name: "", phone: "" },
+  { role: "Responsable Communication", name: "", phone: "" },
+  { role: "Responsable Partenariats", name: "", phone: "" },
 ];
 
 /* Compétitions pour la page Résultats : Championnat et Coupe.
@@ -27,23 +45,86 @@ const COMPETITIONS = [
   { id: "championnat", label: "Championnat" },
   { id: "coupe",       label: "Coupe" },
 ];
- 
-/* Résultats fictifs d'exemple (à remplacer par les vrais scores) */
-function exempleResultats(cat, comp){
-  if(comp === 'coupe'){
-    return [
-      { j:"Tour 1", date:"05/10", adv:"US Rivalière",      dom:true,  bf:3, bc:1 },
-      { j:"Tour 2", date:"19/10", adv:"AS Montjean",       dom:false, bf:2, bc:2 },
-      { j:"1/8 de finale", date:"09/11", adv:"FC Les Ormeaux", dom:true, bf:1, bc:0 },
-    ];
-  }
-  return [
-    { j:"J1", date:"07/09", adv:"US Rivalière",      dom:true,  bf:2, bc:1 },
-    { j:"J2", date:"14/09", adv:"AS Montjean",       dom:false, bf:1, bc:1 },
-    { j:"J3", date:"21/09", adv:"FC Les Ormeaux",    dom:true,  bf:0, bc:2 },
-    { j:"J4", date:"28/09", adv:"Entente Val de Br.",dom:false, bf:3, bc:0 },
-  ];
-}
+
+const RESULTAT_TEAMS = {
+  championnat: [
+    { id: "u14", label: "U14", division: "D3 Poule C" },
+    { id: "u15F", label: "U15 F", division: "D1 Poule B" },
+    { id: "u16", label: "U16", division: "D4 Poule B" },
+    { id: "u18", label: "U18", division: "D2 Poule A" },
+    { id: "seniorsF", label: "Séniors F", division: "D1" },
+    { id: "seniors1", label: "Séniors 1", division: "D2 Poule B" },
+    { id: "seniors2", label: "Séniors 2", division: "D5 Poule A" },
+    { id: "veterans55", label: "Vétérans +55", division: "Critérium 55 ans Poule A" },
+  ],
+  coupe: [
+    { id: "seniors1", label: "Séniors 1", competition: "Coupe Essonne" },
+    { id: "seniors2", label: "Séniors 2", competition: "Coupe District" },
+    { id: "veterans35", label: "Vétérans +35", competition: "Coupe Essonne" },
+  ],
+};
+
+const EQUIPES_PAR_CATEGORIE = { seniors: 2 };
+
+/* Scores de démonstration à remplacer par les résultats réels. */
+const RESULTATS_EXEMPLE = {
+  championnat: {
+    u14: [
+      { j:"J1", date:"07/09", adv:"FC Val d'Yerres", dom:true, bf:3, bc:1 },
+      { j:"J2", date:"14/09", adv:"AS Épinay", dom:false, bf:2, bc:2 },
+      { j:"J3", date:"21/09", adv:"US Ris-Orangis", dom:true, bf:1, bc:0 },
+    ],
+    u15F: [
+      { j:"J1", date:"07/09", adv:"FC Étampes", dom:false, bf:1, bc:4 },
+      { j:"J2", date:"14/09", adv:"ES Montgeron", dom:true, bf:2, bc:1 },
+      { j:"J3", date:"21/09", adv:"FC Viry", dom:false, bf:0, bc:3 },
+    ],
+    u16: [
+      { j:"J1", date:"07/09", adv:"CO Ulis", dom:true, bf:0, bc:2 },
+      { j:"J2", date:"14/09", adv:"FC Brunoy", dom:false, bf:3, bc:1 },
+      { j:"J3", date:"21/09", adv:"AS Marcoussis", dom:true, bf:2, bc:2 },
+    ],
+    u18: [
+      { j:"J1", date:"07/09", adv:"FC Mennecy", dom:false, bf:2, bc:1 },
+      { j:"J2", date:"14/09", adv:"ES Cesson", dom:true, bf:4, bc:0 },
+      { j:"J3", date:"21/09", adv:"US Palaiseau", dom:false, bf:1, bc:1 },
+    ],
+    seniorsF: [
+      { j:"J1", date:"07/09", adv:"FC Longjumeau", dom:true, bf:2, bc:3 },
+      { j:"J2", date:"14/09", adv:"AS Orly", dom:false, bf:2, bc:0 },
+      { j:"J3", date:"21/09", adv:"FC Fleury", dom:true, bf:1, bc:1 },
+    ],
+    seniors1: [
+      { j:"J1", date:"07/09", adv:"US Grigny", dom:false, bf:1, bc:2 },
+      { j:"J2", date:"14/09", adv:"FC Lisses", dom:true, bf:3, bc:0 },
+      { j:"J3", date:"21/09", adv:"AS Soisy", dom:false, bf:2, bc:2 },
+    ],
+    seniors2: [
+      { j:"J1", date:"07/09", adv:"ES Tigery", dom:true, bf:1, bc:0 },
+      { j:"J2", date:"14/09", adv:"FC Bondoufle", dom:false, bf:0, bc:2 },
+      { j:"J3", date:"21/09", adv:"US Vigneux", dom:true, bf:3, bc:2 },
+    ],
+    veterans55: [
+      { j:"J1", date:"07/09", adv:"FC Savigny", dom:false, bf:2, bc:2 },
+      { j:"J2", date:"14/09", adv:"AS Corbeil", dom:true, bf:2, bc:0 },
+      { j:"J3", date:"21/09", adv:"US Morsang", dom:false, bf:1, bc:3 },
+    ],
+  },
+  coupe: {
+    seniors1: [
+      { j:"Tour 1", date:"05/10", adv:"FC Ballainvilliers", dom:true, bf:4, bc:1 },
+      { j:"Tour 2", date:"19/10", adv:"AS Mennecy", dom:false, bf:1, bc:2 },
+    ],
+    seniors2: [
+      { j:"Tour 1", date:"05/10", adv:"US Soisy", dom:false, bf:0, bc:3 },
+      { j:"Tour 2", date:"19/10", adv:"FC Épinay", dom:true, bf:2, bc:2 },
+    ],
+    veterans35: [
+      { j:"Tour 1", date:"05/10", adv:"ES Yerres", dom:true, bf:2, bc:0 },
+      { j:"Tour 2", date:"19/10", adv:"FC Draveil", dom:false, bf:3, bc:1 },
+    ],
+  },
+};
  
 /* ---------- 2. Navigation principale (onglets + sous-onglets) ---------- */
 function showPage(pageId, subId){
@@ -91,23 +172,78 @@ function buildEquipes(){
     const panel = document.createElement('div');
     panel.className = 'subpanel' + (i===0 ? ' active' : '');
     panel.id = 'eq-'+cat.id;
+    const resultTeamId = cat.id === 'seniors' ? 'seniors1' : cat.id;
+    const resultCompetition = ['championnat', 'coupe'].find(compId =>
+      RESULTAT_TEAMS[compId].some(team => team.id === resultTeamId)
+    );
+    const championshipTeams = cat.id === 'seniors'
+      ? RESULTAT_TEAMS.championnat.filter(team => team.id === 'seniors1' || team.id === 'seniors2')
+      : RESULTAT_TEAMS.championnat.filter(team => team.id === cat.id);
+    const divisions = championshipTeams.map(team =>
+      `<span>${team.division}</span>`
+    ).join('');
     panel.innerHTML = `
       <div class="team-card">
         <div class="photo">Photo de l'équipe<br>${cat.full}</div>
         <div class="info">
           <span class="badge">${cat.full}</span>
           <h3>${cat.full} — FC Boussy Quincy</h3>
-          <p>Présentation de la catégorie ${cat.full} : effectif, objectifs de la saison et esprit d'équipe. Remplacez ce texte par la présentation réelle rédigée par le club.</p>
           <div class="team-meta">
             <div><div class="k">Entraîneur</div><div class="v">${cat.coach}</div></div>
+            <div><div class="k">Génération</div><div class="v">${cat.annee}</div></div>
             <div><div class="k">Entraînements</div><div class="v">${cat.jour}</div></div>
             <div><div class="k">Terrain</div><div class="v">${cat.terrain}</div></div>
             <div><div class="k">Effectif</div><div class="v">— licenciés</div></div>
+            <div><div class="k">Nombre d'équipes</div><div class="v">${EQUIPES_PAR_CATEGORIE[cat.id] || 1}</div></div>
+            ${divisions ? `<div><div class="k">Championnat</div><div class="v team-divisions">${divisions}</div></div>` : ''}
           </div>
-          <a class="btn btn-primary" href="#" data-page="resultats" data-comp="championnat" data-cat="${cat.id}">Voir les résultats</a>
+          ${resultCompetition ? `<a class="btn btn-primary" href="#" data-page="resultats" data-comp="${resultCompetition}" data-cat="${resultTeamId}">Voir les résultats</a>` : ''}
         </div>
       </div>`;
     panels.appendChild(panel);
+  });
+}
+
+function buildContacts(){
+  const equipesWrap = document.getElementById('contacts-equipes');
+  const directionWrap = document.getElementById('contacts-direction');
+  if(!equipesWrap || !directionWrap) return;
+
+  function contactCard(role, name, phone){
+    const card = document.createElement('article');
+    card.className = 'contact-card';
+    const heading = document.createElement('h5');
+    heading.textContent = role;
+    const contactName = document.createElement('p');
+    contactName.textContent = name || 'Responsable à renseigner';
+    card.append(heading, contactName);
+
+    if(phone){
+      const phoneLink = document.createElement('a');
+      phoneLink.className = 'contact-phone';
+      phoneLink.href = `tel:${phone.replace(/[^\d+]/g, '')}`;
+      phoneLink.textContent = `📞 ${phone}`;
+      card.appendChild(phoneLink);
+    } else {
+      const missing = document.createElement('span');
+      missing.className = 'contact-missing';
+      missing.textContent = 'Numéro à renseigner';
+      card.appendChild(missing);
+    }
+    return card;
+  }
+
+  CATEGORIES.forEach(cat=>{
+    const contact = TEAM_CONTACTS[cat.id] || {};
+    equipesWrap.appendChild(contactCard(
+      cat.full,
+      contact.name || (cat.coach !== 'À définir' ? cat.coach : ''),
+      contact.phone || ''
+    ));
+  });
+
+  CLUB_CONTACTS.forEach(contact=>{
+    directionWrap.appendChild(contactCard(contact.role, contact.name, contact.phone));
   });
 }
  
@@ -135,7 +271,8 @@ function buildResultats(){
  
     const catPanelsWrap = document.createElement('div');
  
-    CATEGORIES.forEach((cat, i)=>{
+    const resultTeams = RESULTAT_TEAMS[comp.id];
+    resultTeams.forEach((cat, i)=>{
       const targetId = `res-${comp.id}-${cat.id}`;
  
       // --- bouton de 2e niveau : la catégorie (Baby Foot, U6-U7, ...) ---
@@ -147,7 +284,7 @@ function buildResultats(){
       catSubtabs.appendChild(catBtn);
  
       // --- contenu des résultats pour cette catégorie, dans cette compétition ---
-      const matches = exempleResultats(cat, comp.id);
+      const matches = RESULTATS_EXEMPLE[comp.id][cat.id];
       let v=0,n=0,d=0;
       const rows = matches.map(m=>{
         let cls='res-n', label='—';
@@ -166,8 +303,12 @@ function buildResultats(){
       const catPanel = document.createElement('div');
       catPanel.className = 'subpanel cat-panel' + (i===0 ? ' active' : '');
       catPanel.id = targetId;
+      const mention = comp.id === 'championnat' ? cat.division : cat.competition;
+      const competitionMention = mention
+        ? `<span class="results-division">${mention}</span>`
+        : '';
       catPanel.innerHTML = `
-        <h3>${cat.full} — ${comp.label}</h3>
+        <h3 class="results-title">${cat.label} — ${comp.label}${competitionMention}</h3>
         <div class="results-summary">
           <div class="stat"><div class="n">${v}</div><div class="l">Victoires</div></div>
           <div class="stat"><div class="n">${n}</div><div class="l">Nuls</div></div>
@@ -219,6 +360,62 @@ function goToResultat(compId, catId){
   const compPanel = document.getElementById('comp-'+compId);
   if(compPanel) showCatPanel(compPanel, `res-${compId}-${catId}`);
 }
+
+/* ---------- 5ter. Agenda : occupation des terrains (regroupée par terrain) ---------- */
+function buildAgenda(){
+  const wrap = document.getElementById('agenda-terrains');
+  if(!wrap) return;
+ 
+  // Regroupe les catégories par terrain (déduit automatiquement de CATEGORIES)
+  const parTerrain = {};
+  CATEGORIES.forEach(cat=>{
+    if(!parTerrain[cat.terrain]) parTerrain[cat.terrain] = [];
+    parTerrain[cat.terrain].push(cat);
+  });
+ 
+  Object.keys(parTerrain).forEach(terrain=>{
+    const card = document.createElement('div');
+    card.className = 'agenda-card';
+    const items = parTerrain[terrain].map(cat=>
+      `<li><span class="cat">${cat.full}</span><span class="slot">${cat.jour}</span></li>`
+    ).join('');
+    card.innerHTML = `<div class="head">${terrain}</div><ul>${items}</ul>`;
+    wrap.appendChild(card);
+  });
+}
+
+/* ---------- 5quater. Adhésion : sous-sous-onglets + envoi du formulaire de préinscription ---------- */
+function bindAdhesionTabs(){
+  const nav = document.getElementById('adhesion-subtabs');
+  if(!nav) return;
+  nav.querySelectorAll('button').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      nav.querySelectorAll('button').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('#club-adhesion .adh-panel').forEach(p=>p.classList.remove('active'));
+      const target = document.getElementById('adh-'+btn.dataset.adh);
+      if(target) target.classList.add('active');
+    });
+  });
+}
+ 
+function bindPreinscriptionForm(){
+  const form = document.getElementById('preinscriptionForm');
+  if(!form) return;
+  const errorBox = document.getElementById('preinscription-error');
+ 
+  form.addEventListener('submit', (e)=>{
+    errorBox.style.display = 'none';
+ 
+    const email = form.elements.namedItem('email').value.trim();
+    const emailConfirm = form.elements.namedItem('emailConfirm').value.trim();
+    if(email.toLowerCase() !== emailConfirm.toLowerCase()){
+      e.preventDefault();
+      errorBox.textContent = "Les deux adresses email ne correspondent pas. Merci de vérifier avant d'envoyer.";
+      errorBox.style.display = 'block';
+    }
+  });
+}
  
 /* ---------- 5bis. Menus déroulants "Les Équipes" / "Résultats" + tableau planning ---------- */
 function buildDropdownsAndPlanning(){
@@ -229,18 +426,18 @@ function buildDropdownsAndPlanning(){
   CATEGORIES.forEach(cat=>{
     if(planningBody){
       planningBody.insertAdjacentHTML('beforeend',
-        `<tr><td>${cat.full}</td><td>${cat.jour}</td><td>${cat.terrain}</td></tr>`);
+        `<tr><td>${cat.full} (${cat.annee})</td><td>${cat.jour}</td><td>${cat.terrain}</td></tr>`);
     }
     if(eqDrop){
       eqDrop.insertAdjacentHTML('beforeend', `<li><a href="#" data-page="equipes" data-sub="eq-${cat.id}">${cat.label}</a></li>`);
     }
   });
  
-  // Le menu "Résultats" ne liste que les 2 compétitions : une fois sur la
-  // page, les 10 catégories sont accessibles via le sous-menu de la page.
+  // Le menu "Résultats" ouvre la première équipe disponible de chaque compétition.
   if(resDrop){
     COMPETITIONS.forEach(comp=>{
-      resDrop.insertAdjacentHTML('beforeend', `<li><a href="#" data-page="resultats" data-comp="${comp.id}" data-cat="${CATEGORIES[0].id}">${comp.label}</a></li>`);
+      const firstTeam = RESULTAT_TEAMS[comp.id][0];
+      resDrop.insertAdjacentHTML('beforeend', `<li><a href="#" data-page="resultats" data-comp="${comp.id}" data-cat="${firstTeam.id}">${comp.label}</a></li>`);
     });
   }
 }
@@ -286,17 +483,6 @@ function bindBurger(){
   });
 }
  
-/* ---------- 8. Formulaire de contact (démo front-end) ---------- */
-function bindContactForm(){
-  const form = document.getElementById('contactForm');
-  if(!form) return;
-  form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    document.getElementById('form-confirm').style.display = 'block';
-    form.reset();
-  });
-}
- 
 /* ---------- 9. Sous-onglets statiques (Le Club) ---------- */
 function bindStaticSubtabs(){
   document.querySelectorAll('.subtabs[data-page]').forEach(nav=>{
@@ -310,14 +496,17 @@ function bindStaticSubtabs(){
 /* ---------- Initialisation ---------- */
 document.addEventListener('DOMContentLoaded', ()=>{
   buildEquipes();
+  buildContacts();
   buildResultats();
+  buildAgenda();
+  bindAdhesionTabs();
+  bindPreinscriptionForm();
   buildDropdownsAndPlanning();
   bindNavLinks();
   bindDropdowns();
   bindBurger();
-  bindContactForm();
   bindStaticSubtabs();
   showPage('accueil');
- 
+
   document.getElementById('year').textContent = new Date().getFullYear();
 });

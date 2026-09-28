@@ -144,6 +144,12 @@ p{ margin:0 0 1em; }
 .dropdown li a:hover, .dropdown li button:hover{
   background:rgba(243,196,108,.12); color:var(--gold);
 }
+#equipes-dropdown{
+  max-height:min(65vh, 430px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
 
 /* =========== hero (Accueil) =========== */
 .hero{
@@ -354,6 +360,22 @@ main section:nth-of-type(even){ background:var(--white); }
 .org-card .role{ font-size:.72rem; letter-spacing:.08em; color:var(--peach); text-transform:uppercase; font-weight:700; }
 .org-card .name{ font-weight:600; margin-top:2px; }
 
+/* contacts */
+.contacts-note{
+  padding:12px 16px; background:#f4efe2; border-left:3px solid var(--bronze);
+  font-size:.88rem; color:#5a5142;
+}
+.contacts-note code{ font-size:.82rem; }
+.contacts-section{ margin-top:28px; }
+.contacts-section > h4{ margin-bottom:14px; }
+.contacts-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+.contact-card{ padding:18px; background:var(--white); border:1px solid #e6ddc9; }
+.contact-card h5{ margin:0 0 6px; font-size:.92rem; }
+.contact-card p{ margin-bottom:10px; color:#5a5142; font-size:.88rem; }
+.contact-phone, .contact-missing{ display:inline-flex; font-size:.84rem; font-weight:700; }
+.contact-phone{ color:var(--black); border-bottom:2px solid var(--gold); }
+.contact-missing{ color:#8a7f65; }
+
 /* planning */
 table.plan{ width:100%; border-collapse:collapse; margin-top:10px; }
 table.plan th, table.plan td{ padding:12px 14px; border-bottom:1px solid #e6ddc9; text-align:left; font-size:.9rem; }
@@ -384,6 +406,12 @@ table.plan tbody tr:nth-child(even){ background:#f4efe2; }
 .team-meta div{ border-left:3px solid var(--bronze); padding-left:10px; }
 .team-meta .k{ font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:#8a7f65; }
 .team-meta .v{ font-weight:600; }
+.team-divisions span{ display:block; }
+.results-title{ display:flex; flex-wrap:wrap; align-items:center; gap:10px; }
+.results-division{
+  display:inline-block; padding:5px 10px; background:#f4efe2; border-left:3px solid var(--bronze);
+  font-family:var(--font-body); font-size:.78rem; font-weight:600; letter-spacing:0;
+}
 @media (max-width:720px){ .team-card{ grid-template-columns:1fr; } .team-card .photo{ min-height:170px; } }
 
 /* résultats */
@@ -419,6 +447,59 @@ table.results td.score{ font-family:var(--font-display); font-size:1rem; }
 .partner-cta h3{ color:var(--white); margin-bottom:4px; }
 .partner-cta p{ color:#cfc7b3; margin:0; }
 
+/* agenda / occupation des terrains */
+.agenda-terrains{ display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:24px; }
+.agenda-card{ background:var(--white); border:1px solid #e6ddc9; }
+.agenda-card .head{
+  background:var(--black); color:var(--gold); padding:14px 18px;
+  font-family:var(--font-display); letter-spacing:.03em; font-size:1.05rem;
+}
+.agenda-card ul{ padding:6px 0; }
+.agenda-card li{
+  display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+  padding:12px 18px; border-bottom:1px solid #f0ebdd; font-size:.88rem;
+}
+.agenda-card li:last-child{ border-bottom:none; }
+.agenda-card .cat{ font-weight:700; color:var(--ink); }
+.agenda-card .slot{ color:#5a5142; text-align:right; }
+ 
+/* réservation de créneau */
+.booking-embed{
+  margin-top:18px; border:1px solid #e6ddc9; aspect-ratio:16/10; overflow:hidden;
+}
+.booking-embed iframe{ width:100%; height:100%; border:0; display:block; }
+
+/* adhésion : sous-sous-onglets nouveaux/anciens joueurs */
+.adh-panel{ display:none; }
+.adh-panel.active{ display:block; animation:fadein .3s ease; }
+.form-radio-group{ display:flex; gap:24px; }
+.form-radio-group label{ display:flex; align-items:center; gap:6px; font-weight:600; font-size:.9rem; cursor:pointer; }
+.form-radio-group input[type="radio"]{ width:auto; accent-color:var(--bronze); }
+.form-checkbox-row{ display:flex; align-items:center; gap:8px; margin-bottom:14px; }
+.form-checkbox-row input[type="checkbox"]{ width:auto; accent-color:var(--bronze); }
+.form-checkbox-row label{ font-size:.88rem; cursor:pointer; }
+.form-error{
+  display:none; margin-top:14px; padding:12px 16px; background:#fbeaea; border-left:4px solid #b1443a;
+  font-size:.85rem; color:#7a2a21;
+}
+.adhesion-note{
+  background:#f4efe2; border-left:4px solid var(--bronze); padding:16px 18px; font-size:.9rem; margin:26px 0 0;
+}
+
+/* boutique */
+.shop-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:26px; }
+.shop-card{ background:var(--white); border:1px solid #e6ddc9; display:flex; flex-direction:column; }
+.shop-card .photo{
+  aspect-ratio:4/3; background:linear-gradient(135deg,var(--bronze),var(--gold));
+  display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.85);
+  font-size:.85rem; text-align:center; padding:14px;
+}
+.shop-card .info{ padding:20px; display:flex; flex-direction:column; gap:6px; }
+.shop-card h4{ font-size:1.05rem; margin:0; }
+.shop-card p{ font-size:.88rem; color:#5a5142; margin:0 0 4px; }
+.shop-card .price{ font-family:var(--font-display); font-size:1.2rem; color:var(--bronze); margin-bottom:8px; }
+.shop-card .btn{ align-self:flex-start; }
+
 /* contact */
 .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:46px; }
 .contact-info li{ display:flex; gap:12px; margin-bottom:18px; align-items:flex-start; }
@@ -435,6 +516,11 @@ table.results td.score{ font-family:var(--font-display); font-size:1rem; }
   font-weight:700; font-size:.85rem; color:var(--black); border-bottom:2px solid var(--gold);
 }
 .map-link:hover{ color:var(--bronze); }
+.form-success{ min-height:100vh; display:flex; align-items:center; padding:48px 0; }
+.form-success .wrap{ max-width:720px; }
+.form-success .kicker{ display:block; margin-bottom:12px; color:var(--bronze); font-size:.78rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+.form-success h1{ font-size:clamp(2rem,5vw,3rem); }
+.form-success p{ margin-bottom:24px; }
 .form-row{ margin-bottom:16px; }
 .form-row label{ display:block; font-size:.8rem; font-weight:600; margin-bottom:6px; letter-spacing:.02em; }
 .form-row input, .form-row select, .form-row textarea{
@@ -495,6 +581,7 @@ table.results td.score{ font-family:var(--font-display); font-size:1rem; }
     width:100%; padding:0;
   }
   .main-nav > ul > li.open .dropdown{ display:block; }
+  #equipes-dropdown{ max-height:min(42vh, 300px); }
   .quick-strip{ text-align:center; }
   .team-meta{ grid-template-columns:1fr 1fr; }
 }
