@@ -454,6 +454,13 @@ function buildDropdownsAndPlanning(){
 function bindNavLinks(){
   document.querySelectorAll('[data-page]').forEach(el=>{
     el.addEventListener('click', (e)=>{
+      const parentMenuItem = el.closest('.main-nav > ul > li');
+      if(
+        window.innerWidth <= 960 &&
+        el.matches('.main-nav > ul > li > button.nav-link') &&
+        parentMenuItem?.querySelector(':scope > .dropdown')
+      ) return;
+
       e.preventDefault();
       if(el.dataset.comp && el.dataset.cat){
         goToResultat(el.dataset.comp, el.dataset.cat);
