@@ -462,13 +462,20 @@ function bindPreinscriptionForm(){
       }
 
       await sendConfirmation(savedSubmission);
-      window.location.assign(form.action);
+      const thankYouUrl = new URL(form.action, window.location.href);
+      thankYouUrl.searchParams.set('confirmation', 'envoyee');
+      window.location.assign(thankYouUrl);
     } catch(error) {
-      errorBox.textContent = savedSubmission
-        ? "Votre demande a bien été reçue par le club, mais le courriel de confirmation n’a pas pu être envoyé. Réessayez avec le bouton ci-dessous."
-        : "La préinscription n’a pas pu être envoyée. Vérifiez votre connexion puis réessayez.";
+      if(savedSubmission){
+        const thankYouUrl = new URL(form.action, window.location.href);
+        thankYouUrl.searchParams.set('confirmation', 'indisponible');
+        window.location.assign(thankYouUrl);
+        return;
+      }
+
+      errorBox.textContent = "La préinscription n’a pas pu être envoyée. Vérifiez votre connexion puis réessayez.";
       errorBox.style.display = 'block';
-      submitButton.textContent = savedSubmission ? 'Réessayer l’envoi du courriel' : 'Envoyer ma préinscription';
+      submitButton.textContent = 'Envoyer ma préinscription';
       submitting = false;
       submitButton.disabled = false;
     }
