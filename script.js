@@ -411,16 +411,66 @@ function bindPreinscriptionForm(){
   const form = document.getElementById('preinscriptionForm');
   if(!form) return;
   const errorBox = document.getElementById('preinscription-error');
- 
-  form.addEventListener('submit', (e)=>{
+  const submitButton = form.querySelector('button[type="submit"]');
+  let savedSubmission = null;
+  let submitting = false;
+
+  async function sendConfirmation(submission){
+    const response = await fetch('/.netlify/functions/send-preinscription-confirmation', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(submission),
+    });
+    if(!response.ok) throw new Error('Le courriel de confirmation n’a pas pu être envoyé.');
+  }
+
+  form.addEventListener('submit', async (e)=>{
+    e.preventDefault();
+    if(submitting) return;
     errorBox.style.display = 'none';
- 
-    const email = form.elements.namedItem('email').value.trim();
-    const emailConfirm = form.elements.namedItem('emailConfirm').value.trim();
-    if(email.toLowerCase() !== emailConfirm.toLowerCase()){
-      e.preventDefault();
-      errorBox.textContent = "Les deux adresses email ne correspondent pas. Merci de vérifier avant d'envoyer.";
+
+    if(!savedSubmission){
+      const email = form.elements.namedItem('email').value.trim();
+      const emailConfirm = form.elements.namedItem('emailConfirm').value.trim();
+      if(email.toLowerCase() !== emailConfirm.toLowerCase()){
+        errorBox.textContent = "Les deux adresses email ne correspondent pas. Merci de vérifier avant d'envoyer.";
+        errorBox.style.display = 'block';
+        return;
+      }
+    }
+
+    submitting = true;
+    submitButton.disabled = true;
+    submitButton.textContent = savedSubmission ? 'Envoi du courriel…' : 'Envoi en cours…';
+
+    try {
+      if(!savedSubmission){
+        const formData = new FormData(form);
+        const submissionResponse = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData),
+          credentials: 'same-origin',
+        });
+        if(!submissionResponse.ok) throw new Error("La préinscription n’a pas pu être transmise au club.");
+
+        savedSubmission = {
+          email: formData.get('email').trim(),
+          prenom: formData.get('prenom').trim(),
+          botField: formData.get('bot-field'),
+        };
+      }
+
+      await sendConfirmation(savedSubmission);
+      window.location.assign(form.action);
+    } catch(error) {
+      errorBox.textContent = savedSubmission
+        ? "Votre demande a bien été reçue par le club, mais le courriel de confirmation n’a pas pu être envoyé. Réessayez avec le bouton ci-dessous."
+        : "La préinscription n’a pas pu être envoyée. Vérifiez votre connexion puis réessayez.";
       errorBox.style.display = 'block';
+      submitButton.textContent = savedSubmission ? 'Réessayer l’envoi du courriel' : 'Envoyer ma préinscription';
+      submitting = false;
+      submitButton.disabled = false;
     }
   });
 }

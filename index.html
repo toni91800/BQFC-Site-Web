@@ -229,19 +229,20 @@
       <!-- Agenda -->
       <div class="subpanel" id="club-agenda">
         <h3 style="margin-top:40px;">Agenda du Boussy Quincy FC</h3>
-        <p>Les créneaux libres pour les entraînements peuvent être réservés directement en ligne.</p>
+        <p class="agenda-legend">
+          <span><span class="agenda-color agenda-color-boussy"></span>Les entraînements en jaune ont lieu sur le terrain de Boussy.</span>
+          <span><span class="agenda-color agenda-color-quincy"></span>Les entraînements en noir ont lieu sur le terrain de Quincy.</span>
+        </p>
         <div class="booking-embed">
           <iframe
-            src="https://calendar.google.com/calendar/appointments/schedules/REMPLACER_PAR_VOTRE_LIEN"
-            title="Réservation de créneau — terrains du Boussy Quincy FC"
-            loading="lazy">
+            src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=2&amp;ctz=Europe%2FParis&amp;mode=WEEK&amp;hl=fr&amp;showTz=0&amp;title=Agenda%20du%20Boussy%20Quincy%20FC&amp;src=Y19kYTFhN2ZmN2EyZDM0ZmQ5NmU2OThkZTNiN2QyMWU0ZjVjOGU5ZTI5ZWNjYTcyY2NmZGQ4ZTljMDI1MDhjNDg4QGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=Y18wMDZhNDUyYmFmODFmMDIwNzU5NDllNzA0ZjYzMDRmN2I3YWQ3ODI0OGIxOGYyOGFmOWJjY2NiNzA4NTZlZmRhQGdyb3VwLmNhbGVuZGFyLmdvb2dsZS5jb20&amp;src=ZW4uZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;src=ZnIuZnJlbmNoI2hvbGlkYXlAZ3JvdXAudi5jYWxlbmRhci5nb29nbGUuY29t&amp;color=%23f6bf26&amp;color=%23616161&amp;color=%230b8043&amp;color=%230b8043"
+            title="Agenda du Boussy Quincy FC"
+            width="800"
+            height="600"
+            loading="lazy"
+            scrolling="no">
           </iframe>
         </div>
-        <p class="form-note">
-          Cet encadré affichera votre outil de réservation (Google Calendar "Rendez-vous" ou Calendly) une fois configuré —
-          voir les instructions ci-dessous pour le brancher. En attendant, toute demande de créneau peut être envoyée via la
-          <a href="#" data-page="contact" style="color:var(--bronze); font-weight:700;">page Contact</a>.
-        </p>
       </div>
 
       <!-- Adhésion 2026/2027 -->
@@ -308,7 +309,7 @@
             </div>
  
             <button type="submit" class="btn btn-primary">Envoyer ma préinscription</button>
-            <div id="preinscription-error" class="form-error"></div>
+            <div id="preinscription-error" class="form-error" role="alert" aria-live="polite"></div>
           </form>
  
           <div class="adhesion-note">
