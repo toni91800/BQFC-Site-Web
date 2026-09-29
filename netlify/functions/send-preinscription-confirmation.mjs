@@ -57,7 +57,7 @@ export default async function handler(request){
         from: CLUB_EMAIL,
         to: email,
         subject: EMAIL_SUBJECT,
-        payload: { prenom },
+        parameters: { prenom },
       }),
     });
   } catch(error) {
