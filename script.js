@@ -65,7 +65,7 @@ const RESULTAT_TEAMS = {
   ],
 };
 
-const EQUIPES_PAR_CATEGORIE = { seniors: 2 };
+const EQUIPES_PAR_CATEGORIE = {u6u7:4, u8:2, u9:2, u10:2, u11:2, u12:2, u13:2, seniors: 2 };
 
 /* Scores de démonstration à remplacer par les résultats réels. */
 const RESULTATS_EXEMPLE = {
