@@ -194,8 +194,6 @@ function buildEquipes(){
             <div><div class="k">Entraîneur</div><div class="v">${cat.coach}</div></div>
             <div><div class="k">Génération</div><div class="v">${cat.annee}</div></div>
             <div><div class="k">Entraînements</div><div class="v">${cat.jour}</div></div>
-            <div><div class="k">Terrain</div><div class="v">${cat.terrain}</div></div>
-            <div><div class="k">Effectif</div><div class="v">— licenciés</div></div>
             <div><div class="k">Nombre d'équipes</div><div class="v">${EQUIPES_PAR_CATEGORIE[cat.id] || 1}</div></div>
             ${divisions ? `<div><div class="k">Championnat</div><div class="v team-divisions">${divisions}</div></div>` : ''}
           </div>
