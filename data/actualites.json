@@ -1,0 +1,43 @@
+{
+  "articles": [
+    {
+      "slug": "premiers-matchs-officiels",
+      "title": "PREMIERS MATCHS OFFICIELS !",
+      "date": "2026-09-27",
+      "category": "Résultats",
+      "summary": "Deux victoires pour lancer les compétitions officielles des équipes seniors : 4-0 en Coupe d’Essonne et 5-3 en championnat.",
+      "images": [
+        "/images/actus_270926_1.jpg",
+        "/images/actus_270926_2.jpg"
+      ],
+      "body": "Ce dimanche marquait le début des compétitions officielles pour nos équipes seniors. Et la journée se termine avec deux victoires ! 💪🏽\n\n🏆 Coupe d’Essonne — Équipe A : ⚽️ Victoire 4-0 face à Lisses.\nButeurs : Demba, Cyril, Vilshan et Lassana.\n\n💥 Championnat — Équipe B : ⚽️ Victoire 5-3 sur la pelouse de Morsang.\n\nUn dimanche positif pour lancer cette nouvelle saison. 🔥\nLe travail continue !"
+    },
+    {
+      "slug": "nouveaux-partenaires",
+      "title": "Bienvenue à nos nouveaux partenaires de la saison",
+      "date": "2026-09-20",
+      "category": "Partenaires",
+      "summary": "Le club remercie ses nouveaux sponsors pour leur confiance et leur soutien.",
+      "images": [],
+      "body": "Le club remercie ses nouveaux sponsors pour leur confiance et leur soutien."
+    },
+    {
+      "slug": "journee-portes-ouvertes",
+      "title": "Journée portes ouvertes : venez découvrir le club",
+      "date": "2026-09-15",
+      "category": "Événement",
+      "summary": "Toutes les familles sont invitées à venir rencontrer les éducateurs et essayer un entraînement.",
+      "images": [],
+      "body": "Toutes les familles sont invitées à venir rencontrer les éducateurs et essayer un entraînement."
+    },
+    {
+      "slug": "reprise-entrainements",
+      "title": "Reprise des entraînements pour toutes les catégories",
+      "date": "2026-09-02",
+      "category": "Vie du club",
+      "summary": "Toutes les équipes du club, de l'école de Foot aux Vétérans, ont repris le chemin des terrains pour la nouvelle saison.",
+      "images": [],
+      "body": "Toutes les équipes du club, de l'école de Foot aux Vétérans, ont repris le chemin des terrains pour la nouvelle saison."
+    }
+  ]
+}

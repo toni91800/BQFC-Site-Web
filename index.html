@@ -128,44 +128,14 @@
         <span class="kicker">Actualités</span>
         <h2>Les <em>dernières nouvelles</em> du club</h2>
       </div>
-      <div class="news-grid">
-        <article class="news-card">
-          <div class="thumb"><span class="date">02 sept. 2026</span></div>
-          <div class="body">
-            <span class="tag">Vie du club</span>
-            <h3>Reprise des entraînements pour toutes les catégories</h3>
-            <p>Toutes les équipes du club, de l'école de Foot aux Vétérans, ont repris le chemin des terrains pour la nouvelle saison.</p>
-            <a href="#" class="read-more">Lire la suite →</a>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="thumb"><span class="date">10 sept. 2026</span></div>
-          <div class="body">
-            <span class="tag">Résultats</span>
-            <h3>Victoire des Séniors pour l'ouverture du championnat</h3>
-            <p>L'équipe première s'impose lors de la première journée et lance idéalement sa saison.</p>
-            <a href="#" class="read-more">Lire la suite →</a>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="thumb"><span class="date">15 sept. 2026</span></div>
-          <div class="body">
-            <span class="tag">Événement</span>
-            <h3>Journée portes ouvertes : venez découvrir le club</h3>
-            <p>Toutes les familles sont invitées à venir rencontrer les éducateurs et essayer un entraînement.</p>
-            <a href="#" class="read-more">Lire la suite →</a>
-          </div>
-        </article>
-        <article class="news-card">
-          <div class="thumb"><span class="date">20 sept. 2026</span></div>
-          <div class="body">
-            <span class="tag">Partenaires</span>
-            <h3>Bienvenue à nos nouveaux partenaires de la saison</h3>
-            <p>Le club remercie ses nouveaux sponsors pour leur confiance et leur soutien.</p>
-            <a href="#" class="read-more">Lire la suite →</a>
-          </div>
-        </article>
+      <div class="news-list-view" id="news-list-view">
+        <div class="news-grid" id="news-grid"></div>
       </div>
+      <div class="news-detail-view" id="news-detail-view" hidden>
+        <button class="news-back" type="button" id="news-back">← Retour aux actualités</button>
+        <article class="news-full-article" id="news-article-content"></article>
+      </div>
+      <p class="news-status" id="news-status" role="status" aria-live="polite">Chargement des actualités…</p>
     </div>
   </section>
 

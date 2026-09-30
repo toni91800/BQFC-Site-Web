@@ -108,3 +108,28 @@ collections:
                 min: 1
                 max: 1
                 fields: *team_fields
+  - name: "actualites"
+    label: "Actualités"
+    description: "Créer, modifier et publier les articles du club."
+    files:
+      - name: "articles"
+        label: "Articles publiés"
+        file: "data/actualites.json"
+        format: "json"
+        fields:
+          - label: "Articles"
+            name: "articles"
+            widget: "list"
+            summary: "{{fields.title}} — {{fields.date}}"
+            fields:
+              - { label: "Identifiant (sans espaces)", name: "slug", widget: "string", hint: "Exemple : victoire-seniors-2026" }
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Date (AAAA-MM-JJ)", name: "date", widget: "string", hint: "Exemple : 2026-09-27" }
+              - { label: "Catégorie", name: "category", widget: "string", default: "Actualité" }
+              - { label: "Résumé affiché dans la liste", name: "summary", widget: "text" }
+              - label: "Photos"
+                name: "images"
+                widget: "list"
+                required: false
+                field: { label: "Photo", name: "image", widget: "image" }
+              - { label: "Texte de l'article", name: "body", widget: "text", hint: "Séparez les paragraphes par une ligne vide. Un retour à la ligne simple reste dans le même paragraphe." }

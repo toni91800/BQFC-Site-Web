@@ -200,7 +200,6 @@ function buildEquipes(){
         <div class="photo">Photo de l'équipe<br>${cat.full}</div>
         <div class="info">
           <span class="badge">${cat.full}</span>
-          <h3>${cat.full} — FC Boussy Quincy</h3>
           <div class="team-meta">
             <div><div class="k">Entraîneur</div><div class="v">${cat.coach}</div></div>
             <div><div class="k">Génération</div><div class="v">${cat.annee}</div></div>
@@ -304,7 +303,7 @@ function renderConvocations(data){
       const playersSection = document.createElement('div');
       playersSection.className = 'convocation-players';
       const playersHeading = document.createElement('h5');
-      playersHeading.textContent = 'Joueurs / joueuses convoqués';
+      playersHeading.textContent = 'Convocation';
       const playersList = document.createElement('ul');
       const players = Array.isArray(team.players)
         ? team.players.filter(player => typeof player === 'string' && player.trim())
@@ -698,6 +697,152 @@ function bindStaticSubtabs(){
     });
   });
 }
+
+function formatNewsDate(value){
+  const date = new Date(`${value}T00:00:00Z`);
+  if(Number.isNaN(date.getTime())) return value;
+  return new Intl.DateTimeFormat('fr-FR', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+}
+
+function renderNewsBody(body, container){
+  String(body || '').split(/\n\s*\n/).forEach(paragraphText=>{
+    const paragraph = document.createElement('p');
+    paragraphText.split('\n').forEach((line, index)=>{
+      if(index) paragraph.appendChild(document.createElement('br'));
+      paragraph.appendChild(document.createTextNode(line));
+    });
+    if(paragraphText.trim()) container.appendChild(paragraph);
+  });
+}
+
+function renderNewsArticles(articles){
+  const grid = document.getElementById('news-grid');
+  const detail = document.getElementById('news-article-content');
+  const listView = document.getElementById('news-list-view');
+  const detailView = document.getElementById('news-detail-view');
+  const backButton = document.getElementById('news-back');
+  if(!grid || !detail || !listView || !detailView || !backButton) return;
+
+  grid.replaceChildren();
+  articles.forEach(article=>{
+    const card = document.createElement('article');
+    card.className = 'news-card';
+    const thumbnail = document.createElement('div');
+    thumbnail.className = 'thumb';
+    if(article.images?.[0]){
+      const image = document.createElement('img');
+      image.src = article.images[0];
+      image.alt = '';
+      thumbnail.appendChild(image);
+    }
+    const date = document.createElement('span');
+    date.className = 'date';
+    date.textContent = formatNewsDate(article.date);
+    thumbnail.appendChild(date);
+
+    const content = document.createElement('div');
+    content.className = 'body';
+    const category = document.createElement('span');
+    category.className = 'tag';
+    category.textContent = article.category || 'Actualité';
+    const title = document.createElement('h3');
+    title.textContent = article.title;
+    const summary = document.createElement('p');
+    summary.textContent = article.summary || '';
+    const readMore = document.createElement('button');
+    readMore.className = 'read-more';
+    readMore.type = 'button';
+    readMore.dataset.newsOpen = article.slug;
+    readMore.textContent = 'Lire la suite →';
+    readMore.addEventListener('click', ()=>{
+      detail.replaceChildren();
+      if(article.images?.length){
+        const gallery = document.createElement('div');
+        gallery.className = 'news-gallery';
+        article.images.forEach((src, index)=>{
+          const image = document.createElement('img');
+          image.src = src;
+          image.alt = `${article.title} — photo ${index + 1}`;
+          gallery.appendChild(image);
+        });
+        const dateLabel = document.createElement('span');
+        dateLabel.className = 'date';
+        dateLabel.textContent = formatNewsDate(article.date);
+        gallery.appendChild(dateLabel);
+        detail.appendChild(gallery);
+      }
+      const articleBody = document.createElement('div');
+      articleBody.className = 'body';
+      const articleCategory = document.createElement('span');
+      articleCategory.className = 'tag';
+      articleCategory.textContent = article.category || 'Actualité';
+      const articleTitle = document.createElement('h3');
+      articleTitle.textContent = article.title;
+      articleBody.append(articleCategory, articleTitle);
+      renderNewsBody(article.body, articleBody);
+      detail.appendChild(articleBody);
+      listView.hidden = true;
+      detailView.hidden = false;
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+    content.append(category, title, summary, readMore);
+    card.append(thumbnail, content);
+    grid.appendChild(card);
+  });
+
+  backButton.onclick = ()=>{
+    detailView.hidden = true;
+    listView.hidden = false;
+    window.scrollTo({top:0, behavior:'smooth'});
+  };
+}
+
+async function loadNewsArticles(){
+  const status = document.getElementById('news-status');
+  try {
+    const response = await fetch('/data/actualites.json', { cache: 'no-cache' });
+    if(!response.ok) throw new Error(`Chargement des actualités impossible (${response.status}).`);
+    const data = await response.json();
+    if(!data || !Array.isArray(data.articles)){
+      throw new Error('Le fichier des actualités a un format invalide.');
+    }
+    const validDate = value => {
+      if(typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+      const parsed = new Date(`${value}T00:00:00Z`);
+      return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
+    };
+    const articles = data.articles.filter(article =>
+      article && typeof article.title === 'string' &&
+      validDate(article.date) && typeof article.slug === 'string'
+    ).map(article=>({
+      ...article,
+      category: typeof article.category === 'string' ? article.category : '',
+      summary: typeof article.summary === 'string' ? article.summary : '',
+      body: typeof article.body === 'string' ? article.body : '',
+      images: Array.isArray(article.images)
+        ? article.images.filter(image => typeof image === 'string' && image.trim())
+        : [],
+    })).sort((first, second)=>new Date(second.date).getTime() - new Date(first.date).getTime());
+    renderNewsArticles(articles);
+    status.hidden = true;
+  } catch(error) {
+    console.error('Unable to load news articles:', error);
+    status.textContent = 'Les actualités ne sont pas accessibles actuellement.';
+    status.setAttribute('role', 'alert');
+  }
+}
+
+function bindNewsArticles(){
+  const listView = document.getElementById('news-list-view');
+  const detailView = document.getElementById('news-detail-view');
+  if(!listView || !detailView) return;
+  loadNewsArticles();
+}
  
 /* ---------- Initialisation ---------- */
 document.addEventListener('DOMContentLoaded', ()=>{
@@ -712,6 +857,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   bindDropdowns();
   bindBurger();
   bindStaticSubtabs();
+  bindNewsArticles();
   showPage('accueil');
 
   document.getElementById('year').textContent = new Date().getFullYear();
