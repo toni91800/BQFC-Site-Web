@@ -132,7 +132,7 @@ collections:
               - label: "Équipe"
                 name: "team"
                 widget: "select"
-                hint: "U14, U15 F, U16, U18, Séniors F et Vétérans +55 jouent le championnat. Vétérans +35 joue la coupe. Séniors 1 et 2 jouent les deux."
+                hint: "En championnat : U14, U15 F, U16, U18, Séniors F, Séniors 1 et 2, Vétérans +55. En Coupe d'Essonne : U14, U16, Séniors 1 et Vétérans +35. En Coupe District : Séniors 2."
                 options:
                   - { label: "U14", value: "u14" }
                   - { label: "U15 F", value: "u15F" }
@@ -144,7 +144,7 @@ collections:
                   - { label: "Vétérans +55", value: "veterans55" }
                   - { label: "Vétérans +35", value: "veterans35" }
               - { label: "Journée / tour", name: "round", widget: "string", hint: "Exemple : J4 ou Tour 2" }
-              - { label: "Date du match", name: "date", widget: "date", format: "YYYY-MM-DD" }
+              - { label: "Date du match", name: "date", widget: "date", date_format: "YYYY-MM-DD", time_format: false }
               - { label: "Adversaire", name: "opponent", widget: "string" }
               - { label: "Match à domicile", name: "home", widget: "boolean", default: true }
               - { label: "Buts du Boussy Quincy FC", name: "goalsFor", widget: "number", value_type: "int", min: 0 }

@@ -1,114 +1,34 @@
 {
   "matches": [
-    {
-      "competition": "championnat",
-      "team": "u14",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "Arpajon Egly La Norville",
-      "home": false,
-      "goalsFor": 4,
-      "goalsAgainst": 3
-    },
-    {
-      "competition": "championnat",
-      "team": "u15F",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "FC Étampes",
-      "home": false,
-      "goalsFor": 1,
-      "goalsAgainst": 4
-    },
-    {
-      "competition": "championnat",
-      "team": "u16",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "CO Ulis",
-      "home": true,
-      "goalsFor": 0,
-      "goalsAgainst": 2
-    },
-    {
-      "competition": "championnat",
-      "team": "u18",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "FC Mennecy",
-      "home": false,
-      "goalsFor": 2,
-      "goalsAgainst": 1
-    },
-    {
-      "competition": "championnat",
-      "team": "seniorsF",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "FC Longjumeau",
-      "home": true,
-      "goalsFor": 2,
-      "goalsAgainst": 3
-    },
-    {
-      "competition": "championnat",
-      "team": "seniors1",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "US Grigny",
-      "home": false,
-      "goalsFor": 1,
-      "goalsAgainst": 2
-    },
-    {
-      "competition": "championnat",
-      "team": "seniors2",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "ES Tigery",
-      "home": true,
-      "goalsFor": 1,
-      "goalsAgainst": 0
-    },
-    {
-      "competition": "championnat",
-      "team": "veterans55",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "FC Savigny",
-      "home": false,
-      "goalsFor": 2,
-      "goalsAgainst": 2
-    },
-    {
-      "competition": "coupe",
-      "team": "seniors1",
-      "round": "Tour 1",
-      "date": "2026-10-05",
-      "opponent": "FC Ballainvilliers",
-      "home": true,
-      "goalsFor": 4,
-      "goalsAgainst": 1
-    },
-    {
-      "competition": "coupe",
-      "team": "seniors2",
-      "round": "Tour 1",
-      "date": "2026-10-05",
-      "opponent": "US Soisy",
-      "home": false,
-      "goalsFor": 0,
-      "goalsAgainst": 3
-    },
-    {
-      "competition": "coupe",
-      "team": "veterans35",
-      "round": "Tour 1",
-      "date": "2026-10-05",
-      "opponent": "ES Yerres",
-      "home": true,
-      "goalsFor": 2,
-      "goalsAgainst": 0
-    }
+    { "competition": "championnat", "team": "u14", "round": "J1", "date": "2026-09-07", "opponent": "FC Val d'Yerres", "home": true, "goalsFor": 3, "goalsAgainst": 1 },
+    { "competition": "championnat", "team": "u14", "round": "J2", "date": "2026-09-14", "opponent": "AS Épinay", "home": false, "goalsFor": 2, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "u14", "round": "J3", "date": "2026-09-21", "opponent": "US Ris-Orangis", "home": true, "goalsFor": 1, "goalsAgainst": 0 },
+    { "competition": "championnat", "team": "u15F", "round": "J1", "date": "2026-09-07", "opponent": "FC Étampes", "home": false, "goalsFor": 1, "goalsAgainst": 4 },
+    { "competition": "championnat", "team": "u15F", "round": "J2", "date": "2026-09-14", "opponent": "ES Montgeron", "home": true, "goalsFor": 2, "goalsAgainst": 1 },
+    { "competition": "championnat", "team": "u15F", "round": "J3", "date": "2026-09-21", "opponent": "FC Viry", "home": false, "goalsFor": 0, "goalsAgainst": 3 },
+    { "competition": "championnat", "team": "u16", "round": "J1", "date": "2026-09-07", "opponent": "CO Ulis", "home": true, "goalsFor": 0, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "u16", "round": "J2", "date": "2026-09-14", "opponent": "FC Brunoy", "home": false, "goalsFor": 3, "goalsAgainst": 1 },
+    { "competition": "championnat", "team": "u16", "round": "J3", "date": "2026-09-21", "opponent": "AS Marcoussis", "home": true, "goalsFor": 2, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "u18", "round": "J1", "date": "2026-09-07", "opponent": "FC Mennecy", "home": false, "goalsFor": 2, "goalsAgainst": 1 },
+    { "competition": "championnat", "team": "u18", "round": "J2", "date": "2026-09-14", "opponent": "ES Cesson", "home": true, "goalsFor": 4, "goalsAgainst": 0 },
+    { "competition": "championnat", "team": "u18", "round": "J3", "date": "2026-09-21", "opponent": "US Palaiseau", "home": false, "goalsFor": 1, "goalsAgainst": 1 },
+    { "competition": "championnat", "team": "seniorsF", "round": "J1", "date": "2026-09-07", "opponent": "FC Longjumeau", "home": true, "goalsFor": 2, "goalsAgainst": 3 },
+    { "competition": "championnat", "team": "seniorsF", "round": "J2", "date": "2026-09-14", "opponent": "AS Orly", "home": false, "goalsFor": 2, "goalsAgainst": 0 },
+    { "competition": "championnat", "team": "seniorsF", "round": "J3", "date": "2026-09-21", "opponent": "FC Fleury", "home": true, "goalsFor": 1, "goalsAgainst": 1 },
+    { "competition": "championnat", "team": "seniors1", "round": "J1", "date": "2026-09-07", "opponent": "US Grigny", "home": false, "goalsFor": 1, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "seniors1", "round": "J2", "date": "2026-09-14", "opponent": "FC Lisses", "home": true, "goalsFor": 3, "goalsAgainst": 0 },
+    { "competition": "championnat", "team": "seniors1", "round": "J3", "date": "2026-09-21", "opponent": "AS Soisy", "home": false, "goalsFor": 2, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "seniors2", "round": "J1", "date": "2026-09-07", "opponent": "ES Tigery", "home": true, "goalsFor": 1, "goalsAgainst": 0 },
+    { "competition": "championnat", "team": "seniors2", "round": "J2", "date": "2026-09-14", "opponent": "FC Bondoufle", "home": false, "goalsFor": 0, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "seniors2", "round": "J3", "date": "2026-09-21", "opponent": "US Vigneux", "home": true, "goalsFor": 3, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "veterans55", "round": "J1", "date": "2026-09-07", "opponent": "FC Savigny", "home": false, "goalsFor": 2, "goalsAgainst": 2 },
+    { "competition": "championnat", "team": "veterans55", "round": "J2", "date": "2026-09-14", "opponent": "AS Corbeil", "home": true, "goalsFor": 2, "goalsAgainst": 0 },
+    { "competition": "championnat", "team": "veterans55", "round": "J3", "date": "2026-09-21", "opponent": "US Morsang", "home": false, "goalsFor": 1, "goalsAgainst": 3 },
+    { "competition": "coupe", "team": "seniors1", "round": "Tour 1", "date": "2026-10-05", "opponent": "FC Ballainvilliers", "home": true, "goalsFor": 4, "goalsAgainst": 1 },
+    { "competition": "coupe", "team": "seniors1", "round": "Tour 2", "date": "2026-10-19", "opponent": "AS Mennecy", "home": false, "goalsFor": 1, "goalsAgainst": 2 },
+    { "competition": "coupe", "team": "seniors2", "round": "Tour 1", "date": "2026-10-05", "opponent": "US Soisy", "home": false, "goalsFor": 0, "goalsAgainst": 3 },
+    { "competition": "coupe", "team": "seniors2", "round": "Tour 2", "date": "2026-10-19", "opponent": "FC Épinay", "home": true, "goalsFor": 2, "goalsAgainst": 2 },
+    { "competition": "coupe", "team": "veterans35", "round": "Tour 1", "date": "2026-10-05", "opponent": "ES Yerres", "home": true, "goalsFor": 2, "goalsAgainst": 0 },
+    { "competition": "coupe", "team": "veterans35", "round": "Tour 2", "date": "2026-10-19", "opponent": "FC Draveil", "home": false, "goalsFor": 3, "goalsAgainst": 1 }
   ]
 }

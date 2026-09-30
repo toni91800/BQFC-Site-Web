@@ -70,6 +70,8 @@ const RESULTAT_TEAMS = {
     { id: "veterans55", label: "Vétérans +55", division: "Critérium 55 ans Poule A" },
   ],
   coupe: [
+    { id: "u14", label: "U14", competition: "Coupe Essonne" },
+    { id: "u16", label: "U16", competition: "Coupe Essonne" },
     { id: "seniors1", label: "Séniors 1", competition: "Coupe Essonne" },
     { id: "seniors2", label: "Séniors 2", competition: "Coupe District" },
     { id: "veterans35", label: "Vétérans +35", competition: "Coupe Essonne" },
