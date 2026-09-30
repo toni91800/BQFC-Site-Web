@@ -78,65 +78,9 @@ const RESULTAT_TEAMS = {
 
 const EQUIPES_PAR_CATEGORIE = {u6u7:4, u8:2, u9:2, u10:2, u11:2, u12:2, u13:2, seniors: 2 };
 
-/* Scores de démonstration à remplacer par les résultats réels. */
-const RESULTATS_EXEMPLE = {
-  championnat: {
-    u14: [
-      { j:"J1", date:"07/09", adv:"FC Val d'Yerres", dom:true, bf:3, bc:1 },
-      { j:"J2", date:"14/09", adv:"AS Épinay", dom:false, bf:2, bc:2 },
-      { j:"J3", date:"21/09", adv:"US Ris-Orangis", dom:true, bf:1, bc:0 },
-    ],
-    u15F: [
-      { j:"J1", date:"07/09", adv:"FC Étampes", dom:false, bf:1, bc:4 },
-      { j:"J2", date:"14/09", adv:"ES Montgeron", dom:true, bf:2, bc:1 },
-      { j:"J3", date:"21/09", adv:"FC Viry", dom:false, bf:0, bc:3 },
-    ],
-    u16: [
-      { j:"J1", date:"07/09", adv:"CO Ulis", dom:true, bf:0, bc:2 },
-      { j:"J2", date:"14/09", adv:"FC Brunoy", dom:false, bf:3, bc:1 },
-      { j:"J3", date:"21/09", adv:"AS Marcoussis", dom:true, bf:2, bc:2 },
-    ],
-    u18: [
-      { j:"J1", date:"07/09", adv:"FC Mennecy", dom:false, bf:2, bc:1 },
-      { j:"J2", date:"14/09", adv:"ES Cesson", dom:true, bf:4, bc:0 },
-      { j:"J3", date:"21/09", adv:"US Palaiseau", dom:false, bf:1, bc:1 },
-    ],
-    seniorsF: [
-      { j:"J1", date:"07/09", adv:"FC Longjumeau", dom:true, bf:2, bc:3 },
-      { j:"J2", date:"14/09", adv:"AS Orly", dom:false, bf:2, bc:0 },
-      { j:"J3", date:"21/09", adv:"FC Fleury", dom:true, bf:1, bc:1 },
-    ],
-    seniors1: [
-      { j:"J1", date:"07/09", adv:"US Grigny", dom:false, bf:1, bc:2 },
-      { j:"J2", date:"14/09", adv:"FC Lisses", dom:true, bf:3, bc:0 },
-      { j:"J3", date:"21/09", adv:"AS Soisy", dom:false, bf:2, bc:2 },
-    ],
-    seniors2: [
-      { j:"J1", date:"07/09", adv:"ES Tigery", dom:true, bf:1, bc:0 },
-      { j:"J2", date:"14/09", adv:"FC Bondoufle", dom:false, bf:0, bc:2 },
-      { j:"J3", date:"21/09", adv:"US Vigneux", dom:true, bf:3, bc:2 },
-    ],
-    veterans55: [
-      { j:"J1", date:"07/09", adv:"FC Savigny", dom:false, bf:2, bc:2 },
-      { j:"J2", date:"14/09", adv:"AS Corbeil", dom:true, bf:2, bc:0 },
-      { j:"J3", date:"21/09", adv:"US Morsang", dom:false, bf:1, bc:3 },
-    ],
-  },
-  coupe: {
-    seniors1: [
-      { j:"Tour 1", date:"05/10", adv:"FC Ballainvilliers", dom:true, bf:4, bc:1 },
-      { j:"Tour 2", date:"19/10", adv:"AS Mennecy", dom:false, bf:1, bc:2 },
-    ],
-    seniors2: [
-      { j:"Tour 1", date:"05/10", adv:"US Soisy", dom:false, bf:0, bc:3 },
-      { j:"Tour 2", date:"19/10", adv:"FC Épinay", dom:true, bf:2, bc:2 },
-    ],
-    veterans35: [
-      { j:"Tour 1", date:"05/10", adv:"ES Yerres", dom:true, bf:2, bc:0 },
-      { j:"Tour 2", date:"19/10", adv:"FC Draveil", dom:false, bf:3, bc:1 },
-    ],
-  },
-};
+const RESULTAT_TEAM_OPTIONS = Object.fromEntries(
+  Object.values(RESULTAT_TEAMS).flat().map(team=>[team.id, team.label])
+);
  
 /* ---------- 2. Navigation principale (onglets + sous-onglets) ---------- */
 function showPage(pageId, subId){
@@ -174,16 +118,15 @@ function buildEquipes(){
   const subtabs = document.getElementById('equipes-subtabs');
   const panels  = document.getElementById('equipes-panels');
  
-  CATEGORIES.forEach((cat, i)=>{
+  CATEGORIES.forEach(cat=>{
     const btn = document.createElement('button');
     btn.textContent = cat.label;
     btn.dataset.target = 'eq-'+cat.id;
-    if(i===0) btn.classList.add('active');
     btn.addEventListener('click', ()=>showSubPanel('equipes','eq-'+cat.id));
     subtabs.appendChild(btn);
- 
+
     const panel = document.createElement('div');
-    panel.className = 'subpanel' + (i===0 ? ' active' : '');
+    panel.className = 'subpanel';
     panel.id = 'eq-'+cat.id;
     const resultTeamId = cat.id === 'seniors' ? 'seniors1' : cat.id;
     const resultCompetition = ['championnat', 'coupe'].find(compId =>
@@ -216,11 +159,12 @@ function buildEquipes(){
   const convocationsButton = document.createElement('button');
   convocationsButton.textContent = 'Convocations';
   convocationsButton.dataset.target = 'eq-convocations';
+  convocationsButton.classList.add('active');
   convocationsButton.addEventListener('click', ()=>showSubPanel('equipes', 'eq-convocations'));
-  subtabs.appendChild(convocationsButton);
+  subtabs.insertBefore(convocationsButton, subtabs.firstChild);
 
   const convocationsPanel = document.createElement('div');
-  convocationsPanel.className = 'subpanel';
+  convocationsPanel.className = 'subpanel active';
   convocationsPanel.id = 'eq-convocations';
   convocationsPanel.innerHTML = `
     <h3>Convocations de l'école de foot</h3>
@@ -260,7 +204,7 @@ function buildEquipes(){
     categoryPanels.appendChild(categoryPanel);
   });
 
-  panels.appendChild(convocationsPanel);
+  panels.insertBefore(convocationsPanel, panels.firstChild);
   renderConvocations({});
   loadConvocations();
 }
@@ -381,8 +325,60 @@ function buildContacts(){
   });
 }
  
+function escapeHTML(value){
+  return String(value).replace(/[&<>"']/g, character => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  })[character]);
+}
+
+function validateResultats(data){
+  if(!data || !Array.isArray(data.matches)){
+    throw new Error('Le fichier des résultats ne contient pas de liste de matchs valide.');
+  }
+  const allowedTeams = new Set(
+    COMPETITIONS.flatMap(competition => RESULTAT_TEAMS[competition.id].map(team => `${competition.id}:${team.id}`))
+  );
+  return data.matches.map((match, index)=>{
+    const parsedDate = typeof match?.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(match.date)
+      ? new Date(`${match.date}T00:00:00Z`)
+      : null;
+    const validDate = parsedDate && !Number.isNaN(parsedDate.getTime())
+      && parsedDate.toISOString().slice(0, 10) === match.date;
+    if(
+      !match || !allowedTeams.has(`${match.competition}:${match.team}`) ||
+      typeof match.round !== 'string' || !match.round.trim() ||
+      !validDate || typeof match.opponent !== 'string' || !match.opponent.trim() ||
+      typeof match.home !== 'boolean' ||
+      !Number.isInteger(match.goalsFor) || match.goalsFor < 0 ||
+      !Number.isInteger(match.goalsAgainst) || match.goalsAgainst < 0
+    ){
+      throw new Error(`Le match numéro ${index + 1} contient des informations invalides.`);
+    }
+    return match;
+  });
+}
+
+async function loadResultats(){
+  const status = document.getElementById('resultats-load-status');
+  try{
+    const response = await fetch('/data/resultats.json');
+    if(!response.ok) throw new Error(`Chargement des résultats impossible (${response.status}).`);
+    const data = validateResultats(await response.json());
+    buildResultats(data);
+    status.hidden = true;
+  } catch(error){
+    console.error('Unable to load results:', error);
+    status.textContent = 'Les résultats ne sont pas accessibles actuellement. Veuillez réessayer plus tard.';
+    status.setAttribute('role', 'alert');
+  }
+}
+
 /* ---------- 4. Génération dynamique : Résultats (Championnat / Coupe > catégories) ---------- */
-function buildResultats(){
+function buildResultats(allMatches){
   const compSubtabs = document.getElementById('resultats-comp-subtabs');
   const compPanels  = document.getElementById('resultats-comp-panels');
  
@@ -418,18 +414,18 @@ function buildResultats(){
       catSubtabs.appendChild(catBtn);
  
       // --- contenu des résultats pour cette catégorie, dans cette compétition ---
-      const matches = RESULTATS_EXEMPLE[comp.id][cat.id];
+      const matches = allMatches.filter(match => match.competition === comp.id && match.team === cat.id);
       let v=0,n=0,d=0;
       const rows = matches.map(m=>{
         let cls='res-n', label='—';
-        if(m.bf>m.bc){ cls='res-v'; label='V'; v++; }
-        else if(m.bf<m.bc){ cls='res-l'; label='D'; d++; }
+        if(m.goalsFor>m.goalsAgainst){ cls='res-v'; label='V'; v++; }
+        else if(m.goalsFor<m.goalsAgainst){ cls='res-l'; label='D'; d++; }
         else { cls='res-d'; label='N'; n++; }
         return `<tr>
-          <td>${m.j}</td><td>${m.date}</td>
-          <td>${m.dom ? 'FC Boussy Quincy' : m.adv}</td>
-          <td class="score">${m.dom ? m.bf : m.bc} - ${m.dom ? m.bc : m.bf}</td>
-          <td>${m.dom ? m.adv : 'FC Boussy Quincy'}</td>
+          <td>${escapeHTML(m.round)}</td><td>${escapeHTML(m.date.split('-').reverse().join('/'))}</td>
+          <td>${m.home ? 'FC Boussy Quincy' : escapeHTML(m.opponent)}</td>
+          <td class="score">${m.home ? m.goalsFor : m.goalsAgainst} - ${m.home ? m.goalsAgainst : m.goalsFor}</td>
+          <td>${m.home ? escapeHTML(m.opponent) : 'FC Boussy Quincy'}</td>
           <td class="${cls}">${label}</td>
         </tr>`;
       }).join('');
@@ -455,7 +451,7 @@ function buildResultats(){
             <tbody>${rows}</tbody>
           </table>
         </div>
-        <p class="form-note">Résultats d'exemple — à remplacer par les scores réels au fil de la saison.</p>`;
+        <p class="form-note">Les résultats sont mis à jour par le club au fil de la saison.</p>`;
       catPanelsWrap.appendChild(catPanel);
     });
  
@@ -630,6 +626,9 @@ function buildDropdownsAndPlanning(){
       eqDrop.insertAdjacentHTML('beforeend', `<li><a href="#" data-page="equipes" data-sub="eq-${cat.id}">${cat.label}</a></li>`);
     }
   });
+  if(eqDrop){
+    eqDrop.insertAdjacentHTML('afterbegin', '<li><a href="#" data-page="equipes" data-sub="eq-convocations">Convocations</a></li>');
+  }
  
   // Le menu "Résultats" ouvre la première équipe disponible de chaque compétition.
   if(resDrop){
@@ -763,17 +762,46 @@ function renderNewsArticles(articles){
       detail.replaceChildren();
       if(article.images?.length){
         const gallery = document.createElement('div');
-        gallery.className = 'news-gallery';
-        article.images.forEach((src, index)=>{
-          const image = document.createElement('img');
-          image.src = src;
-          image.alt = `${article.title} — photo ${index + 1}`;
-          gallery.appendChild(image);
-        });
+        gallery.className = 'news-carousel';
+        gallery.setAttribute('role', 'region');
+        gallery.setAttribute('aria-label', `Photos de l’article : ${article.title}`);
+        const image = document.createElement('img');
+        image.src = article.images[0];
+        image.alt = `${article.title} — photo 1 sur ${article.images.length}`;
+        gallery.appendChild(image);
         const dateLabel = document.createElement('span');
         dateLabel.className = 'date';
         dateLabel.textContent = formatNewsDate(article.date);
         gallery.appendChild(dateLabel);
+
+        if(article.images.length > 1){
+          let currentIndex = 0;
+          const previous = document.createElement('button');
+          previous.className = 'news-carousel-control previous';
+          previous.type = 'button';
+          previous.setAttribute('aria-label', 'Photo précédente');
+          previous.textContent = '‹';
+          const next = document.createElement('button');
+          next.className = 'news-carousel-control next';
+          next.type = 'button';
+          next.setAttribute('aria-label', 'Photo suivante');
+          next.textContent = '›';
+          const counter = document.createElement('span');
+          counter.className = 'news-carousel-counter';
+          counter.setAttribute('aria-live', 'polite');
+          counter.textContent = `1 / ${article.images.length}`;
+
+          const showImage = index=>{
+            currentIndex = (index + article.images.length) % article.images.length;
+            image.src = article.images[currentIndex];
+            image.alt = `${article.title} — photo ${currentIndex + 1} sur ${article.images.length}`;
+            counter.textContent = `${currentIndex + 1} / ${article.images.length}`;
+          };
+
+          previous.addEventListener('click', ()=>showImage(currentIndex - 1));
+          next.addEventListener('click', ()=>showImage(currentIndex + 1));
+          gallery.append(previous, next, counter);
+        }
         detail.appendChild(gallery);
       }
       const articleBody = document.createElement('div');
@@ -848,7 +876,7 @@ function bindNewsArticles(){
 document.addEventListener('DOMContentLoaded', ()=>{
   buildEquipes();
   buildContacts();
-  buildResultats();
+  loadResultats();
   buildAgenda();
   bindAdhesionTabs();
   bindPreinscriptionForm();

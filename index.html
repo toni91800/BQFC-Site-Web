@@ -99,7 +99,7 @@
 
     <div class="quick-strip">
       <div class="qs"><span class="label">Prochain match</span><div class="val">Séniors vs Lissois FC — Dim. 16h15</div></div>
-      <div class="qs"><span class="label">Licenciés</span><div class="val">— joueurs et joueuses</div></div>
+      <div class="qs"><span class="label">Licenciés</span><div class="val">500+ joueurs et joueuses</div></div>
       <div class="qs"><span class="label">Équipes engagées</span><div class="val">14 catégories, de l'école de Foot aux Vétérans</div></div>
     </div>
 
@@ -392,6 +392,7 @@
         <span class="kicker">Résultats</span>
         <h2>Suivez <em>tous nos matchs</em>, catégorie par catégorie</h2>
       </div>
+      <p class="form-note" id="resultats-load-status" role="status" aria-live="polite">Chargement des résultats…</p>
       <div class="subtabs" id="resultats-comp-subtabs"></div>
       <div id="resultats-comp-panels"></div>
     </div>
@@ -403,9 +404,16 @@
     <div class="section-head">
       <span class="kicker">Boutique</span>
       <h2>Portez les <em>couleurs</em> du club</h2>
+      <p>Découvrez la boutique officielle du club ainsi que le déstockage de certains articles proposés par notre sponsor Skita. Toutes les commandes réalisées via HelloAsso sont à récupérer au stade de Boussy.</p>
     </div>
     <iframe id="haWidget" allow="payment 'self' https://paymenthub.helloassopay.com https://helloasso.com" allowtransparency="true" scrolling="auto" src="https://www.helloasso.com/associations/boussy-quincy-fc/boutiques/boutique/widget" style="width: 100%; height: 750px; border: none;" onload="window.addEventListener('message', function(e) { const dataHeight = e.data.height; const haWidgetElement = document.getElementById('haWidget'); 
   if (dataHeight > parseFloat(haWidgetElement.height || 0)) { haWidgetElement.height = dataHeight + 'px';}})"></iframe>
+    <div class="shop-deals">
+      <h3>Déstockage &amp; bonnes affaires</h3>
+      <p>Cette boutique est mise à jour régulièrement en fonction des opérations de déstockage proposées par notre sponsor Skita.</p>
+      <iframe id="haWidgetDestockage" title="Boutique déstockage et bonnes affaires du Boussy Quincy FC" allow="payment 'self' https://paymenthub.helloassopay.com https://helloasso.com" allowtransparency="true" scrolling="auto" src="https://www.helloasso.com/associations/boussy-quincy-fc/boutiques/destockage-bonnes-affaires/widget" style="width: 100%; height: 750px; border: none;" onload="window.addEventListener('message', function(e) { const dataHeight = e.data.height; const haWidgetElement = document.getElementById('haWidgetDestockage'); 
+  if (dataHeight > parseFloat(haWidgetElement.height || 0)) { haWidgetElement.height = dataHeight + 'px';}})"></iframe>
+    </div>
   </div>
   </section>
   
