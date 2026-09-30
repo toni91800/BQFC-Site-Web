@@ -27,6 +27,17 @@ const CATEGORIES = [
   { id: "veterans45", label:"Vétérans +45",    full: "Vétérans +45",    annee:"Avant 1982" ,       coach: "Pascal", jour: "Mercredi 20h30-22h", terrain: "Terrain synthétique" },
 ];
 
+const CONVOCATION_CATEGORIES = [
+  { id: "u6u7", label: "U6/U7", teams: 4 },
+  { id: "u8u9", label: "U8/U9", teams: 4 },
+  { id: "u10", label: "U10", teams: 2 },
+  { id: "u11", label: "U11", teams: 2 },
+  { id: "u11F", label: "U11 F", teams: 1 },
+  { id: "u12", label: "U12", teams: 2 },
+  { id: "u13", label: "U13", teams: 2 },
+  { id: "u13F", label: "U13 F", teams: 1 },
+];
+
 /* Format : identifiant de catégorie -> { name, phone }. */
 const TEAM_CONTACTS = {};
 const CLUB_CONTACTS = [
@@ -202,6 +213,130 @@ function buildEquipes(){
       </div>`;
     panels.appendChild(panel);
   });
+
+  const convocationsButton = document.createElement('button');
+  convocationsButton.textContent = 'Convocations';
+  convocationsButton.dataset.target = 'eq-convocations';
+  convocationsButton.addEventListener('click', ()=>showSubPanel('equipes', 'eq-convocations'));
+  subtabs.appendChild(convocationsButton);
+
+  const convocationsPanel = document.createElement('div');
+  convocationsPanel.className = 'subpanel';
+  convocationsPanel.id = 'eq-convocations';
+  convocationsPanel.innerHTML = `
+    <h3>Convocations de l'école de foot</h3>
+    <p class="form-note" id="convocations-load-status" role="status" aria-live="polite">Chargement des convocations…</p>
+    <div class="subtabs subtabs-nested" role="tablist" aria-label="Catégories des convocations"></div>
+    <div class="convocation-category-panels"></div>`;
+
+  const categoryTabs = convocationsPanel.querySelector('.subtabs-nested');
+  const categoryPanels = convocationsPanel.querySelector('.convocation-category-panels');
+
+  CONVOCATION_CATEGORIES.forEach((category, categoryIndex)=>{
+    const categoryTab = document.createElement('button');
+    categoryTab.type = 'button';
+    categoryTab.textContent = category.label;
+    categoryTab.classList.toggle('active', categoryIndex === 0);
+    categoryTab.setAttribute('role', 'tab');
+    categoryTab.setAttribute('aria-selected', String(categoryIndex === 0));
+
+    const categoryPanel = document.createElement('div');
+    categoryPanel.className = `convocation-category-panel${categoryIndex === 0 ? ' active' : ''}`;
+    categoryPanel.setAttribute('role', 'tabpanel');
+    categoryPanel.setAttribute('aria-label', `Convocations ${category.label}`);
+    categoryPanel.id = `convocation-${category.id}`;
+
+    categoryTab.addEventListener('click', ()=>{
+      categoryTabs.querySelectorAll('button').forEach(tab=>{
+        const selected = tab === categoryTab;
+        tab.classList.toggle('active', selected);
+        tab.setAttribute('aria-selected', String(selected));
+      });
+      categoryPanels.querySelectorAll('.convocation-category-panel').forEach(panel=>{
+        panel.classList.toggle('active', panel === categoryPanel);
+      });
+    });
+
+    categoryTabs.appendChild(categoryTab);
+    categoryPanels.appendChild(categoryPanel);
+  });
+
+  panels.appendChild(convocationsPanel);
+  renderConvocations({});
+  loadConvocations();
+}
+
+function renderConvocations(data){
+  CONVOCATION_CATEGORIES.forEach(category=>{
+    const categoryPanel = document.getElementById(`convocation-${category.id}`);
+    if(!categoryPanel) return;
+    categoryPanel.replaceChildren();
+    const teams = Array.isArray(data?.[category.id]?.teams) ? data[category.id].teams : [];
+
+    for(let teamIndex = 0; teamIndex < category.teams; teamIndex++){
+      const team = teams[teamIndex] && typeof teams[teamIndex] === 'object' ? teams[teamIndex] : {};
+      const card = document.createElement('article');
+      card.className = 'convocation-card';
+
+      const heading = document.createElement('h4');
+      heading.textContent = team.name || `${category.label} — Équipe ${teamIndex + 1}`;
+      card.appendChild(heading);
+
+      const matchDetails = document.createElement('dl');
+      matchDetails.className = 'convocation-match';
+      [
+        ['Adversaire', team.opponent],
+        ['Date', team.date],
+        ['Lieu', team.location],
+        ['Heure du rendez-vous', team.meetingTime],
+        ['Heure du match', team.matchTime],
+      ].forEach(([label, value])=>{
+        const detail = document.createElement('div');
+        const term = document.createElement('dt');
+        term.textContent = label;
+        const description = document.createElement('dd');
+        description.textContent = value || 'À renseigner';
+        detail.append(term, description);
+        matchDetails.appendChild(detail);
+      });
+      card.appendChild(matchDetails);
+
+      const playersSection = document.createElement('div');
+      playersSection.className = 'convocation-players';
+      const playersHeading = document.createElement('h5');
+      playersHeading.textContent = 'Joueurs / joueuses convoqués';
+      const playersList = document.createElement('ul');
+      const players = Array.isArray(team.players)
+        ? team.players.filter(player => typeof player === 'string' && player.trim())
+        : [];
+      (players.length ? players : ['Noms à renseigner']).forEach(player=>{
+        const item = document.createElement('li');
+        item.textContent = player;
+        playersList.appendChild(item);
+      });
+      playersSection.append(playersHeading, playersList);
+      card.appendChild(playersSection);
+      categoryPanel.appendChild(card);
+    }
+  });
+}
+
+async function loadConvocations(){
+  const status = document.getElementById('convocations-load-status');
+  try {
+    const response = await fetch('/data/convocations.json', { cache: 'no-cache' });
+    if(!response.ok) throw new Error(`Chargement des convocations impossible (${response.status}).`);
+    const data = await response.json();
+    if(!data || typeof data !== 'object' || Array.isArray(data)){
+      throw new Error('Le fichier de convocations a un format invalide.');
+    }
+    renderConvocations(data);
+    status.textContent = 'Les convocations affichées sont à jour.';
+  } catch(error) {
+    console.error('Unable to load published convocations:', error);
+    status.textContent = 'Les convocations publiées ne sont pas accessibles actuellement.';
+    status.setAttribute('role', 'alert');
+  }
 }
 
 function buildContacts(){
