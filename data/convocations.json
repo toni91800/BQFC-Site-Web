@@ -3,18 +3,12 @@
     "teams": [
       {
         "name": "U6/U7 — Équipe 1",
-        "opponent": "Saint Germain",
-        "date": "14/10/2023",
-        "location": "Villeneuve",
-        "meetingTime": "14h00",
-        "matchTime": "16h00",
-        "players": [
-          "Lucas",
-          "Marie",
-          "Léo",
-          "Sami",
-          "Rayan"
-        ]
+        "opponent": "",
+        "date": "",
+        "location": "",
+        "meetingTime": "",
+        "matchTime": "",
+        "players": []
       },
       {
         "name": "U6/U7 — Équipe 2",
