@@ -322,6 +322,7 @@ main section:nth-of-type(even){ background:var(--white); }
 }
 .subtabs button:hover{ background:rgba(188,160,99,.15); }
 .subtabs button.active{ background:var(--black); border-color:var(--black); color:var(--gold); }
+#equipes-subtabs button.active{ background:var(--gold); border-color:var(--gold); color:var(--black); }
 
 .subpanel{ display:none; }
 .subpanel.active{ display:block; animation:fadein .35s ease; }
@@ -413,6 +414,19 @@ table.plan tbody tr:nth-child(even){ background:#f4efe2; }
   font-family:var(--font-body); font-size:.78rem; font-weight:600; letter-spacing:0;
 }
 @media (max-width:720px){ .team-card{ grid-template-columns:1fr; } .team-card .photo{ min-height:170px; } }
+
+.subtabs-nested{ margin:18px 0 24px; }
+.convocation-category-panel{ display:none; }
+.convocation-category-panel.active{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:16px; }
+.convocation-card{ padding:20px; background:var(--white); border:1px solid #e6ddc9; }
+.convocation-card h4{ margin:0 0 16px; }
+.convocation-match{ display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:12px; margin:0; }
+.convocation-match div{ border-left:3px solid var(--bronze); padding-left:10px; }
+.convocation-match dt{ font-size:.7rem; letter-spacing:.06em; text-transform:uppercase; color:#8a7f65; }
+.convocation-match dd{ margin:2px 0 0; font-weight:600; }
+.convocation-players{ margin-top:18px; padding-top:14px; border-top:1px solid #e6ddc9; }
+.convocation-players h5{ margin:0 0 6px; }
+.convocation-players ul{ margin:0; padding-left:20px; color:#8a7f65; font-size:.88rem; }
 
 /* résultats */
 .results-summary{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:28px; }
