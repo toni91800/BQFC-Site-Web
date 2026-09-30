@@ -9,21 +9,22 @@
    -> Pour ajouter/retirer/renommer une catégorie, modifiez
       simplement ce tableau : tout le site se met à jour tout seul. */
 const CATEGORIES = [
-  { id: "u6u7",   label: "U6 - U7",     full: "U6 - U7",    annee:"2020 à 2021" ,        coach: "À définir", jour: "Mercredi 14h15-15h45", terrain: "Terrain synthétique"},
-  { id: "u8",   label: "U8",     full: "U8",  annee:"2018" ,      coach: "À définir", jour: "Lundi 17h30-19h et Mercredi 14h15-15h45", terrain: "Terrain synthétique" },
-  { id: "u9",   label: "U9",     full: "U9",  annee:"2019" ,             coach: "À définir", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain synthétique" },
-  { id: "u10u11", label: "U10 - U11",   full: "U10 - U11",   annee:"2016 à 2017" ,     coach: "À définir", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain d'honneur" },
-  { id: "u12", label: "U12",   full: "U12",   annee:"2015" ,     coach: "À définir", jour: "Mardi 18h-19h15, Mercredi 17h30-19h et Vendredi 18h-19h15", terrain: "Terrain d'honneur" },
-  { id: "u13F",   label: "U13 F",     full: "U13 F",  annee:"2014" ,   coach: "À définir", jour: "Mercredi 17h30-19h et Jeudi 17h30-19h", terrain: "Terrain synthétique" },
-  { id: "u13",   label: "U13",     full: "U13",  annee:"2014" ,     coach: "À définir", jour: "Mardi 18h-19h15, Mercredi 17h30-19h et Vendredi 18h-19h15", terrain: "Terrain synthétique" },
-  { id: "u14", label: "U14",   full: "U14", annee:"2013" ,    coach: "À définir", jour: "Lundi 19h-20h30 et Jeudi 19h-20h30", terrain: "Terrain d'honneur" },
-  { id: "u15F",   label: "U15 F",     full: "U15 F", annee:"2012 à 2014",    coach: "À définir", jour: "Lundi 19h-20h30 et Mercredi 19h-20h30", terrain: "Terrain synthétique" },
-  { id: "u16",   label: "U16",     full: "U16",  annee:"2011 à 2012" , coach: "À définir", jour: "Mercredi 19h-20h30 et Vendredi 19h-20h30", terrain: "Terrain synthétique" },
-  { id: "u18", label: "U18",   full: "U18",   annee:"2009 à 2010" ,    coach: "À définir", jour: "Mardi 19h-20h30 et Vendredi 19h-20h30", terrain: "Terrain synthétique" },
-  { id: "seniorsF", label: "Séniors F", annee:"Avant 2011" ,     full: "Séniors F",             coach: "À définir", jour: "Lundi 20h30-22h et Mercredi 20h30-22h", terrain: "Terrain d'honneur" },
-  { id: "seniors", label: "Séniors",     full: "Séniors",   annee:"avant 2009" ,     coach: "À définir", jour: "Mardi 20h45-22h15 et Vendredi 20h45-22h15", terrain: "Terrain d'honneur" },
-  { id: "veterans35", label:"Vétérans +35",    full: "Vétérans +35",   annee:"Avant 1992" ,     coach: "À définir", jour: "Jeudi 20h30-22h", terrain: "Terrain synthétique" },
-  { id: "veterans45", label:"Vétérans +45",    full: "Vétérans +45",    annee:"Avant 1982" ,       coach: "À définir", jour: "Mercredi 20h30-22h", terrain: "Terrain synthétique" },
+  { id: "u6u7",   label: "U6 - U7",     full: "U6 - U7",    annee:"2020 à 2021" ,        coach: "Loula, Mohamed-Amin, Jason, Nina, Nell, Michael, Yassine", jour: "Mercredi 14h15-15h45", terrain: "Terrain synthétique"},
+  { id: "u8",   label: "U8",     full: "U8",  annee:"2019" ,      coach: "Loula, Mohamed-Amin, Jason, Nina, Nell, Michael, Yassine", jour: "Lundi 17h30-19h et Mercredi 14h15-15h45", terrain: "Terrain synthétique" },
+  { id: "u9",   label: "U9",     full: "U9",  annee:"2018" ,             coach: "Loula, Mohamed-Amin, Jason, Nina, Nell, Michael, Yassine", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain synthétique" },
+  { id: "u10", label: "U10",   full: "U10",   annee:"2017" ,     coach: "Ismaël, Ethan", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain d'honneur" },
+  { id: "u11", label: "U11",   full: "U11",   annee:"2016" ,     coach: "Ali", jour: "Lundi 17h30-19h, Mercredi 16h-17h30 et Jeudi 17h30-19h", terrain: "Terrain d'honneur" },
+  { id: "u12", label: "U12",   full: "U12",   annee:"2015" ,     coach: "Willy, Lahcen", jour: "Mardi 18h-19h15, Mercredi 17h30-19h et Vendredi 18h-19h15", terrain: "Terrain d'honneur" },
+  { id: "u13F",   label: "U13 F",     full: "U13 F",  annee:"2014" ,   coach: "Nina", jour: "Mercredi 17h30-19h et Jeudi 17h30-19h", terrain: "Terrain synthétique" },
+  { id: "u13",   label: "U13",     full: "U13",  annee:"2014" ,     coach: "Jason, Rayan", jour: "Mardi 18h-19h15, Mercredi 17h30-19h et Vendredi 18h-19h15", terrain: "Terrain synthétique" },
+  { id: "u14", label: "U14",   full: "U14", annee:"2013" ,    coach: "Ismaël", jour: "Lundi 19h-20h30 et Jeudi 19h-20h30", terrain: "Terrain d'honneur" },
+  { id: "u15F",   label: "U15 F",     full: "U15 F", annee:"2012 à 2014",    coach: "Tristan", jour: "Lundi 19h-20h30 et Mercredi 19h-20h30", terrain: "Terrain synthétique" },
+  { id: "u16",   label: "U16",     full: "U16",  annee:"2011 à 2012" , coach: "Tyron", jour: "Mercredi 19h-20h30 et Vendredi 19h-20h30", terrain: "Terrain synthétique" },
+  { id: "u18", label: "U18",   full: "U18",   annee:"2009 à 2010" ,    coach: "Esaie", jour: "Mardi 19h-20h30 et Vendredi 19h-20h30", terrain: "Terrain synthétique" },
+  { id: "seniorsF", label: "Séniors F", annee:"Avant 2011" ,     full: "Séniors F",             coach: "Bosco", jour: "Lundi 20h30-22h et Mercredi 20h30-22h", terrain: "Terrain d'honneur" },
+  { id: "seniors", label: "Séniors",     full: "Séniors",   annee:"avant 2009" ,     coach: "Aymard, Harouna", jour: "Mardi 20h45-22h15 et Vendredi 20h45-22h15", terrain: "Terrain d'honneur" },
+  { id: "veterans35", label:"Vétérans +35",    full: "Vétérans +35",   annee:"Avant 1992" ,     coach: "Bacary", jour: "Jeudi 20h30-22h", terrain: "Terrain synthétique" },
+  { id: "veterans45", label:"Vétérans +45",    full: "Vétérans +45",    annee:"Avant 1982" ,       coach: "Pascal", jour: "Mercredi 20h30-22h", terrain: "Terrain synthétique" },
 ];
 
 /* Format : identifiant de catégorie -> { name, phone }. */
