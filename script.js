@@ -78,6 +78,17 @@ const RESULTAT_TEAMS = {
   ],
 };
 
+const DISTRICT_RESULTS_URLS = {
+  u14: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3",
+  u15F: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1",
+  u16: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4",
+  u18: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2",
+  seniorsF: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1",
+  seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2",
+  seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5",
+  veterans55: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS",
+};
+
 const EQUIPES_PAR_CATEGORIE = {u6u7:4, u8:2, u9:2, u10:2, u11:2, u12:2, u13:2, seniors: 2 };
 
 const RESULTAT_TEAM_OPTIONS = Object.fromEntries(
@@ -439,6 +450,10 @@ function buildResultats(allMatches){
       const competitionMention = mention
         ? `<span class="results-division">${mention}</span>`
         : '';
+      const districtUrl = comp.id === 'championnat' ? DISTRICT_RESULTS_URLS[cat.id] : null;
+      const districtLink = districtUrl
+        ? `<p class="district-results-link"><a href="${districtUrl}" target="_blank" rel="noopener noreferrer">Plus de détails sur le classement, le calendrier et l’agenda sur le site du District de l’Essonne ↗</a></p>`
+        : '';
       catPanel.innerHTML = `
         <h3 class="results-title">${cat.label} — ${comp.label}${competitionMention}</h3>
         <div class="results-summary">
@@ -453,7 +468,8 @@ function buildResultats(allMatches){
             <tbody>${rows}</tbody>
           </table>
         </div>
-        <p class="form-note">Les résultats sont mis à jour par le club au fil de la saison.</p>`;
+        <p class="form-note">Les résultats sont mis à jour par le club au fil de la saison.</p>
+        ${districtLink}`;
       catPanelsWrap.appendChild(catPanel);
     });
  
