@@ -352,17 +352,16 @@ function validateResultats(data){
   if(!data || !Array.isArray(data.matches)){
     throw new Error('Le fichier des résultats ne contient pas de liste de matchs valide.');
   }
-  const allowedTeams = new Set(
-    COMPETITIONS.flatMap(competition => RESULTAT_TEAMS[competition.id].map(team => `${competition.id}:${team.id}`))
-  );
+  const allowedCompetitions = new Set(COMPETITIONS.map(competition => competition.id));
+  const allowedTeams = new Set(Object.keys(RESULTAT_TEAM_OPTIONS));
   return data.matches.map((match, index)=>{
     const parsedDate = typeof match?.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(match.date)
       ? new Date(`${match.date}T00:00:00Z`)
       : null;
-    const validDate = parsedDate && !Number.isNaN(parsedDate.getTime())
-      && parsedDate.toISOString().slice(0, 10) === match.date;
+    const validDate = !match?.date || (parsedDate && !Number.isNaN(parsedDate.getTime())
+      && parsedDate.toISOString().slice(0, 10) === match.date);
     if(
-      !match || !allowedTeams.has(`${match.competition}:${match.team}`) ||
+      !match || !allowedCompetitions.has(match.competition) || !allowedTeams.has(match.team) ||
       typeof match.round !== 'string' || !match.round.trim() ||
       !validDate || typeof match.opponent !== 'string' || !match.opponent.trim() ||
       typeof match.home !== 'boolean' ||
@@ -414,7 +413,16 @@ function buildResultats(allMatches){
  
     const catPanelsWrap = document.createElement('div');
  
-    const resultTeams = RESULTAT_TEAMS[comp.id];
+    const configuredTeams = RESULTAT_TEAMS[comp.id];
+    const additionalTeamIds = [...new Set(
+      allMatches.filter(match => match.competition === comp.id).map(match => match.team)
+    )].filter(teamId => !configuredTeams.some(team => team.id === teamId));
+    const resultTeams = [
+      ...configuredTeams,
+      ...additionalTeamIds.map(teamId =>
+        Object.values(RESULTAT_TEAMS).flat().find(team => team.id === teamId)
+      ).filter(Boolean),
+    ];
     resultTeams.forEach((cat, i)=>{
       const targetId = `res-${comp.id}-${cat.id}`;
  
@@ -435,7 +443,7 @@ function buildResultats(allMatches){
         else if(m.goalsFor<m.goalsAgainst){ cls='res-l'; label='D'; d++; }
         else { cls='res-d'; label='N'; n++; }
         return `<tr>
-          <td>${escapeHTML(m.round)}</td><td>${escapeHTML(m.date.split('-').reverse().join('/'))}</td>
+          <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '—'}</td>
           <td>${m.home ? 'FC Boussy Quincy' : escapeHTML(m.opponent)}</td>
           <td class="score">${m.home ? m.goalsFor : m.goalsAgainst} - ${m.home ? m.goalsAgainst : m.goalsFor}</td>
           <td>${m.home ? escapeHTML(m.opponent) : 'FC Boussy Quincy'}</td>
@@ -568,7 +576,16 @@ function bindPreinscriptionForm(){
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(submission),
     });
-    if(!response.ok) throw new Error('Le courriel de confirmation n’a pas pu être envoyé.');
+    let result;
+    try{
+      result = await response.json();
+    } catch {
+      throw new Error('Le traitement de la préinscription n’a pas pu être confirmé.');
+    }
+    if(typeof result.sheetSaved !== 'boolean' || typeof result.confirmationSent !== 'boolean'){
+      throw new Error('La réponse du traitement de la préinscription est invalide.');
+    }
+    return result;
   }
 
   form.addEventListener('submit', async (e)=>{
@@ -588,7 +605,7 @@ function bindPreinscriptionForm(){
 
     submitting = true;
     submitButton.disabled = true;
-    submitButton.textContent = savedSubmission ? 'Envoi du courriel…' : 'Envoi en cours…';
+    submitButton.textContent = savedSubmission ? 'Finalisation de la préinscription…' : 'Envoi en cours…';
 
     try {
       if(!savedSubmission){
@@ -602,20 +619,23 @@ function bindPreinscriptionForm(){
         if(!submissionResponse.ok) throw new Error("La préinscription n’a pas pu être transmise au club.");
 
         savedSubmission = {
-          email: formData.get('email').trim(),
-          prenom: formData.get('prenom').trim(),
           botField: formData.get('bot-field'),
+          fields: Object.fromEntries([...formData.entries()]
+            .filter(([name]) => !['form-name', 'bot-field', 'emailConfirm'].includes(name))
+            .map(([name, value]) => [name, String(value)])),
         };
       }
 
-      await sendConfirmation(savedSubmission);
+      const processingResult = await sendConfirmation(savedSubmission);
       const thankYouUrl = new URL(form.action, window.location.href);
-      thankYouUrl.searchParams.set('confirmation', 'envoyee');
+      thankYouUrl.searchParams.set('confirmation', processingResult.confirmationSent ? 'envoyee' : 'indisponible');
+      thankYouUrl.searchParams.set('sheet', processingResult.sheetSaved ? 'enregistre' : 'indisponible');
       window.location.assign(thankYouUrl);
     } catch(error) {
       if(savedSubmission){
         const thankYouUrl = new URL(form.action, window.location.href);
         thankYouUrl.searchParams.set('confirmation', 'indisponible');
+        thankYouUrl.searchParams.set('sheet', 'indisponible');
         window.location.assign(thankYouUrl);
         return;
       }

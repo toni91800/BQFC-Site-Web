@@ -14,6 +14,7 @@
       <h1>Merci pour votre préinscription</h1>
       <p>Votre demande a bien été transmise au club. Elle sera étudiée selon les places disponibles dans la catégorie concernée.</p>
       <p id="email-confirmation-status" role="status" aria-live="polite">L’état de l’envoi du courriel de confirmation n’est pas disponible. Si l’envoi a réussi, pensez à vérifier vos courriers indésirables.</p>
+      <p id="sheet-save-status" role="status" aria-live="polite">L’état de l’enregistrement dans le tableau du club n’est pas disponible.</p>
       <a class="btn btn-primary" href="index.html">Retour au site</a>
     </div>
   </main>
@@ -25,6 +26,14 @@
       statusMessage.textContent = "Un courriel de confirmation a été envoyé à l’adresse indiquée. Il confirme la réception de votre demande, mais pas sa validation. Pensez à vérifier vos courriers indésirables.";
     } else if(confirmationStatus === 'indisponible'){
       statusMessage.textContent = "Votre demande a bien été transmise au club, mais l’envoi du courriel de confirmation n’a pas pu être confirmé. Merci de vérifier votre adresse et vos courriers indésirables, ou de contacter le club.";
+    }
+
+    const sheetStatus = new URLSearchParams(window.location.search).get('sheet');
+    const sheetStatusMessage = document.getElementById('sheet-save-status');
+    if(sheetStatus === 'enregistre'){
+      sheetStatusMessage.textContent = "Les informations de préinscription ont bien été enregistrées dans le tableau du club.";
+    } else if(sheetStatus === 'indisponible'){
+      sheetStatusMessage.textContent = "Les informations ont été transmises au club, mais leur enregistrement dans le tableau n’a pas pu être confirmé. Merci de contacter le club pour vérifier.";
     }
   </script>
 </body>
