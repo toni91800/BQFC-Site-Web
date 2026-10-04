@@ -24,7 +24,7 @@ const CATEGORIES = [
   { id: "seniorsF", label: "Séniors F", annee:"Avant 2011" ,     full: "Séniors F",             coach: "Bosco", jour: "Lundi 20h30-22h et Mercredi 20h30-22h", terrain: "Terrain d'honneur" },
   { id: "seniors", label: "Séniors",     full: "Séniors",   annee:"avant 2009" ,     coach: "Aymard, Harouna", jour: "Mardi 20h45-22h15 et Vendredi 20h45-22h15", terrain: "Terrain d'honneur" },
   { id: "veterans35", label:"Vétérans +35",    full: "Vétérans +35",   annee:"Avant 1992" ,     coach: "Bacary", jour: "Jeudi 20h30-22h", terrain: "Terrain synthétique" },
-  { id: "veterans45", label:"Vétérans +45",    full: "Vétérans +45",    annee:"Avant 1982" ,       coach: "Pascal", jour: "Mercredi 20h30-22h", terrain: "Terrain synthétique" },
+  { id: "veterans55", label:"Vétérans +55",    full: "Vétérans +55",    annee:"Avant 1982" ,       coach: "Pascal", jour: "Mercredi 20h30-22h", terrain: "Terrain synthétique" },
 ];
 
 const CONVOCATION_CATEGORIES = [
@@ -629,13 +629,11 @@ function bindPreinscriptionForm(){
       const processingResult = await sendConfirmation(savedSubmission);
       const thankYouUrl = new URL(form.action, window.location.href);
       thankYouUrl.searchParams.set('confirmation', processingResult.confirmationSent ? 'envoyee' : 'indisponible');
-      thankYouUrl.searchParams.set('sheet', processingResult.sheetSaved ? 'enregistre' : 'indisponible');
       window.location.assign(thankYouUrl);
     } catch(error) {
       if(savedSubmission){
         const thankYouUrl = new URL(form.action, window.location.href);
         thankYouUrl.searchParams.set('confirmation', 'indisponible');
-        thankYouUrl.searchParams.set('sheet', 'indisponible');
         window.location.assign(thankYouUrl);
         return;
       }
