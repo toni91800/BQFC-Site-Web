@@ -74,7 +74,6 @@ const RESULTAT_TEAMS = {
     { id: "u16", label: "U16", competition: "Coupe Essonne" },
     { id: "seniors1", label: "Séniors 1", competition: "Coupe Essonne" },
     { id: "seniors2", label: "Séniors 2", competition: "Coupe District" },
-    { id: "veterans35", label: "Vétérans +35", competition: "Coupe Essonne" },
   ],
 };
 
@@ -87,6 +86,24 @@ const DISTRICT_RESULTS_URLS = {
   seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2",
   seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5",
   veterans55: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS",
+};
+
+const DISTRICT_CALENDAR_URLS = {
+  u14: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3%20POULE%20C",
+  u15F: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1%20POULE%20B",
+  u16: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4%20POULE%20B",
+  u18: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2%20POULE%20A",
+  seniorsF: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1%20POULE%20UNIQUE",
+  seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2%20POULE%20B",
+  seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5%20POULE%20A",
+  veterans55: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS%20POULE%20A",
+};
+
+const DISTRICT_CUP_CALENDAR_URLS = {
+  u14: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=458608&stage=1&group=1&label=COUPE%20ESSONNE%20U14%20POULE%20UNIQUE",
+  u16: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456479&stage=1&group=1&label=COUPE%20ESSONNE%20U16%20POULE%20UNIQUE",
+  seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456417&stage=1&group=1&label=COUPE%20ESSONNE%20SENIORS%20POULE%20UNIQUE",
+  seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456448&stage=1&group=1&label=COUPE%20DISTRICT%20SENIORS%20POULE%20UNIQUE",
 };
 
 const EQUIPES_PAR_CATEGORIE = {u6u7:4, u8:2, u9:2, u10:2, u11:2, u12:2, u13:2, seniors: 2 };
@@ -441,7 +458,8 @@ function buildResultats(allMatches){
         let cls='res-n', label='—';
         if(m.goalsFor>m.goalsAgainst){ cls='res-v'; label='V'; v++; }
         else if(m.goalsFor<m.goalsAgainst){ cls='res-l'; label='D'; d++; }
-        else { cls='res-d'; label='N'; n++; }
+        else if(comp.id === 'championnat') { cls='res-d'; label='N'; n++; }
+        else { label='—'; }
         return `<tr>
           <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '—'}</td>
           <td>${m.home ? 'FC Boussy Quincy' : escapeHTML(m.opponent)}</td>
@@ -459,14 +477,22 @@ function buildResultats(allMatches){
         ? `<span class="results-division">${mention}</span>`
         : '';
       const districtUrl = comp.id === 'championnat' ? DISTRICT_RESULTS_URLS[cat.id] : null;
-      const districtLink = districtUrl
-        ? `<p class="district-results-link"><a href="${districtUrl}" target="_blank" rel="noopener noreferrer">Plus de détails sur le classement, le calendrier et l’agenda sur le site du District de l’Essonne ↗</a></p>`
-        : '';
+      const calendarUrl = comp.id === 'coupe'
+        ? DISTRICT_CUP_CALENDAR_URLS[cat.id]
+        : DISTRICT_CALENDAR_URLS[cat.id];
+      const districtLink = comp.id === 'coupe'
+        ? (calendarUrl
+          ? `<p class="district-results-link">Plus de détails sur le <a href="${calendarUrl}" target="_blank" rel="noopener noreferrer">calendrier</a> de l'équipe sur le site du District de l’Essonne.</p>`
+          : '')
+        : (districtUrl
+          ? `<p class="district-results-link">Plus de détails sur le <a href="${districtUrl}" target="_blank" rel="noopener noreferrer">classement</a>${calendarUrl ? ` et le <a href="${calendarUrl}" target="_blank" rel="noopener noreferrer">calendrier</a>` : ''} de l'équipe sur le site du District de l’Essonne ↗</p>`
+          : '');
+      const summaryClass = comp.id === 'coupe' ? 'results-summary results-summary-cup' : 'results-summary';
       catPanel.innerHTML = `
         <h3 class="results-title">${cat.label} — ${comp.label}${competitionMention}</h3>
-        <div class="results-summary">
+        <div class="${summaryClass}">
           <div class="stat"><div class="n">${v}</div><div class="l">Victoires</div></div>
-          <div class="stat"><div class="n">${n}</div><div class="l">Nuls</div></div>
+          ${comp.id === 'championnat' ? `<div class="stat"><div class="n">${n}</div><div class="l">Nuls</div></div>` : ''}
           <div class="stat"><div class="n">${d}</div><div class="l">Défaites</div></div>
           <div class="stat"><div class="n">${matches.length}</div><div class="l">Matchs joués</div></div>
         </div>
@@ -656,7 +682,7 @@ function buildDropdownsAndPlanning(){
   CATEGORIES.forEach(cat=>{
     if(planningBody){
       planningBody.insertAdjacentHTML('beforeend',
-        `<tr><td>${cat.full} (${cat.annee})</td><td>${cat.jour}</td><td>${cat.terrain}</td></tr>`);
+        `<tr><td>${cat.full} (${cat.annee})</td><td>${cat.jour}</td><td>${cat.coach}</td></tr>`);
     }
     if(eqDrop){
       eqDrop.insertAdjacentHTML('beforeend', `<li><a href="#" data-page="equipes" data-sub="eq-${cat.id}">${cat.label}</a></li>`);

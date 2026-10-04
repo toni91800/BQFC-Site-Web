@@ -132,7 +132,7 @@ collections:
               - label: "Équipe"
                 name: "team"
                 widget: "select"
-                hint: "En championnat : U14, U15 F, U16, U18, Séniors F, Séniors 1 et 2, Vétérans +55. En Coupe d'Essonne : U14, U16, Séniors 1 et Vétérans +35. En Coupe District : Séniors 2."
+                hint: "En championnat : U14, U15 F, U16, U18, Séniors F, Séniors 1 et 2, Vétérans +55. En coupe : U14, U16, Séniors 1 et 2. Les Vétérans ne jouent pas la coupe."
                 options:
                   - { label: "U14", value: "u14" }
                   - { label: "U15 F", value: "u15F" }
@@ -142,7 +142,6 @@ collections:
                   - { label: "Séniors 1", value: "seniors1" }
                   - { label: "Séniors 2", value: "seniors2" }
                   - { label: "Vétérans +55", value: "veterans55" }
-                  - { label: "Vétérans +35", value: "veterans35" }
               - { label: "Journée / tour", name: "round", widget: "string", hint: "Exemple : J4 ou Tour 2" }
               - { label: "Date du match", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
               - { label: "Adversaire", name: "opponent", widget: "string" }

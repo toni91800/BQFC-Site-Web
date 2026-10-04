@@ -58,8 +58,8 @@ function doPost(event) {
     const firstName = fields.prenom.trim();
     const escapedFirstName = escapeHtml(firstName);
     const subject = 'Votre demande de préinscription a bien été reçue';
-    const textBody = `Bonjour ${firstName},\n\nNous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.\n\nCette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.\n\nSportivement,\nLe Boussy Quincy FC`;
-    const htmlBody = `<p>Bonjour ${escapedFirstName},</p><p>Nous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.</p><p>Cette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.</p><p>Sportivement,<br>Le Boussy Quincy FC</p>`;
+    const textBody = `Bonjour ${firstName},\n\nNous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.\n\nCette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.\n\nL'équipe du Boussy Quincy FC`;
+    const htmlBody = `<p>Bonjour ${escapedFirstName},</p><p>Nous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.</p><p>Cette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.</p><p>L'équipe du Boussy Quincy FC</p>`;
     try {
       MailApp.sendEmail({
         to: fields.email.trim(),
