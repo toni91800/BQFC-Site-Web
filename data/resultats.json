@@ -5,6 +5,7 @@
       "competition": "championnat",
       "team": "veterans55",
       "round": "J1",
+      "date": "2026-10-04",
       "opponent": "Palaiseau US",
       "goalsFor": 3,
       "goalsAgainst": 5
@@ -14,6 +15,7 @@
       "competition": "championnat",
       "team": "u16",
       "round": "J1",
+      "date": "2026-10-04",
       "opponent": "Massy FC",
       "goalsFor": 5,
       "goalsAgainst": 14
@@ -23,6 +25,7 @@
       "competition": "championnat",
       "team": "veterans35",
       "round": "J1",
+      "date": "2026-10-04",
       "opponent": "Saclas Merveille US",
       "goalsFor": 1,
       "goalsAgainst": 1
@@ -32,6 +35,7 @@
       "competition": "championnat",
       "team": "seniors1",
       "round": "J1",
+      "date": "2026-10-04",
       "opponent": "Jeunesse Etampoise",
       "goalsFor": 2,
       "goalsAgainst": 0
@@ -41,6 +45,7 @@
       "competition": "championnat",
       "team": "u14",
       "round": "J1",
+      "date": "2026-10-03",
       "opponent": "Montgeron ES",
       "goalsFor": 2,
       "goalsAgainst": 4
@@ -50,6 +55,7 @@
       "competition": "championnat",
       "team": "u18",
       "round": "J1",
+      "date": "2026-10-04",
       "opponent": "Longjumeau FC",
       "goalsFor": 0,
       "goalsAgainst": 13
