@@ -144,7 +144,7 @@ collections:
                   - { label: "Vétérans +55", value: "veterans55" }
                   - { label: "Vétérans +35", value: "veterans35" }
               - { label: "Journée / tour", name: "round", widget: "string", hint: "Exemple : J4 ou Tour 2" }
-              - { label: "Date du match", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
+              - { label: "Date du match", name: "date", widget: "date", date_format: "YYYY-MM-DD", time_format: false }
               - { label: "Adversaire", name: "opponent", widget: "string" }
               - { label: "Match à domicile", name: "home", widget: "boolean", default: true }
               - { label: "Buts du Boussy Quincy FC", name: "goalsFor", widget: "number", value_type: "int", min: 0 }

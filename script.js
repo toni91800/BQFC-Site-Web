@@ -352,16 +352,17 @@ function validateResultats(data){
   if(!data || !Array.isArray(data.matches)){
     throw new Error('Le fichier des résultats ne contient pas de liste de matchs valide.');
   }
-  const allowedCompetitions = new Set(COMPETITIONS.map(competition => competition.id));
-  const allowedTeams = new Set(Object.keys(RESULTAT_TEAM_OPTIONS));
+  const allowedTeams = new Set(
+    COMPETITIONS.flatMap(competition => RESULTAT_TEAMS[competition.id].map(team => `${competition.id}:${team.id}`))
+  );
   return data.matches.map((match, index)=>{
     const parsedDate = typeof match?.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(match.date)
       ? new Date(`${match.date}T00:00:00Z`)
       : null;
-    const validDate = !match?.date || (parsedDate && !Number.isNaN(parsedDate.getTime())
-      && parsedDate.toISOString().slice(0, 10) === match.date);
+    const validDate = parsedDate && !Number.isNaN(parsedDate.getTime())
+      && parsedDate.toISOString().slice(0, 10) === match.date;
     if(
-      !match || !allowedCompetitions.has(match.competition) || !allowedTeams.has(match.team) ||
+      !match || !allowedTeams.has(`${match.competition}:${match.team}`) ||
       typeof match.round !== 'string' || !match.round.trim() ||
       !validDate || typeof match.opponent !== 'string' || !match.opponent.trim() ||
       typeof match.home !== 'boolean' ||
@@ -413,16 +414,7 @@ function buildResultats(allMatches){
  
     const catPanelsWrap = document.createElement('div');
  
-    const configuredTeams = RESULTAT_TEAMS[comp.id];
-    const additionalTeamIds = [...new Set(
-      allMatches.filter(match => match.competition === comp.id).map(match => match.team)
-    )].filter(teamId => !configuredTeams.some(team => team.id === teamId));
-    const resultTeams = [
-      ...configuredTeams,
-      ...additionalTeamIds.map(teamId =>
-        Object.values(RESULTAT_TEAMS).flat().find(team => team.id === teamId)
-      ).filter(Boolean),
-    ];
+    const resultTeams = RESULTAT_TEAMS[comp.id];
     resultTeams.forEach((cat, i)=>{
       const targetId = `res-${comp.id}-${cat.id}`;
  
@@ -443,7 +435,7 @@ function buildResultats(allMatches){
         else if(m.goalsFor<m.goalsAgainst){ cls='res-l'; label='D'; d++; }
         else { cls='res-d'; label='N'; n++; }
         return `<tr>
-          <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '—'}</td>
+          <td>${escapeHTML(m.round)}</td><td>${escapeHTML(m.date.split('-').reverse().join('/'))}</td>
           <td>${m.home ? 'FC Boussy Quincy' : escapeHTML(m.opponent)}</td>
           <td class="score">${m.home ? m.goalsFor : m.goalsAgainst} - ${m.home ? m.goalsAgainst : m.goalsFor}</td>
           <td>${m.home ? escapeHTML(m.opponent) : 'FC Boussy Quincy'}</td>
