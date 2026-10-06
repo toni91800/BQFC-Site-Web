@@ -56,6 +56,14 @@
     return `${excerpt.slice(0, lastSpace > 120 ? lastSpace : 177).trimEnd()}…`;
   }
 
+  function getNewsDate(article){
+    const date = article.get('date');
+    if(typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return '';
+    const parsedDate = new Date(`${date}T00:00:00Z`);
+    if(Number.isNaN(parsedDate.getTime())) return '';
+    return parsedDate.toISOString().slice(0, 10) === date ? date : '';
+  }
+
   window.CMS.registerEventListener({
     name: 'preSave',
     handler: ({entry}) => {
@@ -97,7 +105,14 @@
           .set('slug', slug)
           .set('summary', createNewsSummary(article.get('body')));
       });
-      return data.set('articles', updatedArticles);
+      const sortedArticles = updatedArticles.sort((first, second) => {
+        const firstDate = getNewsDate(first);
+        const secondDate = getNewsDate(second);
+        if(!firstDate) return secondDate ? 1 : 0;
+        if(!secondDate) return -1;
+        return secondDate.localeCompare(firstDate);
+      });
+      return data.set('articles', sortedArticles);
     },
   });
 
