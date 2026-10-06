@@ -48,6 +48,8 @@ collections:
             name: "articles"
             widget: "list"
             add_to_top: true
+            collapsed: true
+            label_singular: "article"
             summary: "{{fields.title}} — {{fields.date}}"
             fields:
               - { label: "Identifiant automatique", name: "slug", widget: "hidden", required: false, default: "" }

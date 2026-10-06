@@ -280,6 +280,12 @@ body:has(#nc-root) [class*="object-control"] {
   background: #fff;
 }
 
+body:has(#nc-root) [class*="SortableListItem"] {
+  border: 1px solid #d8cfbc;
+  border-radius: 7px;
+  background: #fff;
+}
+
 body:has(#nc-root) button {
   min-height: 2.4rem;
   padding: .5rem .8rem;
