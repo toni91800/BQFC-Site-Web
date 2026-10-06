@@ -18,38 +18,10 @@ collections:
         file: "data/convocations.json"
         format: "json"
         fields:
-          - label: "U6/U7"
-            name: "u6u7"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U8/U9"
-            name: "u8u9"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U10"
-            name: "u10"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U11"
-            name: "u11"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U11 F"
-            name: "u11F"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U12"
-            name: "u12"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U13"
-            name: "u13"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
-          - label: "U13 F"
-            name: "u13F"
-            widget: "convocationTeams"
-            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
+          - label: "Convocations par catégorie"
+            name: "categories"
+            widget: "convocationCategories"
+            hint: "Sélectionnez une catégorie pour modifier ou effacer ses convocations."
   - name: "resultats"
     label: "Résultats"
     description: "Ajouter, modifier ou supprimer les résultats des matchs."
@@ -61,35 +33,8 @@ collections:
         fields:
           - label: "Matchs"
             name: "matches"
-            widget: "list"
-            add_to_top: true
-            summary: "{{fields.team}} — {{fields.round}} — {{fields.date}}"
-            fields:
-              - label: "Compétition"
-                name: "competition"
-                widget: "select"
-                options:
-                  - { label: "Championnat", value: "championnat" }
-                  - { label: "Coupe", value: "coupe" }
-              - label: "Équipe"
-                name: "team"
-                widget: "select"
-                hint: "En championnat : U14, U15 F, U16, U18, Séniors F, Séniors 1 et 2, Vétérans +55. En coupe : U14, U16, Séniors 1 et 2. Les Vétérans ne jouent pas la coupe."
-                options:
-                  - { label: "U14", value: "u14" }
-                  - { label: "U15 F", value: "u15F" }
-                  - { label: "U16", value: "u16" }
-                  - { label: "U18", value: "u18" }
-                  - { label: "Séniors F", value: "seniorsF" }
-                  - { label: "Séniors 1", value: "seniors1" }
-                  - { label: "Séniors 2", value: "seniors2" }
-                  - { label: "Vétérans +55", value: "veterans55" }
-              - { label: "Journée / tour", name: "round", widget: "string", hint: "Exemple : J4 ou Tour 2" }
-              - { label: "Date du match", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: false, format: "YYYY-MM-DD" }
-              - { label: "Adversaire", name: "opponent", widget: "string" }
-              - { label: "Match à domicile", name: "home", widget: "boolean", default: true }
-              - { label: "Buts du Boussy Quincy FC", name: "goalsFor", widget: "number", value_type: "int", min: 0 }
-              - { label: "Buts de l'adversaire", name: "goalsAgainst", widget: "number", value_type: "int", min: 0 }
+            widget: "resultsByCategory"
+            hint: "Sélectionnez d'abord la compétition et l'équipe. Un résultat de coupe est soit gagné, soit perdu."
   - name: "actualites"
     label: "Actualités"
     description: "Créer, modifier et publier les articles du club."

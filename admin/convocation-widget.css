@@ -5,11 +5,14 @@
 }
 
 .convocation-cms-editor,
-.convocation-cms-editor * {
+.convocation-cms-editor *,
+.results-cms-editor,
+.results-cms-editor * {
   box-sizing: border-box;
 }
 
-.convocation-cms-editor button {
+.convocation-cms-editor button,
+.results-cms-editor button {
   min-height: 2.5rem;
   padding: .55rem .9rem;
   border: 1px solid #bca063;
@@ -21,12 +24,16 @@
   cursor: pointer;
 }
 
-.convocation-cms-editor button:hover {
+.convocation-cms-editor button:hover,
+.results-cms-editor button:hover {
   background: #f8f3e8;
 }
 
 .convocation-cms-editor button:focus-visible,
-.convocation-cms-editor input:focus-visible {
+.convocation-cms-editor input:focus-visible,
+.results-cms-editor button:focus-visible,
+.results-cms-editor input:focus-visible,
+.results-cms-editor select:focus-visible {
   outline: 3px solid #bca063;
   outline-offset: 2px;
 }
@@ -50,6 +57,34 @@
   border: 1px solid #d8cfbc;
   border-radius: 8px;
   background: #fff;
+}
+
+.convocation-cms-selector,
+.results-cms-selector {
+  display: grid;
+  gap: .45rem;
+  max-width: 520px;
+  color: #514936;
+  font-weight: 700;
+}
+
+.convocation-cms-selector select,
+.results-cms-selector select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.7rem;
+  padding: .55rem .75rem;
+  border: 1px solid #bdb5a4;
+  border-radius: 5px;
+  background: #fff;
+  color: #201c14;
+  font: inherit;
+}
+
+.convocation-cms-help,
+.results-cms-help {
+  margin: 0;
+  color: #514936;
 }
 
 .convocation-cms-team legend {
@@ -110,8 +145,74 @@
   justify-self: start;
 }
 
+.results-cms-editor {
+  display: grid;
+  gap: 1rem;
+  color: #201c14;
+}
+
+.results-cms-match {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  align-items: start;
+  gap: 1rem;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid #d8cfbc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.results-cms-match legend {
+  padding: 0 .5rem;
+  color: #201c14;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.results-cms-field {
+  display: grid;
+  align-content: start;
+  gap: .4rem;
+  color: #514936;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.results-cms-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.6rem;
+  padding: .55rem .7rem;
+  border: 1px solid #bdb5a4;
+  border-radius: 5px;
+  background: #fff;
+  color: #201c14;
+  font: inherit;
+}
+
+.results-cms-field input:hover {
+  border-color: #8a7f65;
+}
+
+.results-cms-checkbox {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 2.6rem;
+  color: #514936;
+  font-weight: 600;
+}
+
+.results-cms-checkbox input {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: #8e753e;
+}
+
 @media (max-width: 600px) {
-  .convocation-cms-team {
+  .convocation-cms-team,
+  .results-cms-match {
     grid-template-columns: 1fr;
     padding: 1rem;
   }

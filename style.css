@@ -205,7 +205,7 @@ p{ margin:0 0 1em; }
 .hero-logo{
   display:flex; align-items:center; gap:16px; margin-bottom:2px;
 }
-.hero-logo .logo-img{ width:88px; height:88px; border-radius:50%; border:3px solid var(--gold); object-fit:cover; }
+.hero-logo .logo-img{ width:88px; height:88px; border-radius:50%; border:0; object-fit:cover; }
 .hero-logo .logo-fallback{
   width:88px; height:88px; font-size:1.7rem; border:3px solid var(--gold);
 }

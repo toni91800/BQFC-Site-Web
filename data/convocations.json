@@ -1,52 +1,54 @@
 {
-  "u6u7": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u8u9": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u10": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u11": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u11F": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u12": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u13": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
-  },
-  "u13F": {
-    "teams": [
-      { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
-    ]
+  "categories": {
+    "u6u7": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u8u9": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u10": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u11": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u11F": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u12": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u13": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] },
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    },
+    "u13F": {
+      "teams": [
+        { "opponent": "", "date": "", "location": "", "meetingTime": "", "matchTime": "", "players": [] }
+      ]
+    }
   }
 }

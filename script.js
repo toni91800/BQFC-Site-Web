@@ -317,10 +317,11 @@ async function loadConvocations(){
     const response = await fetch('/data/convocations.json', { cache: 'no-cache' });
     if(!response.ok) throw new Error(`Chargement des convocations impossible (${response.status}).`);
     const data = await response.json();
-    if(!data || typeof data !== 'object' || Array.isArray(data)){
+    if(!data || typeof data !== 'object' || Array.isArray(data) ||
+       !data.categories || typeof data.categories !== 'object' || Array.isArray(data.categories)){
       throw new Error('Le fichier de convocations a un format invalide.');
     }
-    renderConvocations(data);
+    renderConvocations(data.categories);
     status.textContent = 'Les convocations affichées sont à jour.';
   } catch(error) {
     console.error('Unable to load published convocations:', error);
