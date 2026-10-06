@@ -26,9 +26,7 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 4
-                max: 4
                 fields: &team_fields
-                  - { label: "Nom de l'équipe", name: "name", widget: "string" }
                   - { label: "Adversaire", name: "opponent", widget: "string", required: false }
                   - { label: "Date du match", name: "date", widget: "string", required: false }
                   - { label: "Lieu", name: "location", widget: "string", required: false }
@@ -46,7 +44,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 4
-                max: 4
                 fields: *team_fields
           - label: "U10"
             name: "u10"
@@ -56,7 +53,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 2
-                max: 2
                 fields: *team_fields
           - label: "U11"
             name: "u11"
@@ -66,7 +62,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 2
-                max: 2
                 fields: *team_fields
           - label: "U11 F"
             name: "u11F"
@@ -76,7 +71,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 1
-                max: 1
                 fields: *team_fields
           - label: "U12"
             name: "u12"
@@ -86,7 +80,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 2
-                max: 2
                 fields: *team_fields
           - label: "U13"
             name: "u13"
@@ -96,7 +89,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 2
-                max: 2
                 fields: *team_fields
           - label: "U13 F"
             name: "u13F"
@@ -106,7 +98,6 @@ collections:
                 name: "teams"
                 widget: "list"
                 min: 1
-                max: 1
                 fields: *team_fields
   - name: "resultats"
     label: "Résultats"

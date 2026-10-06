@@ -263,13 +263,13 @@ function renderConvocations(data){
       return;
     }
 
-    for(let teamIndex = 0; teamIndex < category.teams; teamIndex++){
+    for(let teamIndex = 0; teamIndex < Math.max(category.teams, teams.length); teamIndex++){
       const team = teams[teamIndex] && typeof teams[teamIndex] === 'object' ? teams[teamIndex] : {};
       const card = document.createElement('article');
       card.className = 'convocation-card';
 
       const heading = document.createElement('h4');
-      heading.textContent = team.name || `${category.label} — Équipe ${teamIndex + 1}`;
+      heading.textContent = `Équipe ${teamIndex + 1}`;
       card.appendChild(heading);
 
       const matchDetails = document.createElement('dl');
