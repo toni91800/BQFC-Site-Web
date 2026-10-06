@@ -36,6 +36,71 @@
     return value && typeof value.toJS === 'function' ? value.toJS() : value;
   }
 
+  function createNewsSlug(title){
+    const slug = String(title || '')
+      .toLowerCase()
+      .replace(/œ/g, 'oe')
+      .replace(/æ/g, 'ae')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-|-$/g, '');
+    return slug || 'actualite';
+  }
+
+  function createNewsSummary(body){
+    const summary = String(body || '').replace(/\s+/g, ' ').trim();
+    if(summary.length <= 180) return summary;
+    const excerpt = summary.slice(0, 177);
+    const lastSpace = excerpt.lastIndexOf(' ');
+    return `${excerpt.slice(0, lastSpace > 120 ? lastSpace : 177).trimEnd()}…`;
+  }
+
+  window.CMS.registerEventListener({
+    name: 'preSave',
+    handler: ({entry}) => {
+      const data = entry.get('data');
+      const articles = data.get('articles');
+      if(!articles || typeof articles.map !== 'function') return data;
+
+      const reservedSlugs = new Set();
+      articles.forEach(article => {
+        const baseSlug = createNewsSlug(article.get('title'));
+        const existingSlug = article.get('slug');
+        const existingSuffix = typeof existingSlug === 'string' && existingSlug.startsWith(`${baseSlug}-`)
+          ? existingSlug.slice(baseSlug.length + 1)
+          : '';
+        if(existingSlug === baseSlug || (/^\d+$/.test(existingSuffix) &&
+          Number(existingSuffix) >= 2 && String(Number(existingSuffix)) === existingSuffix)){
+          reservedSlugs.add(existingSlug);
+        }
+      });
+
+      const assignedSlugs = new Set();
+      const updatedArticles = articles.map(article => {
+        const baseSlug = createNewsSlug(article.get('title'));
+        const existingSlug = article.get('slug');
+        const existingSuffix = typeof existingSlug === 'string' && existingSlug.startsWith(`${baseSlug}-`)
+          ? existingSlug.slice(baseSlug.length + 1)
+          : '';
+        const canKeepSlug = (existingSlug === baseSlug ||
+          (/^\d+$/.test(existingSuffix) &&
+            Number(existingSuffix) >= 2 && String(Number(existingSuffix)) === existingSuffix)) &&
+          !assignedSlugs.has(existingSlug);
+        let slug = canKeepSlug ? existingSlug : baseSlug;
+        let numberSuffix = 2;
+        while(assignedSlugs.has(slug) || (!canKeepSlug && reservedSlugs.has(slug))) {
+          slug = `${baseSlug}-${numberSuffix++}`;
+        }
+        assignedSlugs.add(slug);
+        return article
+          .set('slug', slug)
+          .set('summary', createNewsSummary(article.get('body')));
+      });
+      return data.set('articles', updatedArticles);
+    },
+  });
+
   function createEmptyTeam(){
     return {opponent: '', date: '', location: '', meetingTime: '', matchTime: '', players: []};
   }
