@@ -245,6 +245,23 @@ function renderConvocations(data){
     if(!categoryPanel) return;
     categoryPanel.replaceChildren();
     const teams = Array.isArray(data?.[category.id]?.teams) ? data[category.id].teams : [];
+    const hasPublishedConvocation = teams.some(team =>
+      team && typeof team === 'object' && (
+        ['opponent', 'date', 'location', 'meetingTime', 'matchTime'].some(field =>
+          typeof team[field] === 'string' && team[field].trim()
+        ) ||
+        (Array.isArray(team.players) && team.players.some(player =>
+          typeof player === 'string' && player.trim()
+        ))
+      )
+    );
+
+    if(!hasPublishedConvocation){
+      const unavailable = document.createElement('p');
+      unavailable.textContent = 'Les convocations ne sont pas disponibles pour le moment.';
+      categoryPanel.appendChild(unavailable);
+      return;
+    }
 
     for(let teamIndex = 0; teamIndex < category.teams; teamIndex++){
       const team = teams[teamIndex] && typeof teams[teamIndex] === 'object' ? teams[teamIndex] : {};
@@ -323,7 +340,7 @@ function buildContacts(){
     const heading = document.createElement('h5');
     heading.textContent = role;
     const contactName = document.createElement('p');
-    contactName.textContent = name || 'Responsable à renseigner';
+    contactName.textContent = name || 'Prochainement';
     card.append(heading, contactName);
 
     if(phone){
@@ -335,7 +352,7 @@ function buildContacts(){
     } else {
       const missing = document.createElement('span');
       missing.className = 'contact-missing';
-      missing.textContent = 'Numéro à renseigner';
+      missing.textContent = 'Prochainement';
       card.appendChild(missing);
     }
     return card;
