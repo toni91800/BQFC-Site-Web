@@ -120,3 +120,82 @@
     grid-template-columns: 1fr;
   }
 }
+
+body:has(#nc-root) label,
+body:has(#nc-root) [class*="field-label"],
+body:has(#nc-root) [class*="FieldLabel"] {
+  color: #514936;
+  font-weight: 700;
+}
+
+body:has(#nc-root) input:not([type="checkbox"]):not([type="radio"]),
+body:has(#nc-root) textarea,
+body:has(#nc-root) select {
+  box-sizing: border-box;
+  min-height: 2.65rem;
+  padding: .6rem .75rem;
+  border: 1px solid #bdb5a4;
+  border-radius: 5px;
+  background: #fff;
+  color: #201c14;
+  font: inherit;
+}
+
+body:has(#nc-root) textarea {
+  min-height: 8rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+body:has(#nc-root) input:focus,
+body:has(#nc-root) textarea:focus,
+body:has(#nc-root) select:focus {
+  border-color: #8e753e;
+  outline: 3px solid rgb(188 160 99 / 25%);
+}
+
+body:has(#nc-root) fieldset {
+  margin: 1rem 0;
+  padding: 1rem;
+  border: 1px solid #d8cfbc;
+  border-radius: 7px;
+  background: #fff;
+}
+
+body:has(#nc-root) fieldset > legend {
+  padding: 0 .5rem;
+  color: #201c14;
+  font-weight: 700;
+}
+
+body:has(#nc-root) [class*="ListControl"],
+body:has(#nc-root) [class*="ObjectControl"],
+body:has(#nc-root) [class*="list-control"],
+body:has(#nc-root) [class*="object-control"] {
+  margin-block: .75rem;
+  padding: .75rem;
+  border: 1px solid #e0d8c8;
+  border-radius: 6px;
+  background: #fff;
+}
+
+body:has(#nc-root) button {
+  min-height: 2.4rem;
+  padding: .5rem .8rem;
+  border: 1px solid #bca063;
+  border-radius: 5px;
+  background: #fff;
+  color: #201c14;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+body:has(#nc-root) button:hover {
+  background: #f8f3e8;
+}
+
+body:has(#nc-root) button:focus-visible {
+  outline: 3px solid #bca063;
+  outline-offset: 2px;
+}
