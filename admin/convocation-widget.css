@@ -1,0 +1,122 @@
+.convocation-cms-editor {
+  display: grid;
+  gap: 1rem;
+  color: #201c14;
+}
+
+.convocation-cms-editor,
+.convocation-cms-editor * {
+  box-sizing: border-box;
+}
+
+.convocation-cms-editor button {
+  min-height: 2.5rem;
+  padding: .55rem .9rem;
+  border: 1px solid #bca063;
+  border-radius: 5px;
+  background: #fff;
+  color: #201c14;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.convocation-cms-editor button:hover {
+  background: #f8f3e8;
+}
+
+.convocation-cms-editor button:focus-visible,
+.convocation-cms-editor input:focus-visible {
+  outline: 3px solid #bca063;
+  outline-offset: 2px;
+}
+
+.convocation-cms-editor > button:first-child {
+  justify-self: start;
+  border-color: #a33a32;
+  color: #8b2d27;
+}
+
+.convocation-cms-editor > button:first-child:hover {
+  background: #fff2f0;
+}
+
+.convocation-cms-team {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid #d8cfbc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.convocation-cms-team legend {
+  padding: 0 .5rem;
+  color: #201c14;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.convocation-cms-field {
+  display: grid;
+  align-content: start;
+  gap: .4rem;
+  color: #514936;
+  font-size: .9rem;
+  font-weight: 600;
+}
+
+.convocation-cms-field input,
+.convocation-cms-player input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 2.6rem;
+  padding: .55rem .7rem;
+  border: 1px solid #bdb5a4;
+  border-radius: 5px;
+  background: #fff;
+  color: #201c14;
+  font: inherit;
+}
+
+.convocation-cms-field input:hover,
+.convocation-cms-player input:hover {
+  border-color: #8a7f65;
+}
+
+.convocation-cms-players {
+  display: grid;
+  gap: .7rem;
+  grid-column: 1 / -1;
+  padding-top: .5rem;
+  border-top: 1px solid #e6ddc9;
+}
+
+.convocation-cms-players > strong {
+  color: #201c14;
+}
+
+.convocation-cms-player {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .6rem;
+}
+
+.convocation-cms-player button,
+.convocation-cms-team > button {
+  justify-self: start;
+}
+
+@media (max-width: 600px) {
+  .convocation-cms-team {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .convocation-cms-player {
+    grid-template-columns: 1fr;
+  }
+}
