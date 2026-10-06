@@ -286,6 +286,29 @@ body:has(#nc-root) [class*="SortableListItem"] {
   background: #fff;
 }
 
+body:has(#nc-root) [id^="articles-field-"] {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"] {
+  justify-content: flex-end;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+}
+
+body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"] > [class*="ExpandButtonContainer"],
+body:has(#nc-root) label[for^="articles-field-"] {
+  display: none;
+}
+
+body:has(#nc-root) [id^="articles-field-"] [class*="SortableListItem"] {
+  margin-block: .75rem;
+}
+
 body:has(#nc-root) button {
   min-height: 2.4rem;
   padding: .5rem .8rem;

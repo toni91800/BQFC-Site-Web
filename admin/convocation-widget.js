@@ -101,6 +101,25 @@
     },
   });
 
+  function expandNewsArticleList(){
+    const articleList = document.querySelector('#nc-root [id^="articles-field-"]');
+    if(!articleList || articleList.dataset.newsListOpened) return;
+
+    const toggle = articleList.querySelector('button[data-testid="expand-button"]');
+    if(!toggle) return;
+
+    articleList.dataset.newsListOpened = 'pending';
+    requestAnimationFrame(() => {
+      if(!articleList.isConnected || !toggle.isConnected) return;
+      toggle.click();
+      articleList.dataset.newsListOpened = 'true';
+    });
+  }
+
+  const newsListObserver = new MutationObserver(expandNewsArticleList);
+  newsListObserver.observe(document.body, {childList: true, subtree: true});
+  expandNewsArticleList();
+
   function createEmptyTeam(){
     return {opponent: '', date: '', location: '', meetingTime: '', matchTime: '', players: []};
   }

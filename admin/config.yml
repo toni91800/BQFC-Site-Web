@@ -49,6 +49,7 @@ collections:
             widget: "list"
             add_to_top: true
             collapsed: true
+            minimize_collapsed: true
             label_singular: "article"
             summary: "{{fields.title}} — {{fields.date}}"
             fields:
