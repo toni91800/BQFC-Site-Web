@@ -11,7 +11,7 @@ public_folder: "/images/uploads"
 collections:
   - name: "convocations"
     label: "Convocations"
-    description: "Modifier les informations de match et les joueurs/joueuses convoqués."
+    description: "Modifier les informations de match et les joueurs/joueuses convoqués. Le bouton d'effacement est disponible dans chaque catégorie."
     files:
       - name: "convocations"
         label: "Convocations par catégorie"
@@ -20,85 +20,36 @@ collections:
         fields:
           - label: "U6/U7"
             name: "u6u7"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 4
-                fields: &team_fields
-                  - { label: "Adversaire", name: "opponent", widget: "string", required: false }
-                  - { label: "Date du match", name: "date", widget: "string", required: false }
-                  - { label: "Lieu", name: "location", widget: "string", required: false }
-                  - { label: "Heure du rendez-vous", name: "meetingTime", widget: "string", required: false }
-                  - { label: "Heure du match", name: "matchTime", widget: "string", required: false }
-                  - label: "Joueurs / joueuses convoqués"
-                    name: "players"
-                    widget: "list"
-                    field: { label: "Nom", name: "name", widget: "string" }
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U8/U9"
             name: "u8u9"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 4
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U10"
             name: "u10"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 2
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U11"
             name: "u11"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 2
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U11 F"
             name: "u11F"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 1
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U12"
             name: "u12"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 2
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U13"
             name: "u13"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 2
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
           - label: "U13 F"
             name: "u13F"
-            widget: "object"
-            fields:
-              - label: "Équipes"
-                name: "teams"
-                widget: "list"
-                min: 1
-                fields: *team_fields
+            widget: "convocationTeams"
+            hint: "Utilisez le bouton d'effacement pour vider toutes les convocations de cette catégorie."
   - name: "resultats"
     label: "Résultats"
     description: "Ajouter, modifier ou supprimer les résultats des matchs."

@@ -1,0 +1,52 @@
+.convocation-cms-editor > button,
+.convocation-cms-team button {
+  margin: 8px 8px 8px 0;
+  padding: 8px 12px;
+  border: 1px solid #bca063;
+  border-radius: 4px;
+  background: #fff;
+  color: #201c14;
+  cursor: pointer;
+}
+
+.convocation-cms-editor > button:first-child {
+  border-color: #a33a32;
+  color: #8b2d27;
+  font-weight: 700;
+}
+
+.convocation-cms-team {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+  padding: 16px;
+  border: 1px solid #d8cfbc;
+  border-radius: 4px;
+}
+
+.convocation-cms-team legend {
+  padding: 0 8px;
+  font-weight: 700;
+}
+
+.convocation-cms-field {
+  display: grid;
+  gap: 4px;
+}
+
+.convocation-cms-field input,
+.convocation-cms-player input {
+  width: 100%;
+}
+
+.convocation-cms-players {
+  grid-column: 1 / -1;
+}
+
+.convocation-cms-player {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
