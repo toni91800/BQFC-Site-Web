@@ -7,8 +7,8 @@
       "round": "J1",
       "date": "2026-10-04",
       "opponent": "Palaiseau US",
-      "goalsFor": 3,
-      "goalsAgainst": 5
+      "goalsFor": 2,
+      "goalsAgainst": 6
     },
     {
       "home": true,
@@ -31,14 +31,14 @@
       "goalsAgainst": 0
     },
     {
-      "home": true,
+      "home": false,
       "competition": "championnat",
       "team": "u14",
       "round": "J1",
-      "date": "2026-10-03",
-      "opponent": "Montgeron ES",
-      "goalsFor": 2,
-      "goalsAgainst": 4
+      "date": "2026-09-26",
+      "opponent": "Arpajon Egly La Norville",
+      "goalsFor": 4,
+      "goalsAgainst": 3
     },
     {
       "home": true,
@@ -53,18 +53,18 @@
     {
       "competition": "championnat",
       "team": "u14",
-      "round": "J1",
-      "date": "2026-09-07",
-      "opponent": "Arpajon Egly La Norville",
-      "home": false,
-      "goalsFor": 4,
-      "goalsAgainst": 3
+      "round": "J2",
+      "date": "2026-10-03",
+      "opponent": "Montgeron ES",
+      "home": true,
+      "goalsFor": 2,
+      "goalsAgainst": 4
     },
     {
       "competition": "coupe",
       "team": "seniors1",
       "round": "Tour 1",
-      "date": "2026-10-05",
+      "date": "2026-09-27",
       "opponent": "Lissois FC",
       "home": false,
       "goalsFor": 4,
@@ -74,11 +74,41 @@
       "competition": "coupe",
       "team": "seniors2",
       "round": "Tour 1",
-      "date": "2026-10-19",
+      "date": "2026-09-27",
       "opponent": "Morsang sur Orge FC",
       "home": false,
       "goalsFor": 5,
-      "goalsAgainst": 2
+      "goalsAgainst": 3
+    },
+    {
+      "competition": "championnat",
+      "team": "u15F",
+      "round": "J1",
+      "date": "2026-10-10",
+      "opponent": "Etampes FC",
+      "home": false,
+      "goalsFor": 3,
+      "goalsAgainst": 0
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors1",
+      "round": "J2",
+      "date": "2026-10-11",
+      "opponent": "ST Vrain FC",
+      "home": true,
+      "goalsFor": 5,
+      "goalsAgainst": 1
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors2",
+      "round": "J2",
+      "date": "2026-10-11",
+      "opponent": "Orsay Bures FC",
+      "home": false,
+      "goalsFor": 2,
+      "goalsAgainst": 1
     }
   ]
 }
