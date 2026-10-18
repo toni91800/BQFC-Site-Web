@@ -302,13 +302,20 @@ main section:nth-of-type(even){ background:var(--white); }
   font-size:.72rem; letter-spacing:.06em; padding:5px 10px; text-transform:uppercase;
 }
 .news-carousel{ position:relative; display:flex; align-items:center; justify-content:center; height:clamp(220px,36vw,420px); overflow:hidden; background:#171614; }
-.news-carousel > img{ display:block; width:100%; height:100%; object-fit:contain; }
+.news-carousel-image-button{ display:block; width:100%; height:100%; padding:0; border:0; background:transparent; cursor:zoom-in; }
+.news-carousel-image-button img{ display:block; width:100%; height:100%; object-fit:contain; }
+.news-carousel-image-button:focus-visible{ outline:3px solid var(--gold); outline-offset:-4px; }
 .news-carousel .date{ position:absolute; bottom:12px; left:12px; background:var(--black); color:var(--gold); font-size:.72rem; letter-spacing:.06em; padding:6px 10px; text-transform:uppercase; }
 .news-carousel-control{ position:absolute; top:50%; transform:translateY(-50%); display:grid; place-items:center; width:42px; height:42px; border:1px solid rgba(255,255,255,.7); border-radius:50%; background:rgba(17,17,17,.75); color:var(--white); font-size:2rem; line-height:1; cursor:pointer; }
 .news-carousel-control:hover{ background:var(--gold); color:var(--black); border-color:var(--gold); }
 .news-carousel-control.previous{ left:14px; }
 .news-carousel-control.next{ right:14px; }
 .news-carousel-counter{ position:absolute; right:12px; bottom:12px; padding:5px 9px; background:rgba(17,17,17,.8); color:var(--white); font-size:.78rem; }
+.news-image-dialog{ position:fixed; inset:0; width:min(96vw,1400px); max-width:none; height:min(94vh,1000px); max-height:none; padding:52px 16px 16px; border:0; background:#111; overflow:hidden; }
+.news-image-dialog::backdrop{ background:rgb(0 0 0 / 88%); }
+.news-image-dialog img{ display:block; width:100%; height:100%; object-fit:contain; }
+.news-image-dialog-close{ position:absolute; top:8px; right:12px; width:40px; height:40px; border:1px solid rgba(255,255,255,.7); border-radius:50%; background:rgba(17,17,17,.8); color:#fff; font-size:1.8rem; line-height:1; cursor:pointer; }
+.news-image-dialog-close:hover{ background:var(--gold); color:var(--black); }
 .news-card .body{ padding:20px; flex:1; display:flex; flex-direction:column; }
 .news-card h3{ font-size:1.15rem; margin-bottom:8px; }
 .news-card p{ color:#5a5142; font-size:.92rem; flex:1; }

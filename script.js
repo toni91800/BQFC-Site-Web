@@ -966,17 +966,85 @@ function renderNewsArticles(articles){
         gallery.className = 'news-carousel';
         gallery.setAttribute('role', 'region');
         gallery.setAttribute('aria-label', `Photos de l’article : ${article.title}`);
+        let currentIndex = 0;
         const image = document.createElement('img');
         image.src = article.images[0];
         image.alt = `${article.title} — photo 1 sur ${article.images.length}`;
-        gallery.appendChild(image);
+        const enlargeButton = document.createElement('button');
+        enlargeButton.className = 'news-carousel-image-button';
+        enlargeButton.type = 'button';
+        enlargeButton.setAttribute('aria-label', `Agrandir la photo 1 de l’article ${article.title}`);
+        enlargeButton.appendChild(image);
+        gallery.appendChild(enlargeButton);
+
+        const imageDialog = document.createElement('dialog');
+        imageDialog.className = 'news-image-dialog';
+        imageDialog.setAttribute('aria-label', `Photo agrandie : ${article.title}`);
+        const closeDialog = document.createElement('button');
+        closeDialog.className = 'news-image-dialog-close';
+        closeDialog.type = 'button';
+        closeDialog.setAttribute('aria-label', 'Fermer la photo agrandie');
+        closeDialog.textContent = '×';
+        const dialogImage = document.createElement('img');
+        dialogImage.alt = image.alt;
+        const dialogPrevious = document.createElement('button');
+        dialogPrevious.className = 'news-carousel-control previous';
+        dialogPrevious.type = 'button';
+        dialogPrevious.setAttribute('aria-label', 'Photo précédente');
+        dialogPrevious.textContent = '‹';
+        const dialogNext = document.createElement('button');
+        dialogNext.className = 'news-carousel-control next';
+        dialogNext.type = 'button';
+        dialogNext.setAttribute('aria-label', 'Photo suivante');
+        dialogNext.textContent = '›';
+        const dialogCounter = document.createElement('span');
+        dialogCounter.className = 'news-carousel-counter';
+        dialogCounter.setAttribute('aria-live', 'polite');
+        dialogCounter.textContent = `1 / ${article.images.length}`;
+        dialogPrevious.hidden = article.images.length < 2;
+        dialogNext.hidden = article.images.length < 2;
+        dialogCounter.hidden = article.images.length < 2;
+        imageDialog.append(closeDialog, dialogImage, dialogPrevious, dialogNext, dialogCounter);
+        document.body.appendChild(imageDialog);
+
+        let galleryCounter = null;
+        const showImage = index=>{
+          currentIndex = (index + article.images.length) % article.images.length;
+          image.src = article.images[currentIndex];
+          image.alt = `${article.title} — photo ${currentIndex + 1} sur ${article.images.length}`;
+          enlargeButton.setAttribute('aria-label', `Agrandir la photo ${currentIndex + 1} de l’article ${article.title}`);
+          dialogImage.src = image.src;
+          dialogImage.alt = image.alt;
+          dialogCounter.textContent = `${currentIndex + 1} / ${article.images.length}`;
+          if(galleryCounter) galleryCounter.textContent = dialogCounter.textContent;
+        };
+
+        enlargeButton.addEventListener('click', ()=>{
+          imageDialog.showModal();
+        });
+        dialogPrevious.addEventListener('click', ()=>showImage(currentIndex - 1));
+        dialogNext.addEventListener('click', ()=>showImage(currentIndex + 1));
+        closeDialog.addEventListener('click', ()=>imageDialog.close());
+        imageDialog.addEventListener('keydown', event=>{
+          if(article.images.length < 2) return;
+          if(event.key === 'ArrowLeft'){
+            event.preventDefault();
+            showImage(currentIndex - 1);
+          } else if(event.key === 'ArrowRight'){
+            event.preventDefault();
+            showImage(currentIndex + 1);
+          }
+        });
+        imageDialog.addEventListener('click', event=>{
+          if(event.target === imageDialog) imageDialog.close();
+        });
+        imageDialog.addEventListener('close', ()=>imageDialog.remove());
+
         const dateLabel = document.createElement('span');
         dateLabel.className = 'date';
         dateLabel.textContent = formatNewsDate(article.date);
         gallery.appendChild(dateLabel);
-
         if(article.images.length > 1){
-          let currentIndex = 0;
           const previous = document.createElement('button');
           previous.className = 'news-carousel-control previous';
           previous.type = 'button';
@@ -991,13 +1059,7 @@ function renderNewsArticles(articles){
           counter.className = 'news-carousel-counter';
           counter.setAttribute('aria-live', 'polite');
           counter.textContent = `1 / ${article.images.length}`;
-
-          const showImage = index=>{
-            currentIndex = (index + article.images.length) % article.images.length;
-            image.src = article.images[currentIndex];
-            image.alt = `${article.title} — photo ${currentIndex + 1} sur ${article.images.length}`;
-            counter.textContent = `${currentIndex + 1} / ${article.images.length}`;
-          };
+          galleryCounter = counter;
 
           previous.addEventListener('click', ()=>showImage(currentIndex - 1));
           next.addEventListener('click', ()=>showImage(currentIndex + 1));
@@ -1053,9 +1115,8 @@ async function loadNewsArticles(){
       category: typeof article.category === 'string' ? article.category : '',
       summary: typeof article.summary === 'string' ? article.summary : '',
       body: typeof article.body === 'string' ? article.body : '',
-      images: Array.isArray(article.images)
-        ? article.images.filter(image => typeof image === 'string' && image.trim())
-        : [],
+      images: (Array.isArray(article.images) ? article.images : [article.images])
+        .filter(image => typeof image === 'string' && image.trim()),
     })).sort((first, second)=>new Date(second.date).getTime() - new Date(first.date).getTime());
     renderNewsArticles(articles);
     status.hidden = true;
