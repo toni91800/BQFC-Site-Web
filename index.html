@@ -164,9 +164,9 @@
             <h3>Notre histoire</h3>
             <p>Retracez ici la création du Boussy Quincy FC, ses grandes étapes, ses figures marquantes et ses moments forts.</p>
             <ul class="timeline">
-              <li><span class="year">1966</span><br>Fondation du CS Quincy-sous-Sénart.</li>
-              <li><span class="year">1970</span><br>Fondation du FC Boussy-Saint-Antoine.</li>
-              <li><span class="year">1979-1983</span><br>Le jeune Claude Makélélé fait ses premiers pas de footballeur au FC Boussy avant sa carrière internationale.</li>
+              <li><span class="year">1966</span><br>Fondation du CS Quincy Football.</li>
+              <li><span class="year">1970</span><br>Fondation de l'US Boussy-Saint-Antoine (USBA).</li>
+              <li><span class="year">1979-1983</span><br>Le jeune Claude Makélélé fait ses premiers pas de footballeur au US Boussy-Saint-Antoine avant sa carrière internationale.</li>
               <li><span class="year">2004-2008</span><br>Le CS Quincy forme ses propres talents, dont le futur attaquant professionnel Florian Ayé.</li>
               <li><span class="year">2014-2015</span><br>Les deux clubs font face à un manque de bénévoles et à un besoin de moderniser leurs infrastructures.</li>
               <li><span class="year">2016</span><br>Fusion officielle des deux entités pour fonder le Boussy-Quincy Football Club (BQFC).</li>
@@ -175,25 +175,34 @@
               <li><span class="year">Aujourd'hui</span><br>Le BQFC s'impose comme un club solide et familial de la vallée de l'Yerres, fort de plusieurs centaines de licenciés.</li>            
             </ul>
           </div>
-          <div class="photo"><img src="images/archives_quincy.jpg" alt=""></div>
+          <div class="history-aside">
+            <figure class="history-photo-card">
+              <div class="photo"><img src="images/archives_quincy.jpg" alt="L'équipe du CS Quincy Football dans les années 70."></div>
+              <figcaption>L'équipe du CS Quincy Football dans les années 70.</figcaption>
+            </figure>
+            <div class="history-logos">
+              <figure class="history-logo-card">
+                <img src="images/logo%20quincy%20sous%20senart.png" alt="Ancien logo du club de Quincy-sous-Sénart" loading="lazy">
+                <figcaption>L’emblème du club de Quincy-sous-Sénart avant la fusion.</figcaption>
+              </figure>
+              <figure class="history-logo-card">
+                <img src="images/logo%20boussy%20saint%20antoine.png" alt="Ancien logo du club de Boussy-Saint-Antoine" loading="lazy">
+                <figcaption>L’emblème du club de Boussy-Saint-Antoine avant la fusion.</figcaption>
+              </figure>
+              <figure class="history-logo-card history-logo-card-current">
+                <img src="images/logo%20ancien.jpeg" alt="Ancien écusson du Boussy Quincy FC" loading="lazy">
+                <figcaption>Premier écusson du Boussy Quincy FC.</figcaption>
+              </figure>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- Organigramme -->
       <div class="subpanel" id="club-organigramme">
         <h3>Organigramme du club</h3>
-        <p>La présentation des membres du bureau arrive prochainement.</p>
-        <div class="org-grid">
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Président</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Vice-Président</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Trésorier</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Secrétaire</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Directeur sportif</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Responsable Écoles de foot</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Responsable Technique</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Responsable Communication</div><div class="name">Prochainement</div></div>
-          <div class="org-card"><div class="org-avatar"></div><div class="role">Responsable Partenariats</div><div class="name">Prochainement</div></div>
-        </div>
+        <p class="form-note" id="organigramme-load-status" role="status" aria-live="polite">Chargement de l'organigramme…</p>
+        <div class="org-grid" id="organigramme-grid"></div>
       </div>
 
       <!-- Planning -->
@@ -431,7 +440,6 @@
           <ul class="contact-info">
             <li><span class="ico">📍</span><div><strong>Adresse</strong><br>1 Rue de Rochopt, 91800 Boussy-Saint-Antoine</div></li>
             <li><span class="ico">✉️</span><div><strong>Email</strong><br>581835@lpiff.fr</div></li>
-            <li><span class="ico">🕒</span><div><strong>Permanence secrétariat</strong><br>Mercredi 17h - 19h</div></li>
           </ul>
           <div class="map-embed-wrap">
             <iframe class="map-embed" src="https://www.google.com/maps?q=48.6900747,2.5266134&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte d'accès au stade du Boussy Quincy FC"></iframe>
@@ -457,8 +465,9 @@
               </select>
             </div>
             <div class="form-row"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
+            <p class="form-error" id="contact-error" role="alert" hidden></p>
             <button type="submit" class="btn btn-primary">Envoyer le message</button>
-            <p class="form-note">Votre message sera transmis au club. Vous serez redirigé vers une page de confirmation après l'envoi.</p>
+            <p class="form-note" id="contact-submit-status" role="status">Votre message sera transmis au club. Un e-mail de confirmation sera envoyé à l'adresse indiquée.</p>
           </form>
         </div>
       </div>

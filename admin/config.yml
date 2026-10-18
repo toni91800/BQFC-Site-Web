@@ -64,3 +64,24 @@ collections:
                 required: false
                 field: { label: "Photo", name: "image", widget: "image" }
               - { label: "Texte de l'article", name: "body", widget: "text", hint: "Séparez les paragraphes par une ligne vide. Le résumé affiché dans la liste sera généré à partir du début de ce texte." }
+  - name: "organigramme"
+    label: "Organigramme"
+    description: "Ajouter ou supprimer des rôles et renseigner le prénom et la photo de chaque membre."
+    files:
+      - name: "membres"
+        label: "Membres du club"
+        file: "data/organigramme.json"
+        format: "json"
+        fields:
+          - label: "Rôles de l'organigramme"
+            name: "roles"
+            widget: "list"
+            add_to_top: true
+            collapsed: true
+            minimize_collapsed: true
+            label_singular: "rôle"
+            summary: "{{fields.role}} — {{fields.name}}"
+            fields:
+              - { label: "Rôle", name: "role", widget: "string" }
+              - { label: "Prénom(s) du/des membre(s)", name: "name", widget: "string", required: false, hint: "Laisser vide pour afficher « Prochainement »." }
+              - { label: "Photo du membre", name: "photo", widget: "image", required: false }

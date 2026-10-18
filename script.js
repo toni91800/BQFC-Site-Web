@@ -170,7 +170,7 @@ function buildEquipes(){
     ).join('');
     panel.innerHTML = `
       <div class="team-card">
-        <div class="photo">Photo de l'équipe<br>${cat.full}</div>
+        <div class="photo">Photo de l'équipe ${cat.full} à venir</div>
         <div class="info">
           <span class="badge">${cat.full}</span>
           <div class="team-meta">
@@ -371,6 +371,62 @@ function buildContacts(){
   CLUB_CONTACTS.forEach(contact=>{
     directionWrap.appendChild(contactCard(contact.role, contact.name, contact.phone));
   });
+}
+
+async function loadOrganigramme(){
+  const grid = document.getElementById('organigramme-grid');
+  const status = document.getElementById('organigramme-load-status');
+  if(!grid || !status) return;
+
+  try {
+    const response = await fetch('/data/organigramme.json');
+    if(!response.ok) throw new Error(`Échec du chargement de l'organigramme (${response.status}).`);
+    const data = await response.json();
+    if(!data || !Array.isArray(data.roles)){
+      throw new Error('Le fichier de l’organigramme a un format invalide.');
+    }
+
+    const roles = data.roles.filter(item =>
+      item && typeof item.role === 'string' && item.role.trim()
+    );
+    grid.replaceChildren();
+    roles.forEach(item => {
+      const card = document.createElement('article');
+      card.className = 'org-card';
+
+      const avatar = document.createElement('div');
+      avatar.className = 'org-avatar';
+      if(typeof item.photo === 'string' && item.photo.trim()){
+        const image = document.createElement('img');
+        image.src = item.photo;
+        image.alt = item.name ? `Photo de ${item.name}` : `Photo — ${item.role}`;
+        image.loading = 'lazy';
+        avatar.appendChild(image);
+      }
+
+      const role = document.createElement('div');
+      role.className = 'role';
+      role.textContent = item.role;
+      const name = document.createElement('div');
+      name.className = 'name';
+      name.textContent = typeof item.name === 'string' && item.name.trim()
+        ? item.name.trim()
+        : 'Prochainement';
+
+      card.append(avatar, role, name);
+      grid.appendChild(card);
+    });
+
+    status.hidden = true;
+    if(!roles.length){
+      status.hidden = false;
+      status.textContent = 'L’organigramme sera bientôt disponible.';
+    }
+  } catch(error) {
+    console.error('Unable to load club organigramme:', error);
+    status.textContent = 'L’organigramme n’est pas accessible actuellement.';
+    status.setAttribute('role', 'alert');
+  }
 }
  
 function escapeHTML(value){
@@ -690,6 +746,71 @@ function bindPreinscriptionForm(){
     }
   });
 }
+
+function bindContactForm(){
+  const form = document.getElementById('contactForm');
+  if(!form) return;
+  const errorBox = document.getElementById('contact-error');
+  const status = document.getElementById('contact-submit-status');
+  const submitButton = form.querySelector('button[type="submit"]');
+  let submitting = false;
+
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    if(submitting) return;
+
+    errorBox.hidden = true;
+    errorBox.style.display = 'none';
+    submitting = true;
+    submitButton.disabled = true;
+    submitButton.textContent = 'Envoi en cours…';
+    status.textContent = 'Transmission de votre message et préparation de l’e-mail de confirmation…';
+
+    try {
+      const formData = new FormData(form);
+      const submissionResponse = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData),
+        credentials: 'same-origin',
+      });
+      if(!submissionResponse.ok){
+        throw new Error('La transmission du message au club a échoué.');
+      }
+
+      let confirmationSent = false;
+      try {
+        const confirmationResponse = await fetch('/.netlify/functions/send-contact-confirmation', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            botField: String(formData.get('bot-field') || ''),
+            fields: Object.fromEntries([...formData.entries()]
+              .filter(([name]) => !['form-name', 'bot-field'].includes(name))
+              .map(([name, value]) => [name, String(value)])),
+          }),
+        });
+        const result = await confirmationResponse.json();
+        confirmationSent = confirmationResponse.ok && result.confirmationSent === true;
+      } catch(error) {
+        console.error('Unable to send contact confirmation:', error);
+      }
+
+      const thankYouUrl = new URL(form.action, window.location.href);
+      thankYouUrl.searchParams.set('confirmation', confirmationSent ? 'envoyee' : 'indisponible');
+      window.location.assign(thankYouUrl);
+    } catch(error) {
+      console.error('Unable to submit contact form:', error);
+      errorBox.textContent = "Votre message n’a pas pu être transmis. Vérifiez votre connexion puis réessayez.";
+      errorBox.hidden = false;
+      errorBox.style.display = 'block';
+      status.textContent = 'L’envoi a échoué. Vos informations n’ont pas été transmises.';
+      submitButton.textContent = 'Envoyer le message';
+      submitButton.disabled = false;
+      submitting = false;
+    }
+  });
+}
  
 /* ---------- 5bis. Menus déroulants "Les Équipes" / "Résultats" + tableau planning ---------- */
 function buildDropdownsAndPlanning(){
@@ -956,10 +1077,12 @@ function bindNewsArticles(){
 document.addEventListener('DOMContentLoaded', ()=>{
   buildEquipes();
   buildContacts();
+  loadOrganigramme();
   loadResultats();
   buildAgenda();
   bindAdhesionTabs();
   bindPreinscriptionForm();
+  bindContactForm();
   buildDropdownsAndPlanning();
   bindNavLinks();
   bindDropdowns();

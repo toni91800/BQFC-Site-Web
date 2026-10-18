@@ -286,14 +286,16 @@ body:has(#nc-root) [class*="SortableListItem"] {
   background: #fff;
 }
 
-body:has(#nc-root) [id^="articles-field-"] {
+body:has(#nc-root) [id^="articles-field-"],
+body:has(#nc-root) [id^="roles-field-"] {
   margin: 0;
   padding: 0;
   border: 0;
   background: transparent;
 }
 
-body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"] {
+body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"],
+body:has(#nc-root) [id^="roles-field-"] > [class*="TopBarContainer"] {
   justify-content: flex-end;
   margin: 0;
   padding: 0;
@@ -301,11 +303,14 @@ body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"] {
 }
 
 body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"] > [class*="ExpandButtonContainer"],
-body:has(#nc-root) label[for^="articles-field-"] {
+body:has(#nc-root) [id^="roles-field-"] > [class*="TopBarContainer"] > [class*="ExpandButtonContainer"],
+body:has(#nc-root) label[for^="articles-field-"],
+body:has(#nc-root) label[for^="roles-field-"] {
   display: none;
 }
 
-body:has(#nc-root) [id^="articles-field-"] [class*="SortableListItem"] {
+body:has(#nc-root) [id^="articles-field-"] [class*="SortableListItem"],
+body:has(#nc-root) [id^="roles-field-"] [class*="SortableListItem"] {
   margin-block: .75rem;
 }
 

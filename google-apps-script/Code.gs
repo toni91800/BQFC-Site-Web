@@ -31,6 +31,10 @@ function doPost(event) {
       return jsonResponse({ saved: false, error: 'unauthorized' });
     }
 
+    if (request.action === 'contact-confirmation') {
+      return sendContactConfirmation(request.fields);
+    }
+
     const fields = request.fields;
     if (
       !fields ||
@@ -58,8 +62,8 @@ function doPost(event) {
     const firstName = fields.prenom.trim();
     const escapedFirstName = escapeHtml(firstName);
     const subject = 'Votre demande de préinscription a bien été reçue';
-    const textBody = `Bonjour ${firstName},\n\nNous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.\n\nCette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.\n\nL'équipe du Boussy Quincy FC`;
-    const htmlBody = `<p>Bonjour ${escapedFirstName},</p><p>Nous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.</p><p>Cette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.</p><p>L'équipe du Boussy Quincy FC</p>`;
+    const textBody = `Bonjour ${firstName},\n\nNous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.\n\nCette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.\n\nSportivement,\nL'équipe du Boussy-Quincy FC`;
+    const htmlBody = `<p>Bonjour ${escapedFirstName},</p><p>Nous confirmons la bonne réception de votre demande de préinscription au Boussy Quincy FC.</p><p>Cette confirmation atteste uniquement de la réception de votre demande. Elle ne vaut pas validation de l’inscription. Le club reviendra vers vous après étude de votre demande et des places disponibles.</p><p>Sportivement,<br>L'équipe du Boussy-Quincy FC</p>`;
     try {
       MailApp.sendEmail({
         to: fields.email.trim(),
@@ -77,6 +81,52 @@ function doPost(event) {
   } catch (error) {
     console.error(`Unable to save registration: ${error}`);
     return jsonResponse({ saved: false, emailSent: false, error: 'save_failed' });
+  }
+}
+
+function sendContactConfirmation(fields) {
+  if (
+    !fields ||
+    typeof fields.email !== 'string' || fields.email.length > 254 ||
+    !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email.trim()) ||
+    typeof fields.prenom !== 'string' || !fields.prenom.trim() || fields.prenom.length > 100 ||
+    typeof fields.nom !== 'string' || !fields.nom.trim() || fields.nom.length > 100 ||
+    typeof fields.sujet !== 'string' || !fields.sujet.trim() || fields.sujet.length > 150 ||
+    typeof fields.message !== 'string' || !fields.message.trim() || fields.message.length > 5000
+  ) {
+    return jsonResponse({ saved: false, emailSent: false, error: 'invalid_submission' });
+  }
+
+  const recipient = fields.email.trim();
+  const rateLimitKey = `contact-confirmation-${Utilities.base64EncodeWebSafe(
+    Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, recipient.toLowerCase())
+  )}`;
+  const cache = CacheService.getScriptCache();
+  if (cache.get(rateLimitKey)) {
+    return jsonResponse({ saved: false, emailSent: false, error: 'rate_limited' });
+  }
+
+  const firstName = fields.prenom.trim();
+  const escapedFirstName = escapeHtml(firstName);
+  const escapedSubject = escapeHtml(fields.sujet.trim());
+  const subject = 'Nous avons bien reçu votre message — Boussy Quincy FC';
+  const textBody = `Bonjour ${firstName},\n\nNous vous confirmons la bonne réception de votre message au sujet de « ${fields.sujet.trim()} ».\n\nLe club en prendra connaissance et vous répondra dès que possible.\n\nSportivement,\nL'équipe du Boussy-Quincy FC`;
+  const htmlBody = `<p>Bonjour ${escapedFirstName},</p><p>Nous vous confirmons la bonne réception de votre message au sujet de « ${escapedSubject} ».</p><p>Le club en prendra connaissance et vous répondra dès que possible.</p><p>Sportivement,<br>L'équipe du Boussy-Quincy FC</p>`;
+
+  try {
+    MailApp.sendEmail({
+      to: recipient,
+      subject,
+      body: textBody,
+      htmlBody,
+      name: 'Boussy Quincy FC',
+      replyTo: CLUB_EMAIL,
+    });
+    cache.put(rateLimitKey, 'sent', 60);
+    return jsonResponse({ saved: true, emailSent: true });
+  } catch (error) {
+    console.error(`Contact confirmation email failed: ${error}`);
+    return jsonResponse({ saved: false, emailSent: false, error: 'email_failed' });
   }
 }
 

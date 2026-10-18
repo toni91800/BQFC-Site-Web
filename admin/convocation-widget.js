@@ -116,24 +116,29 @@
     },
   });
 
-  function expandNewsArticleList(){
-    const articleList = document.querySelector('#nc-root [id^="articles-field-"]');
-    if(!articleList || articleList.dataset.newsListOpened) return;
+  function expandCmsList(fieldName){
+    const list = document.querySelector(`#nc-root [id^="${fieldName}-field-"]`);
+    if(!list || list.dataset.cmsListOpened) return;
 
-    const toggle = articleList.querySelector('button[data-testid="expand-button"]');
+    const toggle = list.querySelector('button[data-testid="expand-button"]');
     if(!toggle) return;
 
-    articleList.dataset.newsListOpened = 'pending';
+    list.dataset.cmsListOpened = 'pending';
     requestAnimationFrame(() => {
-      if(!articleList.isConnected || !toggle.isConnected) return;
+      if(!list.isConnected || !toggle.isConnected) return;
       toggle.click();
-      articleList.dataset.newsListOpened = 'true';
+      list.dataset.cmsListOpened = 'true';
     });
   }
 
-  const newsListObserver = new MutationObserver(expandNewsArticleList);
-  newsListObserver.observe(document.body, {childList: true, subtree: true});
-  expandNewsArticleList();
+  function expandCmsLists(){
+    expandCmsList('articles');
+    expandCmsList('roles');
+  }
+
+  const cmsListObserver = new MutationObserver(expandCmsLists);
+  cmsListObserver.observe(document.body, {childList: true, subtree: true});
+  expandCmsLists();
 
   function createEmptyTeam(){
     return {opponent: '', date: '', location: '', meetingTime: '', matchTime: '', players: []};

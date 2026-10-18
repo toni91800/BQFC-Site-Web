@@ -357,6 +357,22 @@ main section:nth-of-type(even){ background:var(--white); }
   font-family:var(--font-display); font-size:1rem; letter-spacing:.08em; text-align:center; padding:20px;
   border:1px solid #e6ddc9;
 }
+.content-block .photo img{ width:100%; height:100%; object-fit:cover; }
+.history-aside{ display:grid; gap:16px; }
+.history-photo-card{
+  margin:0; padding:12px; background:var(--white); border:1px solid #e6ddc9; text-align:center;
+}
+.history-photo-card .photo{ aspect-ratio:4/3; }
+.history-photo-card figcaption{ padding-top:10px; color:#5a5142; font-size:.78rem; line-height:1.45; }
+.history-logos{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.history-logo-card{
+  display:flex; flex-direction:column; align-items:center; justify-content:space-between; gap:10px;
+  margin:0; padding:12px; background:var(--white); border:1px solid #e6ddc9; text-align:center;
+}
+.history-logo-card img{ width:100%; height:100px; object-fit:contain; }
+.history-logo-card figcaption{ color:#5a5142; font-size:.78rem; line-height:1.45; }
+.history-logo-card-current{ grid-column:1 / -1; }
+.history-logo-card-current img{ height:180px; }
 .content-block h3{ font-size:1.4rem; margin-top:0; }
 
 .timeline{ border-left:3px solid var(--gold); padding-left:22px; margin-top:26px; }
@@ -375,6 +391,10 @@ main section:nth-of-type(even){ background:var(--white); }
 .org-avatar{
   width:64px; height:64px; border-radius:50%; margin:0 auto 12px;
   background:linear-gradient(145deg,var(--gold),var(--bronze));
+  overflow:hidden;
+}
+.org-avatar img{
+  width:100%; height:100%; display:block; object-fit:cover;
 }
 .org-card .role{ font-size:.72rem; letter-spacing:.08em; color:var(--peach); text-transform:uppercase; font-weight:700; }
 .org-card .name{ font-weight:600; margin-top:2px; }

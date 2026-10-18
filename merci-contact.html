@@ -13,8 +13,20 @@
       <span class="kicker">Boussy Quincy FC</span>
       <h1>Merci pour votre message</h1>
       <p>Votre demande a bien été transmise au club. Nous reviendrons vers vous dès que possible.</p>
+      <p id="contact-confirmation-status" role="status" hidden></p>
       <a class="btn btn-primary" href="index.html">Retour au site</a>
     </div>
   </main>
+  <script>
+    const confirmationStatus = document.getElementById('contact-confirmation-status');
+    const confirmation = new URLSearchParams(window.location.search).get('confirmation');
+    if(confirmation === 'envoyee'){
+      confirmationStatus.textContent = 'Un e-mail de confirmation vient de vous être envoyé.';
+      confirmationStatus.hidden = false;
+    } else if(confirmation === 'indisponible'){
+      confirmationStatus.textContent = 'L’e-mail de confirmation n’a pas pu être envoyé. Votre message a bien été transmis au club.';
+      confirmationStatus.hidden = false;
+    }
+  </script>
 </body>
 </html>
