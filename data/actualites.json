@@ -1,6 +1,20 @@
 {
   "articles": [
     {
+      "slug": "preparation-u15-f",
+      "category": "Vie du club",
+      "summary": "Ce week-end nos U15 F étaient en préparation !",
+      "title": "Préparation U15 F",
+      "body": "Ce week-end nos U15 F étaient en préparation !",
+      "date": "06/10/2026",
+      "images": [
+        "/images/uploads/u15f-en-préparation-🟡⚫️.jpg",
+        "/images/uploads/u15f-en-préparation-🟡⚫️-1-.jpg",
+        "/images/uploads/u15f-en-préparation-🟡⚫️-4-.jpg",
+        "/images/uploads/u15f-en-préparation-🟡⚫️-3-.jpg"
+      ]
+    },
+    {
       "slug": "journee-de-rentree-u11f-u13f",
       "category": "Tournoi",
       "summary": "Ce samedi, notre club a eu le plaisir d’accueillir la journée de rentrée U11F et U13F. 🙌🏽 Une belle journée placée sous le signe du football, du partage et de la…",
