@@ -58,7 +58,20 @@ collections:
               - { label: "Date", name: "date", widget: "string", hint: "Saisissez la date au format JJ/MM/AAAA, par exemple 27/09/2026." }
               - { label: "Catégorie", name: "category", widget: "newsCategory", default: "Informations", hint: "Choisissez une catégorie dans la liste. Pour en créer une, sélectionnez « Autre » puis saisissez son nom ; elle sera proposée dans la liste lors de vos prochaines utilisations." }
               - { label: "Résumé automatique", name: "summary", widget: "hidden", required: false, default: "" }
-              - { label: "Photos de l'article", name: "images", widget: "image", allow_multiple: true, required: false, hint: "Ajoutez plusieurs photos à cet article avec le bouton de la médiathèque. Les photos choisies apparaissent en vignettes : utilisez les boutons près de chaque vignette pour remplacer ou retirer une photo, et faites glisser les vignettes pour les réordonner. Le téléversement depuis l’ordinateur se fait une photo à la fois." }
+              - label: "Photos de l'article"
+                name: "images"
+                widget: "list"
+                required: false
+                add_to_top: true
+                label_singular: "photo"
+                allow_add: true
+                allow_remove: true
+                allow_reorder: true
+                hint: "Cliquez sur « Ajouter photo » pour ajouter une nouvelle image sans remplacer les précédentes. Chaque photo se règle séparément ; vous pouvez les réordonner ou les supprimer."
+                field:
+                  label: "Photo"
+                  name: "photo"
+                  widget: "image"
               - { label: "Texte de l'article", name: "body", widget: "text", hint: "Séparez les paragraphes par une ligne vide. Le résumé affiché dans la liste sera généré à partir du début de ce texte." }
   - name: "organigramme"
     label: "Organigramme"
