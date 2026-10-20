@@ -1,6 +1,23 @@
 {
   "articles": [
     {
+      "slug": "photos-du-week-end-dernier",
+      "category": "Vie du club",
+      "summary": "Les belles photos du week-end dernier de nos U14 ! On lâche rien 🟡⚫️",
+      "title": "Photos du week-end dernier",
+      "date": "08/10/2026",
+      "body": "Les belles photos du week-end dernier de nos U14 ! \n\nOn lâche rien 🟡⚫️\n",
+      "images": [
+        "/images/uploads/on-lache-rien-🟡⚫️.jpg",
+        "/images/uploads/on-lache-rien-🟡⚫️-6-.jpg",
+        "/images/uploads/on-lache-rien-🟡⚫️-4-.jpg",
+        "/images/uploads/on-lache-rien-🟡⚫️-7-.jpg",
+        "/images/uploads/on-lache-rien-🟡⚫️-5-.jpg",
+        "/images/uploads/on-lache-rien-🟡⚫️-3-.jpg",
+        "/images/uploads/on-lache-rien-🟡⚫️-2-.jpg"
+      ]
+    },
+    {
       "slug": "reprise-des-matchs-u11",
       "category": "Reprise",
       "summary": "On a eu le droit au retour des U11 à domicile ce samedi. Et on a vu du beau football 🟡⚫️",
