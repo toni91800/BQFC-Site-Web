@@ -899,14 +899,36 @@ function bindStaticSubtabs(){
 }
 
 function formatNewsDate(value){
-  const date = new Date(`${value}T00:00:00Z`);
-  if(Number.isNaN(date.getTime())) return value;
+  const date = parseNewsDate(value);
+  if(!date) return value;
   return new Intl.DateTimeFormat('fr-FR', {
     day: 'numeric',
     month: 'short',
     year: 'numeric',
     timeZone: 'UTC',
   }).format(date);
+}
+
+function parseNewsDate(value){
+  if(typeof value !== 'string') return null;
+  let match = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  let year;
+  let month;
+  let day;
+  if(match){
+    [, year, month, day] = match;
+  } else {
+    match = value.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if(!match) return null;
+    [, day, month, year] = match;
+  }
+  const date = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+  if(
+    date.getUTCFullYear() !== Number(year) ||
+    date.getUTCMonth() !== Number(month) - 1 ||
+    date.getUTCDate() !== Number(day)
+  ) return null;
+  return date;
 }
 
 function renderNewsBody(body, container){
@@ -1020,6 +1042,7 @@ function renderNewsArticles(articles){
         };
 
         enlargeButton.addEventListener('click', ()=>{
+          showImage(currentIndex);
           imageDialog.showModal();
         });
         dialogPrevious.addEventListener('click', ()=>showImage(currentIndex - 1));
@@ -1102,14 +1125,9 @@ async function loadNewsArticles(){
     if(!data || !Array.isArray(data.articles)){
       throw new Error('Le fichier des actualités a un format invalide.');
     }
-    const validDate = value => {
-      if(typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-      const parsed = new Date(`${value}T00:00:00Z`);
-      return !Number.isNaN(parsed.getTime()) && parsed.toISOString().slice(0, 10) === value;
-    };
     const articles = data.articles.filter(article =>
       article && typeof article.title === 'string' &&
-      validDate(article.date) && typeof article.slug === 'string'
+      parseNewsDate(article.date) && typeof article.slug === 'string'
     ).map(article=>({
       ...article,
       category: typeof article.category === 'string' ? article.category : '',
@@ -1117,7 +1135,7 @@ async function loadNewsArticles(){
       body: typeof article.body === 'string' ? article.body : '',
       images: (Array.isArray(article.images) ? article.images : [article.images])
         .filter(image => typeof image === 'string' && image.trim()),
-    })).sort((first, second)=>new Date(second.date).getTime() - new Date(first.date).getTime());
+    })).sort((first, second)=>parseNewsDate(second.date) - parseNewsDate(first.date));
     renderNewsArticles(articles);
     status.hidden = true;
   } catch(error) {

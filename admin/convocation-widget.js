@@ -31,6 +31,30 @@
     {competition: 'coupe', team: 'seniors1', label: 'Coupe — Séniors 1'},
     {competition: 'coupe', team: 'seniors2', label: 'Coupe — Séniors 2'},
   ];
+  const NEWS_CATEGORY_CHOICES = ['Matchs', 'Résultats', 'Reprise', 'Vie du club', 'Informations', 'Autre'];
+  const newsCategoryOptions = new Set(NEWS_CATEGORY_CHOICES);
+  let newsCategoryLoadPromise;
+
+  function loadNewsCategoryOptions(){
+    if(!newsCategoryLoadPromise){
+      newsCategoryLoadPromise = fetch('/data/actualites.json', {cache: 'no-cache'})
+        .then(response => {
+          if(!response.ok) throw new Error(`Chargement des catégories impossible (${response.status}).`);
+          return response.json();
+        })
+        .then(data => {
+          if(!data || !Array.isArray(data.articles)){
+            throw new Error('Le fichier des actualités ne contient pas une liste d’articles valide.');
+          }
+          data.articles.forEach(article => {
+            if(typeof article?.category === 'string' && article.category.trim()){
+              newsCategoryOptions.add(article.category.trim());
+            }
+          });
+        });
+    }
+    return newsCategoryLoadPromise;
+  }
 
   function toPlain(value){
     return value && typeof value.toJS === 'function' ? value.toJS() : value;
@@ -58,10 +82,25 @@
 
   function getNewsDate(article){
     const date = article.get('date');
-    if(typeof date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(date)) return '';
-    const parsedDate = new Date(`${date}T00:00:00Z`);
-    if(Number.isNaN(parsedDate.getTime())) return '';
-    return parsedDate.toISOString().slice(0, 10) === date ? date : '';
+    if(typeof date !== 'string') return '';
+    let year;
+    let month;
+    let day;
+    let match = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(match){
+      [, year, month, day] = match;
+    } else {
+      match = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+      if(!match) return '';
+      [, day, month, year] = match;
+    }
+    const parsedDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
+    if(
+      parsedDate.getUTCFullYear() !== Number(year) ||
+      parsedDate.getUTCMonth() !== Number(month) - 1 ||
+      parsedDate.getUTCDate() !== Number(day)
+    ) return '';
+    return parsedDate.toISOString().slice(0, 10);
   }
 
   window.CMS.registerEventListener({
@@ -139,6 +178,93 @@
   const cmsListObserver = new MutationObserver(expandCmsLists);
   cmsListObserver.observe(document.body, {childList: true, subtree: true});
   expandCmsLists();
+
+  const NewsCategoryControl = createClass({
+    getInitialState(){
+      return {
+        customMode: this.props.value === 'Autre',
+        optionsLoaded: false,
+        optionsError: '',
+      };
+    },
+
+    componentDidMount(){
+      loadNewsCategoryOptions()
+        .then(() => this.setState({optionsLoaded: true}))
+        .catch(error => {
+          console.error('Unable to load saved news categories:', error);
+          this.setState({
+            optionsLoaded: true,
+            optionsError: 'Les anciennes catégories n’ont pas pu être chargées. Vous pouvez toujours choisir une catégorie existante ou en saisir une nouvelle.',
+          });
+        });
+    },
+
+    changeCategory(event){
+      const value = event.target.value;
+      const customMode = value === 'Autre';
+      this.setState({customMode});
+      this.props.onChange(value);
+    },
+
+    changeCustomCategory(event){
+      const value = event.target.value;
+      const normalizedValue = value.trim();
+      if(normalizedValue) newsCategoryOptions.add(normalizedValue);
+      this.props.onChange(value);
+    },
+
+    render(){
+      const currentValue = typeof this.props.value === 'string' ? this.props.value : '';
+      const customOptions = [...newsCategoryOptions]
+        .filter(category => !NEWS_CATEGORY_CHOICES.includes(category))
+        .sort((first, second) => first.localeCompare(second, 'fr'));
+      if(currentValue && !newsCategoryOptions.has(currentValue)){
+        customOptions.push(currentValue);
+      }
+      const selectValue = this.state.customMode ? 'Autre' : currentValue;
+      return h('div', {className: 'news-category-control'}, [
+        h('label', {key: 'select-label', className: 'news-category-field'}, [
+          h('span', {key: 'label'}, 'Catégorie de l’article'),
+          h('select', {
+            key: 'select',
+            value: selectValue,
+            onChange: event => this.changeCategory(event),
+          }, [
+            ...NEWS_CATEGORY_CHOICES.slice(0, -1).map(category =>
+              h('option', {key: category, value: category}, category)
+            ),
+            ...customOptions.map(category =>
+              h('option', {key: `custom-${category}`, value: category}, category)
+            ),
+            h('option', {key: 'other', value: 'Autre'}, 'Autre — saisir une catégorie'),
+          ]),
+        ]),
+        this.state.customMode ? h('label', {
+          key: 'custom-label',
+          className: 'news-category-field',
+        }, [
+          h('span', {key: 'label'}, 'Nom de la nouvelle catégorie'),
+          h('input', {
+            key: 'input',
+            type: 'text',
+            value: currentValue === 'Autre' ? '' : currentValue,
+            placeholder: 'Saisissez votre catégorie',
+            onChange: event => this.changeCustomCategory(event),
+          }),
+        ]) : null,
+        this.state.optionsError ? h('p', {
+          key: 'error',
+          className: 'news-category-error',
+          role: 'alert',
+        }, this.state.optionsError) : null,
+        !this.state.optionsLoaded || customOptions.length === 0 ? null : h('p', {
+          key: 'help',
+          className: 'news-category-help',
+        }, 'Les catégories personnalisées enregistrées sont également disponibles dans cette liste.'),
+      ]);
+    },
+  });
 
   function createEmptyTeam(){
     return {opponent: '', date: '', location: '', meetingTime: '', matchTime: '', players: []};
@@ -392,6 +518,7 @@
     },
   });
 
+  window.CMS.registerWidget('newsCategory', NewsCategoryControl);
   window.CMS.registerWidget('convocationCategories', ConvocationCategoriesControl);
   window.CMS.registerWidget('resultsByCategory', ResultsByCategoryControl);
 })();
