@@ -1,6 +1,29 @@
 {
   "articles": [
     {
+      "slug": "dimanche-de-victoires",
+      "category": "Résultats",
+      "summary": "Nos deux équipes seniors s’imposent ce dimanche et réalisent un sans-faute ! 💪🏽 🟡 SENIORS A 🏆 Victoire 2-0 à domicile face à la Jeunesse Étampoise. ⚽️ Cyril 8’ ⚽️ Vilshan…",
+      "date": "04/10/2026",
+      "title": "Dimanche de victoires",
+      "body": "Nos deux équipes seniors s’imposent ce dimanche et réalisent un sans-faute ! 💪🏽\n\n🟡 SENIORS A\n🏆 Victoire 2-0 à domicile face à la Jeunesse Étampoise.\n⚽️ Cyril 8’\n⚽️ Vilshan 85’\n\n🟡 SENIORS B\n💥 Victoire 4-3 sur la pelouse du Racing Club 91.\n\nDeux victoires qui viennent récompenser le travail du groupe et lancer une belle dynamique. 👊🏽\n\n📅 Rendez-vous la semaine prochaine !\nLe travail continue ! 🟡⚫",
+      "images": [
+        "/images/uploads/🟡⚫-un-dimanche-de-victoires-🔥nos-deux-équipes-seniors-s’imposent-ce-dimanche-et-réalisent-un.jpg",
+        "/images/uploads/🟡⚫-un-dimanche-de-victoires-🔥nos-deux-équipes-seniors-s’imposent-ce-dimanche-et-réalisent-un-1-.jpg"
+      ]
+    },
+    {
+      "slug": "octobre-rose",
+      "category": "Informations",
+      "summary": "🎀 BOUSSY-QUINCY FC VOIT LA VIE EN ROSE ! 💗 À l’occasion d’Octobre Rose, FC Boussy-Quincy est fier de s’associer à cette belle mobilisation. 🌸 En ce mois d’octobre, notre…",
+      "title": "Octobre Rose",
+      "date": "01/10/2026",
+      "images": [
+        "/images/uploads/design-sans-titre.png"
+      ],
+      "body": "🎀 BOUSSY-QUINCY FC VOIT LA VIE EN ROSE ! 💗\n\nÀ l’occasion d’Octobre Rose, FC Boussy-Quincy est fier de s’associer à cette belle mobilisation. 🌸\n\nEn ce mois d’octobre, notre club s’associe symboliquement à cette mobilisation et adresse une pensée à toutes les personnes touchées par la maladie, ainsi qu’à leurs proches. 💗\n\nUn peu de rose, beaucoup de solidarité et surtout une belle énergie pour soutenir cette belle cause ! 💕⚽\n\n🎀 Tous ensemble pour Octobre Rose !"
+    },
+    {
       "slug": "entrainement-feminines",
       "category": "Vie du club",
       "summary": "On a eu le droit à des entraînements spécifique pour les U15F et seniors F. 🟡⚫️",
@@ -8,11 +31,11 @@
       "date": "28/09/2026",
       "body": "On a eu le droit à des entraînements spécifique pour les U15F et seniors F. 🟡⚫️",
       "images": [
-        "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️-4-.jpg",
-        "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️-3-.jpg",
+        "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️.jpg",
         "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️-2-.jpg",
         "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️-1-.jpg",
-        "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️.jpg"
+        "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️-3-.jpg",
+        "/images/uploads/on-a-eu-le-droit-à-des-entraînements-spécifique-pour-les-u15f-et-seniors-f.🟡⚫️-4-.jpg"
       ]
     },
     {
