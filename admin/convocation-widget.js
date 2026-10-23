@@ -31,129 +31,9 @@
     {competition: 'coupe', team: 'seniors1', label: 'Coupe — Séniors 1'},
     {competition: 'coupe', team: 'seniors2', label: 'Coupe — Séniors 2'},
   ];
-  const NEWS_CATEGORY_CHOICES = ['Matchs', 'Résultats', 'Reprise', 'Vie du club', 'Informations', 'Autre'];
-  const newsCategoryOptions = new Set(NEWS_CATEGORY_CHOICES);
-  let newsCategoryLoadPromise;
-
-  function loadNewsCategoryOptions(){
-    if(!newsCategoryLoadPromise){
-      newsCategoryLoadPromise = fetch('/data/actualites.json', {cache: 'no-cache'})
-        .then(response => {
-          if(!response.ok) throw new Error(`Chargement des catégories impossible (${response.status}).`);
-          return response.json();
-        })
-        .then(data => {
-          if(!data || !Array.isArray(data.articles)){
-            throw new Error('Le fichier des actualités ne contient pas une liste d’articles valide.');
-          }
-          data.articles.forEach(article => {
-            if(typeof article?.category === 'string' && article.category.trim()){
-              newsCategoryOptions.add(article.category.trim());
-            }
-          });
-        });
-    }
-    return newsCategoryLoadPromise;
-  }
-
   function toPlain(value){
     return value && typeof value.toJS === 'function' ? value.toJS() : value;
   }
-
-  function createNewsSlug(title){
-    const slug = String(title || '')
-      .toLowerCase()
-      .replace(/œ/g, 'oe')
-      .replace(/æ/g, 'ae')
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-|-$/g, '');
-    return slug || 'actualite';
-  }
-
-  function createNewsSummary(body){
-    const summary = String(body || '').replace(/\s+/g, ' ').trim();
-    if(summary.length <= 180) return summary;
-    const excerpt = summary.slice(0, 177);
-    const lastSpace = excerpt.lastIndexOf(' ');
-    return `${excerpt.slice(0, lastSpace > 120 ? lastSpace : 177).trimEnd()}…`;
-  }
-
-  function getNewsDate(article){
-    const date = article.get('date');
-    if(typeof date !== 'string') return '';
-    let year;
-    let month;
-    let day;
-    let match = date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if(match){
-      [, year, month, day] = match;
-    } else {
-      match = date.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
-      if(!match) return '';
-      [, day, month, year] = match;
-    }
-    const parsedDate = new Date(Date.UTC(Number(year), Number(month) - 1, Number(day)));
-    if(
-      parsedDate.getUTCFullYear() !== Number(year) ||
-      parsedDate.getUTCMonth() !== Number(month) - 1 ||
-      parsedDate.getUTCDate() !== Number(day)
-    ) return '';
-    return parsedDate.toISOString().slice(0, 10);
-  }
-
-  window.CMS.registerEventListener({
-    name: 'preSave',
-    handler: ({entry}) => {
-      const data = entry.get('data');
-      const articles = data.get('articles');
-      if(!articles || typeof articles.map !== 'function') return data;
-
-      const reservedSlugs = new Set();
-      articles.forEach(article => {
-        const baseSlug = createNewsSlug(article.get('title'));
-        const existingSlug = article.get('slug');
-        const existingSuffix = typeof existingSlug === 'string' && existingSlug.startsWith(`${baseSlug}-`)
-          ? existingSlug.slice(baseSlug.length + 1)
-          : '';
-        if(existingSlug === baseSlug || (/^\d+$/.test(existingSuffix) &&
-          Number(existingSuffix) >= 2 && String(Number(existingSuffix)) === existingSuffix)){
-          reservedSlugs.add(existingSlug);
-        }
-      });
-
-      const assignedSlugs = new Set();
-      const updatedArticles = articles.map(article => {
-        const baseSlug = createNewsSlug(article.get('title'));
-        const existingSlug = article.get('slug');
-        const existingSuffix = typeof existingSlug === 'string' && existingSlug.startsWith(`${baseSlug}-`)
-          ? existingSlug.slice(baseSlug.length + 1)
-          : '';
-        const canKeepSlug = (existingSlug === baseSlug ||
-          (/^\d+$/.test(existingSuffix) &&
-            Number(existingSuffix) >= 2 && String(Number(existingSuffix)) === existingSuffix)) &&
-          !assignedSlugs.has(existingSlug);
-        let slug = canKeepSlug ? existingSlug : baseSlug;
-        let numberSuffix = 2;
-        while(assignedSlugs.has(slug) || (!canKeepSlug && reservedSlugs.has(slug))) {
-          slug = `${baseSlug}-${numberSuffix++}`;
-        }
-        assignedSlugs.add(slug);
-        return article
-          .set('slug', slug)
-          .set('summary', createNewsSummary(article.get('body')));
-      });
-      const sortedArticles = updatedArticles.sort((first, second) => {
-        const firstDate = getNewsDate(first);
-        const secondDate = getNewsDate(second);
-        if(!firstDate) return secondDate ? 1 : 0;
-        if(!secondDate) return -1;
-        return secondDate.localeCompare(firstDate);
-      });
-      return data.set('articles', sortedArticles);
-    },
-  });
 
   function expandCmsList(fieldName){
     const list = document.querySelector(`#nc-root [id^="${fieldName}-field-"]`);
@@ -171,100 +51,12 @@
   }
 
   function expandCmsLists(){
-    expandCmsList('articles');
     expandCmsList('roles');
   }
 
   const cmsListObserver = new MutationObserver(expandCmsLists);
   cmsListObserver.observe(document.body, {childList: true, subtree: true});
   expandCmsLists();
-
-  const NewsCategoryControl = createClass({
-    getInitialState(){
-      return {
-        customMode: this.props.value === 'Autre',
-        optionsLoaded: false,
-        optionsError: '',
-      };
-    },
-
-    componentDidMount(){
-      loadNewsCategoryOptions()
-        .then(() => this.setState({optionsLoaded: true}))
-        .catch(error => {
-          console.error('Unable to load saved news categories:', error);
-          this.setState({
-            optionsLoaded: true,
-            optionsError: 'Les anciennes catégories n’ont pas pu être chargées. Vous pouvez toujours choisir une catégorie existante ou en saisir une nouvelle.',
-          });
-        });
-    },
-
-    changeCategory(event){
-      const value = event.target.value;
-      const customMode = value === 'Autre';
-      this.setState({customMode});
-      this.props.onChange(value);
-    },
-
-    changeCustomCategory(event){
-      const value = event.target.value;
-      const normalizedValue = value.trim();
-      if(normalizedValue) newsCategoryOptions.add(normalizedValue);
-      this.props.onChange(value);
-    },
-
-    render(){
-      const currentValue = typeof this.props.value === 'string' ? this.props.value : '';
-      const customOptions = [...newsCategoryOptions]
-        .filter(category => !NEWS_CATEGORY_CHOICES.includes(category))
-        .sort((first, second) => first.localeCompare(second, 'fr'));
-      if(currentValue && !newsCategoryOptions.has(currentValue)){
-        customOptions.push(currentValue);
-      }
-      const selectValue = this.state.customMode ? 'Autre' : currentValue;
-      return h('div', {className: 'news-category-control'}, [
-        h('label', {key: 'select-label', className: 'news-category-field'}, [
-          h('span', {key: 'label'}, 'Catégorie de l’article'),
-          h('select', {
-            key: 'select',
-            value: selectValue,
-            onChange: event => this.changeCategory(event),
-          }, [
-            ...NEWS_CATEGORY_CHOICES.slice(0, -1).map(category =>
-              h('option', {key: category, value: category}, category)
-            ),
-            ...customOptions.map(category =>
-              h('option', {key: `custom-${category}`, value: category}, category)
-            ),
-            h('option', {key: 'other', value: 'Autre'}, 'Autre — saisir une catégorie'),
-          ]),
-        ]),
-        this.state.customMode ? h('label', {
-          key: 'custom-label',
-          className: 'news-category-field',
-        }, [
-          h('span', {key: 'label'}, 'Nom de la nouvelle catégorie'),
-          h('input', {
-            key: 'input',
-            type: 'text',
-            value: currentValue === 'Autre' ? '' : currentValue,
-            placeholder: 'Saisissez votre catégorie',
-            onChange: event => this.changeCustomCategory(event),
-          }),
-        ]) : null,
-        this.state.optionsError ? h('p', {
-          key: 'error',
-          className: 'news-category-error',
-          role: 'alert',
-        }, this.state.optionsError) : null,
-        !this.state.optionsLoaded || customOptions.length === 0 ? null : h('p', {
-          key: 'help',
-          className: 'news-category-help',
-        }, 'Les catégories personnalisées enregistrées sont également disponibles dans cette liste.'),
-      ]);
-    },
-  });
 
   function createEmptyTeam(){
     return {opponent: '', date: '', location: '', meetingTime: '', matchTime: '', players: []};
@@ -518,7 +310,6 @@
     },
   });
 
-  window.CMS.registerWidget('newsCategory', NewsCategoryControl);
   window.CMS.registerWidget('convocationCategories', ConvocationCategoriesControl);
   window.CMS.registerWidget('resultsByCategory', ResultsByCategoryControl);
 })();

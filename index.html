@@ -36,7 +36,7 @@
     <nav class="main-nav" id="mainNav">
       <ul>
         <li><a href="#" class="nav-link" data-page="accueil">Accueil</a></li>
-        <li><a href="#" class="nav-link" data-page="actualites">Actualités</a></li>
+        <li><a href="#" class="nav-link" data-page="actualites">Instagram</a></li>
 
         <li>
           <button class="nav-link" data-page="club">Le Club <span class="caret">▾</span></button>
@@ -91,7 +91,7 @@
         <p class="lead">Un club amateur formateur, convivial et ambitieux, de l'école de Foot aux Vétérans. Rejoignez une équipe, vivez le club, soutenez nos couleurs.</p>
         <div class="hero-actions">
           <a href="#" class="btn btn-primary" data-page="equipes">Découvrir les équipes</a>
-          <a href="#" class="btn btn-outline" data-page="contact">Nous rejoindre</a>
+          <a href="#" class="btn btn-outline" data-page="club" data-sub="club-adhesion">Inscriptions</a>
         </div>
         </div>
       </div>
@@ -112,7 +112,7 @@
         <div class="content-block">
           <div>
             <p>Le Boussy Quincy FC est un club de football amateur qui accueille joueuses et joueurs de tous âges, de l'école de Foot aux Vétérans. Porté par des bénévoles passionnés, le club met la formation, le fair-play et la convivialité au centre de son projet.</p>
-            <p>Que vous soyez déjà licencié, parent d'un jeune joueur, ou simplement curieux de nous rejoindre, ce site vous permet de suivre l'actualité du club, les résultats de chaque équipe et toutes les informations pratiques.</p>
+            <p>Que vous soyez déjà licencié, parent d'un jeune joueur, ou simplement curieux de nous rejoindre, ce site vous permet de suivre la vie du club sur Instagram, les résultats de chaque équipe et toutes les informations pratiques.</p>
             <a href="#" class="btn btn-primary" data-page="club" data-sub="club-histoire">Découvrir l'histoire du club</a>
           </div>
           <div class="photo"><img src="images/equipe_accueil.jpg" alt="Photo de l'équipe U11 à la Melun Cup"></div>
@@ -121,21 +121,18 @@
     </section>
   </section>
 
-  <!-- ===================== ACTUALITÉS ===================== -->
+  <!-- ===================== INSTAGRAM ===================== -->
   <section id="actualites" class="page">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker">Actualités</span>
-        <h2>Les <em>dernières nouvelles</em> du club</h2>
+        <span class="kicker">Instagram</span>
+        <h2>La vie du club en <em>images</em></h2>
       </div>
-      <div class="news-list-view" id="news-list-view">
-        <div class="news-grid" id="news-grid"></div>
-      </div>
-      <div class="news-detail-view" id="news-detail-view" hidden>
-        <button class="news-back" type="button" id="news-back">← Retour aux actualités</button>
-        <article class="news-full-article" id="news-article-content"></article>
-      </div>
-      <p class="news-status" id="news-status" role="status" aria-live="polite">Chargement des actualités…</p>
+      <p class="instagram-status" id="instagram-status" role="status" aria-live="polite">Chargement des publications Instagram…</p>
+      <div class="instagram-grid" id="instagram-grid"></div>
+      <a class="instagram-profile-link" href="https://www.instagram.com/boussyquincyfc" target="_blank" rel="noopener noreferrer">
+        Voir le profil Instagram du club
+      </a>
     </div>
   </section>
 

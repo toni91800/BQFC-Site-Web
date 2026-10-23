@@ -210,52 +210,6 @@
   accent-color: #8e753e;
 }
 
-.news-category-control {
-  display: grid;
-  gap: .75rem;
-}
-
-.news-category-field {
-  display: grid;
-  gap: .4rem;
-  max-width: 520px;
-  color: #514936;
-  font-size: .9rem;
-  font-weight: 700;
-}
-
-.news-category-field select,
-.news-category-field input {
-  box-sizing: border-box;
-  width: 100%;
-  min-height: 2.65rem;
-  padding: .6rem .75rem;
-  border: 1px solid #bdb5a4;
-  border-radius: 5px;
-  background: #fff;
-  color: #201c14;
-  font: inherit;
-}
-
-.news-category-field select:focus-visible,
-.news-category-field input:focus-visible {
-  border-color: #8e753e;
-  outline: 3px solid rgb(188 160 99 / 25%);
-}
-
-.news-category-help,
-.news-category-error {
-  max-width: 520px;
-  margin: 0;
-  color: #514936;
-  font-size: .875rem;
-  line-height: 1.5;
-}
-
-.news-category-error {
-  color: #8b2d27;
-}
-
 @media (max-width: 600px) {
   .convocation-cms-team,
   .results-cms-match {
@@ -332,7 +286,6 @@ body:has(#nc-root) [class*="SortableListItem"] {
   background: #fff;
 }
 
-body:has(#nc-root) [id^="articles-field-"],
 body:has(#nc-root) [id^="roles-field-"] {
   margin: 0;
   padding: 0;
@@ -340,7 +293,6 @@ body:has(#nc-root) [id^="roles-field-"] {
   background: transparent;
 }
 
-body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"],
 body:has(#nc-root) [id^="roles-field-"] > [class*="TopBarContainer"] {
   justify-content: flex-end;
   margin: 0;
@@ -348,35 +300,13 @@ body:has(#nc-root) [id^="roles-field-"] > [class*="TopBarContainer"] {
   background: transparent;
 }
 
-body:has(#nc-root) [id^="articles-field-"] > [class*="TopBarContainer"] > [class*="ExpandButtonContainer"],
 body:has(#nc-root) [id^="roles-field-"] > [class*="TopBarContainer"] > [class*="ExpandButtonContainer"],
-body:has(#nc-root) label[for^="articles-field-"],
 body:has(#nc-root) label[for^="roles-field-"] {
   display: none;
 }
 
-body:has(#nc-root) [id^="articles-field-"] [class*="SortableListItem"],
 body:has(#nc-root) [id^="roles-field-"] [class*="SortableListItem"] {
   margin-block: .75rem;
-}
-
-body:has(#nc-root) [id^="articles-field-"] [class*="SortableListItem"] {
-  padding: .65rem;
-  box-shadow: 0 1px 3px rgb(32 28 20 / 8%);
-}
-
-body:has(#nc-root) [id^="articles-field-"] button {
-  transition: background-color .15s ease, border-color .15s ease, box-shadow .15s ease;
-}
-
-body:has(#nc-root) [id^="articles-field-"] button:hover {
-  border-color: #8e753e;
-  box-shadow: 0 2px 5px rgb(32 28 20 / 12%);
-}
-
-body:has(#nc-root) [id^="articles-field-"] img {
-  border: 1px solid #e0d8c8;
-  border-radius: 5px;
 }
 
 body:has(#nc-root) button {

@@ -536,9 +536,9 @@ function buildResultats(allMatches){
         else { label='—'; }
         return `<tr>
           <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '—'}</td>
-          <td>${m.home ? 'FC Boussy Quincy' : escapeHTML(m.opponent)}</td>
+          <td>${m.home ? 'Boussy Quincy FC' : escapeHTML(m.opponent)}</td>
           <td class="score">${m.home ? m.goalsFor : m.goalsAgainst} - ${m.home ? m.goalsAgainst : m.goalsFor}</td>
-          <td>${m.home ? escapeHTML(m.opponent) : 'FC Boussy Quincy'}</td>
+          <td>${m.home ? escapeHTML(m.opponent) : 'Boussy Quincy FC'}</td>
           <td class="${cls}">${label}</td>
         </tr>`;
       }).join('');
@@ -1145,11 +1145,91 @@ async function loadNewsArticles(){
   }
 }
 
-function bindNewsArticles(){
-  const listView = document.getElementById('news-list-view');
-  const detailView = document.getElementById('news-detail-view');
-  if(!listView || !detailView) return;
-  loadNewsArticles();
+function formatInstagramDate(value){
+  const date = new Date(value);
+  if(Number.isNaN(date.getTime())) return '';
+  return new Intl.DateTimeFormat('fr-FR', {day:'numeric', month:'short', year:'numeric'}).format(date);
+}
+
+function renderInstagramPosts(posts){
+  const grid = document.getElementById('instagram-grid');
+  if(!grid) return;
+  grid.replaceChildren();
+
+  posts.forEach(post=>{
+    const card = document.createElement('article');
+    card.className = 'instagram-card';
+    const mediaLink = document.createElement('a');
+    mediaLink.className = 'instagram-media';
+    mediaLink.href = post.permalink;
+    mediaLink.target = '_blank';
+    mediaLink.rel = 'noopener noreferrer';
+    mediaLink.setAttribute('aria-label', 'Voir cette publication sur Instagram');
+
+    const image = document.createElement('img');
+    image.src = post.mediaUrl;
+    image.alt = '';
+    image.loading = 'lazy';
+    image.decoding = 'async';
+    mediaLink.appendChild(image);
+    if(post.mediaType === 'VIDEO'){
+      const videoLabel = document.createElement('span');
+      videoLabel.className = 'instagram-video-label';
+      videoLabel.textContent = '▶ Vidéo';
+      mediaLink.appendChild(videoLabel);
+    }
+
+    const content = document.createElement('div');
+    content.className = 'instagram-card-body';
+    if(post.caption){
+      const caption = document.createElement('p');
+      caption.textContent = post.caption;
+      content.appendChild(caption);
+    }
+    const footer = document.createElement('div');
+    footer.className = 'instagram-card-footer';
+    const dateLabel = document.createElement('time');
+    dateLabel.dateTime = post.timestamp;
+    dateLabel.textContent = formatInstagramDate(post.timestamp);
+    const postLink = document.createElement('a');
+    postLink.href = post.permalink;
+    postLink.target = '_blank';
+    postLink.rel = 'noopener noreferrer';
+    postLink.textContent = 'Voir sur Instagram ↗';
+    footer.append(dateLabel, postLink);
+    content.appendChild(footer);
+    card.append(mediaLink, content);
+    grid.appendChild(card);
+  });
+}
+
+async function loadInstagramPosts(){
+  const status = document.getElementById('instagram-status');
+  try {
+    const response = await fetch('/.netlify/functions/instagram-feed', {cache:'no-cache'});
+    const data = await response.json();
+    if(!response.ok){
+      throw new Error(data.error || `Chargement Instagram impossible (${response.status}).`);
+    }
+    if(!data || !Array.isArray(data.posts)){
+      throw new Error('La réponse Instagram est invalide.');
+    }
+    renderInstagramPosts(data.posts);
+    if(data.posts.length){
+      status.hidden = true;
+    } else {
+      status.textContent = 'Aucune publication Instagram à afficher pour le moment.';
+    }
+  } catch(error) {
+    console.error('Unable to load Instagram posts:', error);
+    status.textContent = 'Les publications Instagram ne sont pas accessibles actuellement.';
+    status.setAttribute('role', 'alert');
+  }
+}
+
+function bindInstagramFeed(){
+  if(!document.getElementById('instagram-grid')) return;
+  loadInstagramPosts();
 }
  
 /* ---------- Initialisation ---------- */
@@ -1167,7 +1247,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   bindDropdowns();
   bindBurger();
   bindStaticSubtabs();
-  bindNewsArticles();
+  bindInstagramFeed();
   showPage('accueil');
 
   document.getElementById('year').textContent = new Date().getFullYear();
