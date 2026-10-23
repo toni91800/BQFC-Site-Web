@@ -753,11 +753,35 @@ function bindContactForm(){
   const errorBox = document.getElementById('contact-error');
   const status = document.getElementById('contact-submit-status');
   const submitButton = form.querySelector('button[type="submit"]');
+  const subjectSelect = document.getElementById('sujet');
+  const customSubjectRow = document.getElementById('autre-sujet-row');
+  const customSubjectInput = document.getElementById('autre-sujet');
   let submitting = false;
+
+  const updateCustomSubjectVisibility = ()=>{
+    const isCustomSubject = subjectSelect.value === 'Autre objet';
+    customSubjectRow.hidden = !isCustomSubject;
+    customSubjectInput.required = isCustomSubject;
+    if(!isCustomSubject) customSubjectInput.setCustomValidity('');
+  };
+  subjectSelect.addEventListener('change', updateCustomSubjectVisibility);
+  customSubjectInput.addEventListener('input', ()=>{
+    customSubjectInput.setCustomValidity(
+      customSubjectInput.value.trim() ? '' : 'Veuillez préciser l’objet de votre demande.'
+    );
+  });
+  updateCustomSubjectVisibility();
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
     if(submitting) return;
+
+    const customSubject = customSubjectInput.value.trim();
+    if(subjectSelect.value === 'Autre objet' && !customSubject){
+      customSubjectInput.setCustomValidity('Veuillez préciser l’objet de votre demande.');
+      form.reportValidity();
+      return;
+    }
 
     errorBox.hidden = true;
     errorBox.style.display = 'none';
@@ -768,6 +792,10 @@ function bindContactForm(){
 
     try {
       const formData = new FormData(form);
+      if(subjectSelect.value === 'Autre objet'){
+        formData.set('sujet', customSubject);
+      }
+      formData.delete('autre-sujet');
       const submissionResponse = await fetch(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },

@@ -453,13 +453,18 @@
             </div>
             <div class="form-row"><label for="email">Email</label><input id="email" name="email" type="email" required></div>
             <div class="form-row">
-              <label for="sujet">Sujet</label>
-              <select id="sujet" name="sujet">
-                <option>Inscription / adhésion</option>
+              <label for="sujet">Objet de la demande</label>
+              <select id="sujet" name="sujet" required>
+                <option value="" disabled selected>Choisissez un objet</option>
                 <option>Partenariat</option>
                 <option>Bénévolat</option>
-                <option>Autre demande</option>
+                <option>Paiement Licence</option>
+                <option>Autre objet</option>
               </select>
+            </div>
+            <div class="form-row" id="autre-sujet-row" hidden>
+              <label for="autre-sujet">Précisez l’objet de votre demande</label>
+              <input id="autre-sujet" name="autre-sujet" maxlength="150" placeholder="Objet de votre demande">
             </div>
             <div class="form-row"><label for="message">Message</label><textarea id="message" name="message" rows="5" required></textarea></div>
             <p class="form-error" id="contact-error" role="alert" hidden></p>

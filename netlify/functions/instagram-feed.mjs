@@ -33,23 +33,48 @@ export default async function handler(request){
   try {
     const instagramUrl = new URL('https://graph.instagram.com/me/media');
     instagramUrl.searchParams.set('fields', INSTAGRAM_MEDIA_FIELDS);
-    instagramUrl.searchParams.set('limit', '12');
+    instagramUrl.searchParams.set('limit', '100');
     instagramUrl.searchParams.set('access_token', accessToken);
 
-    const response = await fetch(instagramUrl, {
-      headers: {Accept: 'application/json'},
-      signal: AbortSignal.timeout(10000),
-    });
-    const result = await response.json();
-    if(!response.ok || result.error){
-      const apiMessage = result.error?.message || `Instagram returned status ${response.status}.`;
-      throw new Error(apiMessage);
-    }
-    if(!Array.isArray(result.data)){
-      throw new Error('Instagram returned an invalid media list.');
+    const media = [];
+    const visitedPages = new Set();
+    let pageUrl = instagramUrl;
+    while(pageUrl){
+      const pageKey = pageUrl.toString();
+      if(visitedPages.has(pageKey)){
+        throw new Error('Instagram returned a repeated pagination URL.');
+      }
+      visitedPages.add(pageKey);
+
+      const response = await fetch(pageUrl, {
+        headers: {Accept: 'application/json'},
+        signal: AbortSignal.timeout(10000),
+      });
+      const result = await response.json();
+      if(!response.ok || result.error){
+        const apiMessage = result.error?.message || `Instagram returned status ${response.status}.`;
+        throw new Error(apiMessage);
+      }
+      if(!Array.isArray(result.data)){
+        throw new Error('Instagram returned an invalid media list.');
+      }
+      media.push(...result.data);
+
+      const nextPage = result.paging?.next;
+      if(!nextPage){
+        pageUrl = null;
+        continue;
+      }
+      const nextPageUrl = new URL(nextPage);
+      if(nextPageUrl.protocol !== 'https:' ||
+        nextPageUrl.hostname !== 'graph.instagram.com' ||
+        !nextPageUrl.pathname.endsWith('/media')){
+        throw new Error('Instagram returned an unexpected pagination URL.');
+      }
+      pageUrl = nextPageUrl;
     }
 
-    const posts = result.data
+    const posts = media
       .filter(post =>
         post && typeof post.permalink === 'string' && isHttpsUrl(post.permalink) &&
         typeof post.timestamp === 'string' &&
