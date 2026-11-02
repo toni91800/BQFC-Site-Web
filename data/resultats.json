@@ -159,6 +159,16 @@
       "home": true,
       "goalsFor": 1,
       "goalsAgainst": 6
+    },
+    {
+      "competition": "championnat",
+      "team": "seniorsF",
+      "round": "J1",
+      "date": "2026-10-24",
+      "opponent": "Etampes FC",
+      "home": true,
+      "goalsFor": 0,
+      "goalsAgainst": 8
     }
   ]
 }
