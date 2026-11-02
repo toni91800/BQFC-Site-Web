@@ -139,6 +139,26 @@
       "home": false,
       "goalsFor": 4,
       "goalsAgainst": 3
+    },
+    {
+      "competition": "championnat",
+      "team": "u18",
+      "round": "J2",
+      "date": "2026-10-18",
+      "opponent": "Montgeron ES",
+      "home": false,
+      "goalsFor": 0,
+      "goalsAgainst": 5
+    },
+    {
+      "competition": "championnat",
+      "team": "u18",
+      "round": "J3",
+      "date": "2026-10-25",
+      "opponent": "GIF SFOC",
+      "home": true,
+      "goalsFor": 1,
+      "goalsAgainst": 6
     }
   ]
 }
