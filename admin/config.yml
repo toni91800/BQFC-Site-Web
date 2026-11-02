@@ -94,8 +94,6 @@ collections:
   - name: "documents"
     label: "Documents officiels"
     description: "Ajouter, modifier ou supprimer les PDF mis à disposition des visiteurs du site."
-    media_folder: "documents"
-    public_folder: "/documents"
     files:
       - name: "documents"
         label: "Documents du club"
@@ -114,6 +112,7 @@ collections:
               - label: "Fichier PDF"
                 name: "file"
                 widget: "file"
-                media_folder: "documents"
+                media_folder: "/documents"
                 public_folder: "/documents"
-                hint: "Déposez le PDF ici. Le fichier et son lien seront publiés dans la rubrique Documents officiels."
+                choose_url: false
+                hint: "Déposez le PDF ici. Il sera téléversé dans le dossier documents du dépôt Git et son lien sera ajouté automatiquement."
