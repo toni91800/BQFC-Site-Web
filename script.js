@@ -551,7 +551,13 @@ async function loadDocuments(){
     }
     list.replaceChildren();
     documents.forEach(item => {
-      const fileUrl = new URL(item.file, window.location.origin);
+      const filePath = item.file.trim().replace(/\\/g, '/');
+      const normalizedPath = filePath.startsWith('/') || /^[a-z][a-z\d+.-]*:/i.test(filePath)
+        ? filePath
+        : filePath.includes('/')
+          ? `/${filePath}`
+          : `/documents/${filePath}`;
+      const fileUrl = new URL(normalizedPath, window.location.origin);
       if(fileUrl.origin !== window.location.origin || !/\.pdf$/i.test(fileUrl.pathname)){
         throw new Error(`Le document "${item.title}" doit être un fichier PDF du site.`);
       }
@@ -561,12 +567,6 @@ async function loadDocuments(){
       const title = document.createElement('h4');
       title.textContent = item.title.trim();
       card.appendChild(title);
-
-      if(typeof item.description === 'string' && item.description.trim()){
-        const description = document.createElement('p');
-        description.textContent = item.description.trim();
-        card.appendChild(description);
-      }
 
       const link = document.createElement('a');
       link.className = 'btn btn-primary';

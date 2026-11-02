@@ -110,6 +110,10 @@ collections:
             label_singular: "document"
             summary: "{{fields.title}}"
             fields:
-              - { label: "Titre", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "string", required: false }
-              - { label: "Fichier PDF", name: "file", widget: "file", hint: "Téléversez un fichier PDF. Il sera publié dans la rubrique Documents officiels." }
+              - { label: "Nom du document PDF", name: "title", widget: "string" }
+              - label: "Fichier PDF"
+                name: "file"
+                widget: "file"
+                media_folder: "documents"
+                public_folder: "/documents"
+                hint: "Déposez le PDF ici. Le fichier et son lien seront publiés dans la rubrique Documents officiels."

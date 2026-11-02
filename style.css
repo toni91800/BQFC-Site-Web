@@ -377,10 +377,17 @@ main section:nth-of-type(even){ background:var(--white); }
 .org-card .name{ font-weight:600; margin-top:2px; }
 
 /* documents officiels */
-.documents-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
-.document-card{ padding:22px; background:var(--white); border:1px solid #e6ddc9; }
-.document-card h4{ margin:0 0 8px; }
-.document-card p{ margin:0 0 16px; color:#5a5142; font-size:.9rem; }
+.documents-list{ display:grid; gap:12px; }
+.document-card{
+  display:flex; align-items:center; gap:16px;
+  padding:16px 20px; background:var(--white); border:1px solid #e6ddc9;
+}
+.document-card h4{ margin:0; font-size:.85rem; }
+.document-card .btn{ flex-shrink:0; margin-left:auto; font-size:.85rem; }
+@media (max-width:480px){
+  .document-card{ align-items:flex-start; flex-direction:column; }
+  .document-card .btn{ margin-left:0; }
+}
 
 /* contacts */
 .contacts-note{
