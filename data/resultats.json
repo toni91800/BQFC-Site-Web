@@ -103,12 +103,12 @@
     {
       "competition": "championnat",
       "team": "seniors2",
-      "round": "J2",
+      "round": "J1",
       "date": "2026-10-11",
-      "opponent": "Orsay Bures FC",
+      "opponent": "Racing Club 91",
       "home": false,
-      "goalsFor": 2,
-      "goalsAgainst": 1
+      "goalsFor": 4,
+      "goalsAgainst": 3
     },
     {
       "competition": "championnat",
@@ -198,6 +198,16 @@
       "opponent": "Dourdan Sport",
       "home": true,
       "goalsFor": 3,
+      "goalsAgainst": 1
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors2",
+      "round": "J2",
+      "date": "2026-10-11",
+      "opponent": "Orsay Bures FC",
+      "home": false,
+      "goalsFor": 2,
       "goalsAgainst": 1
     }
   ]
