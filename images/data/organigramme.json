@@ -1,0 +1,49 @@
+{
+  "roles": [
+    {
+      "role": "Président",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Vice-Président",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Trésorier",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Secrétaire",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Directeur sportif",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Responsable Écoles de foot",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Responsable Technique",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Responsable Communication",
+      "name": "",
+      "photo": ""
+    },
+    {
+      "role": "Responsable Partenariats",
+      "name": "",
+      "photo": ""
+    }
+  ]
+}

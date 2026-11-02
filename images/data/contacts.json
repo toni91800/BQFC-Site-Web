@@ -1,0 +1,36 @@
+{
+  "details": {
+    "address": "1 Rue de Rochopt, 91800 Boussy-Saint-Antoine",
+    "email": "581835@lpiff.fr",
+    "mapEmbedUrl": "https://www.google.com/maps?q=48.6900747,2.5266134&z=16&output=embed",
+    "mapLinkUrl": "https://maps.app.goo.gl/Ppfcj2v6Mo6HXnTDA"
+  },
+  "categoryContacts": [
+    { "id": "u6u7", "name": "Loula, Mohamed-Amin, Jason, Nina, Nell, Michael, Yassine", "phone": "" },
+    { "id": "u8", "name": "Loula, Mohamed-Amin, Jason, Nina, Nell, Michael, Yassine", "phone": "" },
+    { "id": "u9", "name": "Loula, Mohamed-Amin, Jason, Nina, Nell, Michael, Yassine", "phone": "" },
+    { "id": "u10", "name": "Ismaël, Ethan", "phone": "" },
+    { "id": "u11", "name": "Ali", "phone": "" },
+    { "id": "u12", "name": "Willy, Lahcen", "phone": "" },
+    { "id": "u13F", "name": "Nina", "phone": "" },
+    { "id": "u13", "name": "Jason, Rayan", "phone": "" },
+    { "id": "u14", "name": "Ismaël", "phone": "" },
+    { "id": "u15F", "name": "Tristan", "phone": "" },
+    { "id": "u16", "name": "Tyron", "phone": "" },
+    { "id": "u18", "name": "Esaie", "phone": "" },
+    { "id": "seniorsF", "name": "Bosco", "phone": "" },
+    { "id": "seniors", "name": "Aymard, Harouna", "phone": "" },
+    { "id": "veterans35", "name": "Bacary", "phone": "" },
+    { "id": "veterans55", "name": "Pascal", "phone": "" }
+  ],
+  "clubContacts": [
+    { "role": "Président", "name": "", "phone": "" },
+    { "role": "Vice-Président", "name": "", "phone": "" },
+    { "role": "Trésorier", "name": "", "phone": "" },
+    { "role": "Secrétaire", "name": "", "phone": "" },
+    { "role": "Directeur sportif", "name": "", "phone": "" },
+    { "role": "Responsable Écoles de foot", "name": "", "phone": "" },
+    { "role": "Responsable Communication", "name": "", "phone": "" },
+    { "role": "Responsable Partenariats", "name": "", "phone": "" }
+  ]
+}
