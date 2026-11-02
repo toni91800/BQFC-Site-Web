@@ -11,7 +11,7 @@
       "goalsAgainst": 6
     },
     {
-      "home": true,
+      "home": false,
       "competition": "championnat",
       "team": "u16",
       "round": "J1",
@@ -109,6 +109,26 @@
       "home": false,
       "goalsFor": 2,
       "goalsAgainst": 1
+    },
+    {
+      "competition": "championnat",
+      "team": "u16",
+      "round": "J2",
+      "date": "2026-10-18",
+      "opponent": "GIF SFOC",
+      "home": true,
+      "goalsFor": 3,
+      "goalsAgainst": 4
+    },
+    {
+      "competition": "championnat",
+      "team": "u16",
+      "round": "J3",
+      "date": "2026-11-01",
+      "opponent": "Dourdan Sport",
+      "home": false,
+      "goalsFor": 4,
+      "goalsAgainst": 3
     }
   ]
 }
