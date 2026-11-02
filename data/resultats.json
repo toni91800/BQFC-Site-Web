@@ -169,6 +169,36 @@
       "home": true,
       "goalsFor": 0,
       "goalsAgainst": 8
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors1",
+      "round": "J3",
+      "date": "2026-10-18",
+      "opponent": "Grigny Football",
+      "home": false,
+      "goalsFor": 1,
+      "goalsAgainst": 2
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors1",
+      "round": "J4",
+      "date": "2026-10-25",
+      "opponent": "Evry Courcouronnes",
+      "home": true,
+      "goalsFor": 5,
+      "goalsAgainst": 2
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors1",
+      "round": "J5",
+      "date": "2026-11-01",
+      "opponent": "Dourdan Sport",
+      "home": true,
+      "goalsFor": 3,
+      "goalsAgainst": 1
     }
   ]
 }
