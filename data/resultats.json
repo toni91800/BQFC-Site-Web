@@ -209,6 +209,36 @@
       "home": false,
       "goalsFor": 2,
       "goalsAgainst": 1
+    },
+    {
+      "competition": "championnat",
+      "team": "veterans55",
+      "round": "J2",
+      "date": "2026-10-18",
+      "opponent": "Val Yerres Crosne",
+      "home": true,
+      "goalsFor": 0,
+      "goalsAgainst": 0
+    },
+    {
+      "competition": "championnat",
+      "team": "veterans55",
+      "round": "J3",
+      "date": "2026-10-25",
+      "opponent": "Villebon SPF",
+      "home": false,
+      "goalsFor": 2,
+      "goalsAgainst": 4
+    },
+    {
+      "competition": "championnat",
+      "team": "veterans55",
+      "round": "J4",
+      "date": "2026-11-01",
+      "opponent": "Ris Orangis US",
+      "home": false,
+      "goalsFor": 3,
+      "goalsAgainst": 3
     }
   ]
 }
