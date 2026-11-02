@@ -1,5 +1,5 @@
 /* =========================================================
-   FC BOUSSY QUINCY — style.css
+   FC BOUSSY QUINCY - style.css
    ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Work+Sans:wght@400;500;600;700&display=swap');
@@ -375,6 +375,12 @@ main section:nth-of-type(even){ background:var(--white); }
 }
 .org-card .role{ font-size:.72rem; letter-spacing:.08em; color:var(--peach); text-transform:uppercase; font-weight:700; }
 .org-card .name{ font-weight:600; margin-top:2px; }
+
+/* documents officiels */
+.documents-list{ display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:16px; }
+.document-card{ padding:22px; background:var(--white); border:1px solid #e6ddc9; }
+.document-card h4{ margin:0 0 8px; }
+.document-card p{ margin:0 0 16px; color:#5a5142; font-size:.9rem; }
 
 /* contacts */
 .contacts-note{

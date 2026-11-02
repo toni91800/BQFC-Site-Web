@@ -1,5 +1,5 @@
 /* =========================================================
-   FC BOUSSY QUINCY — script.js
+   FC BOUSSY QUINCY - script.js
    Gère : navigation principale, sous-onglets, et génération
    dynamique des pages "Les équipes" et "Résultats" à partir
    d'une seule liste de catégories (facile à modifier).
@@ -36,19 +36,6 @@ const CONVOCATION_CATEGORIES = [
   { id: "u12", label: "U12", teams: 2 },
   { id: "u13", label: "U13", teams: 2 },
   { id: "u13F", label: "U13 F", teams: 1 },
-];
-
-/* Format : identifiant de catégorie -> { name, phone }. */
-const TEAM_CONTACTS = {};
-const CLUB_CONTACTS = [
-  { role: "Président", name: "", phone: "" },
-  { role: "Vice-Président", name: "", phone: "" },
-  { role: "Trésorier", name: "", phone: "" },
-  { role: "Secrétaire", name: "", phone: "" },
-  { role: "Directeur sportif", name: "", phone: "" },
-  { role: "Responsable Écoles de foot", name: "", phone: "" },
-  { role: "Responsable Communication", name: "", phone: "" },
-  { role: "Responsable Partenariats", name: "", phone: "" },
 ];
 
 /* Compétitions pour la page Résultats : Championnat et Coupe.
@@ -174,9 +161,9 @@ function buildEquipes(){
         <div class="info">
           <span class="badge">${cat.full}</span>
           <div class="team-meta">
-            <div><div class="k">Entraîneur</div><div class="v">${cat.coach}</div></div>
-            <div><div class="k">Génération</div><div class="v">${cat.annee}</div></div>
-            <div><div class="k">Entraînements</div><div class="v">${cat.jour}</div></div>
+            <div><div class="k">Entraîneur</div><div class="v" data-team-coach>${cat.coach}</div></div>
+            <div><div class="k">Génération</div><div class="v" data-team-years>${cat.annee}</div></div>
+            <div><div class="k">Entraînements</div><div class="v" data-team-schedule>${cat.jour}</div></div>
             <div><div class="k">Nombre d'équipes</div><div class="v">${EQUIPES_PAR_CATEGORIE[cat.id] || 1}</div></div>
             ${divisions ? `<div><div class="k">Championnat</div><div class="v team-divisions">${divisions}</div></div>` : ''}
           </div>
@@ -330,10 +317,12 @@ async function loadConvocations(){
   }
 }
 
-function buildContacts(){
+function buildContacts(data){
   const equipesWrap = document.getElementById('contacts-equipes');
   const directionWrap = document.getElementById('contacts-direction');
   if(!equipesWrap || !directionWrap) return;
+  equipesWrap.replaceChildren();
+  directionWrap.replaceChildren();
 
   function contactCard(role, name, phone){
     const card = document.createElement('article');
@@ -359,18 +348,129 @@ function buildContacts(){
     return card;
   }
 
+  const categoryContacts = new Map(
+    data.categoryContacts.map(contact => [contact.id, contact])
+  );
   CATEGORIES.forEach(cat=>{
-    const contact = TEAM_CONTACTS[cat.id] || {};
+    const contact = categoryContacts.get(cat.id) || {};
     equipesWrap.appendChild(contactCard(
       cat.full,
-      contact.name || (cat.coach !== 'À définir' ? cat.coach : ''),
-      contact.phone || ''
+      contact.name,
+      contact.phone
     ));
   });
 
-  CLUB_CONTACTS.forEach(contact=>{
+  data.clubContacts.forEach(contact=>{
     directionWrap.appendChild(contactCard(contact.role, contact.name, contact.phone));
   });
+}
+
+async function loadContactData(){
+  const status = document.getElementById('contact-load-status');
+  try {
+    const response = await fetch('/data/contacts.json');
+    if(!response.ok) throw new Error(`Échec du chargement des coordonnées (${response.status}).`);
+    const data = await response.json();
+    if(!data || !data.details || !Array.isArray(data.categoryContacts) || !Array.isArray(data.clubContacts) ||
+      data.categoryContacts.some(contact =>
+        !contact || typeof contact.id !== 'string' ||
+        typeof contact.name !== 'string' || typeof contact.phone !== 'string'
+      ) ||
+      data.clubContacts.some(contact =>
+        !contact || typeof contact.role !== 'string' ||
+        typeof contact.name !== 'string' || typeof contact.phone !== 'string'
+      )){
+      throw new Error('Le fichier des coordonnées a un format invalide.');
+    }
+
+    const {address, email, mapEmbedUrl, mapLinkUrl} = data.details;
+    if(![address, email, mapEmbedUrl, mapLinkUrl].every(value =>
+      typeof value === 'string' && value.trim()
+    )){
+      throw new Error('Les coordonnées ou les liens de la carte sont incomplets.');
+    }
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())){
+      throw new Error('L’adresse e-mail de contact est invalide.');
+    }
+    const mapEmbed = new URL(mapEmbedUrl);
+    const mapLink = new URL(mapLinkUrl);
+    if(mapEmbed.protocol !== 'https:' || mapLink.protocol !== 'https:'){
+      throw new Error('Les liens de la carte doivent utiliser HTTPS.');
+    }
+
+    const addressElement = document.getElementById('contact-address');
+    const emailElement = document.getElementById('contact-email');
+    const mapElement = document.getElementById('contact-map');
+    const mapLinkElement = document.getElementById('contact-map-link');
+    if(addressElement) addressElement.textContent = address.trim();
+    if(emailElement){
+      emailElement.textContent = email.trim();
+      emailElement.href = `mailto:${email.trim()}`;
+    }
+    if(mapElement) mapElement.src = mapEmbed.href;
+    if(mapLinkElement) mapLinkElement.href = mapLink.href;
+    const footerAddress = document.getElementById('footer-address');
+    const footerEmail = document.getElementById('footer-email');
+    if(footerAddress) footerAddress.textContent = address.trim();
+    if(footerEmail) footerEmail.textContent = email.trim();
+    buildContacts(data);
+    if(status) status.hidden = true;
+  } catch(error) {
+    console.error('Unable to load club contact details:', error);
+    if(status){
+      status.textContent = 'Les coordonnées et les responsables ne sont pas accessibles actuellement.';
+      status.setAttribute('role', 'alert');
+    }
+  }
+}
+
+async function loadPlanning(){
+  const planningBody = document.getElementById('planning-body');
+  const status = document.getElementById('planning-load-status');
+  if(!planningBody || !status) return;
+
+  try {
+    const response = await fetch('/data/planning.json');
+    if(!response.ok) throw new Error(`Échec du chargement du planning (${response.status}).`);
+    const data = await response.json();
+    if(!data || !Array.isArray(data.categories) || data.categories.some(item =>
+      !item || typeof item.id !== 'string' || typeof item.label !== 'string' ||
+      typeof item.years !== 'string' || typeof item.schedule !== 'string' ||
+      typeof item.coach !== 'string'
+    )){
+      throw new Error('Le fichier du planning a un format invalide.');
+    }
+
+    planningBody.replaceChildren();
+    data.categories.forEach(category=>{
+      const team = CATEGORIES.find(item => item.id === category.id);
+      if(team){
+        team.annee = category.years;
+        team.jour = category.schedule;
+        team.coach = category.coach;
+        const panel = document.getElementById(`eq-${category.id}`);
+        const coach = panel?.querySelector('[data-team-coach]');
+        const years = panel?.querySelector('[data-team-years]');
+        const schedule = panel?.querySelector('[data-team-schedule]');
+        if(coach) coach.textContent = category.coach;
+        if(years) years.textContent = category.years;
+        if(schedule) schedule.textContent = category.schedule;
+      }
+
+      const row = document.createElement('tr');
+      [category.label, category.years, category.schedule, category.coach].forEach(value=>{
+        const cell = document.createElement('td');
+        cell.textContent = value.trim();
+        row.appendChild(cell);
+      });
+      planningBody.appendChild(row);
+    });
+    status.hidden = true;
+  } catch(error) {
+    console.error('Unable to load club training schedule:', error);
+    status.textContent = 'Le planning des entraînements n’est pas accessible actuellement.';
+    status.setAttribute('role', 'alert');
+  }
 }
 
 async function loadOrganigramme(){
@@ -399,7 +499,7 @@ async function loadOrganigramme(){
       if(typeof item.photo === 'string' && item.photo.trim()){
         const image = document.createElement('img');
         image.src = item.photo;
-        image.alt = item.name ? `Photo de ${item.name}` : `Photo — ${item.role}`;
+        image.alt = item.name ? `Photo de ${item.name}` : `Photo - ${item.role}`;
         image.loading = 'lazy';
         avatar.appendChild(image);
       }
@@ -425,6 +525,66 @@ async function loadOrganigramme(){
   } catch(error) {
     console.error('Unable to load club organigramme:', error);
     status.textContent = 'L’organigramme n’est pas accessible actuellement.';
+    status.setAttribute('role', 'alert');
+  }
+}
+
+async function loadDocuments(){
+  const list = document.getElementById('documents-list');
+  const status = document.getElementById('documents-load-status');
+  if(!list || !status) return;
+
+  try {
+    const response = await fetch('/data/documents.json');
+    if(!response.ok) throw new Error(`Échec du chargement des documents (${response.status}).`);
+    const data = await response.json();
+    if(!data || !Array.isArray(data.documents)){
+      throw new Error('Le fichier des documents a un format invalide.');
+    }
+
+    const documents = data.documents;
+    if(documents.some(item =>
+      !item || typeof item.title !== 'string' || !item.title.trim() ||
+      typeof item.file !== 'string' || !item.file.trim()
+    )){
+      throw new Error('Un document ne contient pas de titre ou de fichier valide.');
+    }
+    list.replaceChildren();
+    documents.forEach(item => {
+      const fileUrl = new URL(item.file, window.location.origin);
+      if(fileUrl.origin !== window.location.origin || !/\.pdf$/i.test(fileUrl.pathname)){
+        throw new Error(`Le document "${item.title}" doit être un fichier PDF du site.`);
+      }
+
+      const card = document.createElement('article');
+      card.className = 'document-card';
+      const title = document.createElement('h4');
+      title.textContent = item.title.trim();
+      card.appendChild(title);
+
+      if(typeof item.description === 'string' && item.description.trim()){
+        const description = document.createElement('p');
+        description.textContent = item.description.trim();
+        card.appendChild(description);
+      }
+
+      const link = document.createElement('a');
+      link.className = 'btn btn-primary';
+      link.href = fileUrl.href;
+      link.target = '_blank';
+      link.rel = 'noopener noreferrer';
+      link.textContent = 'Consulter le PDF';
+      card.appendChild(link);
+      list.appendChild(card);
+    });
+
+    status.hidden = documents.length > 0;
+    if(!documents.length){
+      status.textContent = 'Aucun document disponible pour le moment.';
+    }
+  } catch(error) {
+    console.error('Unable to load club documents:', error);
+    status.textContent = 'Les documents ne sont pas accessibles actuellement.';
     status.setAttribute('role', 'alert');
   }
 }
@@ -529,13 +689,13 @@ function buildResultats(allMatches){
       const matches = allMatches.filter(match => match.competition === comp.id && match.team === cat.id);
       let v=0,n=0,d=0;
       const rows = matches.map(m=>{
-        let cls='res-n', label='—';
+        let cls='res-n', label='-';
         if(m.goalsFor>m.goalsAgainst){ cls='res-v'; label='V'; v++; }
         else if(m.goalsFor<m.goalsAgainst){ cls='res-l'; label='D'; d++; }
         else if(comp.id === 'championnat') { cls='res-d'; label='N'; n++; }
-        else { label='—'; }
+        else { label='-'; }
         return `<tr>
-          <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '—'}</td>
+          <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '-'}</td>
           <td>${m.home ? 'Boussy Quincy FC' : escapeHTML(m.opponent)}</td>
           <td class="score">${m.home ? m.goalsFor : m.goalsAgainst} - ${m.home ? m.goalsAgainst : m.goalsFor}</td>
           <td>${m.home ? escapeHTML(m.opponent) : 'Boussy Quincy FC'}</td>
@@ -563,7 +723,7 @@ function buildResultats(allMatches){
           : '');
       const summaryClass = comp.id === 'coupe' ? 'results-summary results-summary-cup' : 'results-summary';
       catPanel.innerHTML = `
-        <h3 class="results-title">${cat.label} — ${comp.label}${competitionMention}</h3>
+        <h3 class="results-title">${cat.label} - ${comp.label}${competitionMention}</h3>
         <div class="${summaryClass}">
           <div class="stat"><div class="n">${v}</div><div class="l">Victoires</div></div>
           ${comp.id === 'championnat' ? `<div class="stat"><div class="n">${n}</div><div class="l">Nuls</div></div>` : ''}
@@ -842,15 +1002,10 @@ function bindContactForm(){
  
 /* ---------- 5bis. Menus déroulants "Les Équipes" / "Résultats" + tableau planning ---------- */
 function buildDropdownsAndPlanning(){
-  const planningBody = document.getElementById('planning-body');
   const eqDrop = document.getElementById('equipes-dropdown');
   const resDrop = document.getElementById('resultats-dropdown');
  
   CATEGORIES.forEach(cat=>{
-    if(planningBody){
-      planningBody.insertAdjacentHTML('beforeend',
-        `<tr><td>${cat.full} (${cat.annee})</td><td>${cat.jour}</td><td>${cat.coach}</td></tr>`);
-    }
     if(eqDrop){
       eqDrop.insertAdjacentHTML('beforeend', `<li><a href="#" data-page="equipes" data-sub="eq-${cat.id}">${cat.label}</a></li>`);
     }
@@ -1019,7 +1174,7 @@ function renderNewsArticles(articles){
         let currentIndex = 0;
         const image = document.createElement('img');
         image.src = article.images[0];
-        image.alt = `${article.title} — photo 1 sur ${article.images.length}`;
+        image.alt = `${article.title} - photo 1 sur ${article.images.length}`;
         const enlargeButton = document.createElement('button');
         enlargeButton.className = 'news-carousel-image-button';
         enlargeButton.type = 'button';
@@ -1061,7 +1216,7 @@ function renderNewsArticles(articles){
         const showImage = index=>{
           currentIndex = (index + article.images.length) % article.images.length;
           image.src = article.images[currentIndex];
-          image.alt = `${article.title} — photo ${currentIndex + 1} sur ${article.images.length}`;
+          image.alt = `${article.title} - photo ${currentIndex + 1} sur ${article.images.length}`;
           enlargeButton.setAttribute('aria-label', `Agrandir la photo ${currentIndex + 1} de l’article ${article.title}`);
           dialogImage.src = image.src;
           dialogImage.alt = image.alt;
@@ -1263,8 +1418,10 @@ function bindInstagramFeed(){
 /* ---------- Initialisation ---------- */
 document.addEventListener('DOMContentLoaded', ()=>{
   buildEquipes();
-  buildContacts();
+  loadContactData();
+  loadPlanning();
   loadOrganigramme();
+  loadDocuments();
   loadResultats();
   buildAgenda();
   bindAdhesionTabs();

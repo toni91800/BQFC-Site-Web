@@ -109,7 +109,7 @@ function sendContactConfirmation(fields) {
   const firstName = fields.prenom.trim();
   const escapedFirstName = escapeHtml(firstName);
   const escapedSubject = escapeHtml(fields.sujet.trim());
-  const subject = 'Nous avons bien reçu votre message — Boussy Quincy FC';
+  const subject = 'Nous avons bien reçu votre message - Boussy Quincy FC';
   const textBody = `Bonjour ${firstName},\n\nNous vous confirmons la bonne réception de votre message au sujet de « ${fields.sujet.trim()} ».\n\nLe club en prendra connaissance et vous répondra dès que possible.\n\nSportivement,\nL'équipe du Boussy-Quincy FC`;
   const htmlBody = `<p>Bonjour ${escapedFirstName},</p><p>Nous vous confirmons la bonne réception de votre message au sujet de « ${escapedSubject} ».</p><p>Le club en prendra connaissance et vous répondra dès que possible.</p><p>Sportivement,<br>L'équipe du Boussy-Quincy FC</p>`;
 
@@ -139,7 +139,7 @@ function getRegistrationSheet(properties) {
     const folderId = properties.getProperty('DRIVE_FOLDER_ID');
     if (!folderId) throw new Error('DRIVE_FOLDER_ID is not configured.');
 
-    spreadsheet = SpreadsheetApp.create('Préinscriptions — Boussy Quincy FC');
+    spreadsheet = SpreadsheetApp.create('Préinscriptions - Boussy Quincy FC');
     DriveApp.getFileById(spreadsheet.getId()).moveTo(DriveApp.getFolderById(folderId));
     properties.setProperty('SHEET_ID', spreadsheet.getId());
   }

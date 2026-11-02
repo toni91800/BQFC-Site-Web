@@ -37,7 +37,7 @@ collections:
             hint: "Sélectionnez d'abord la compétition et l'équipe. Un résultat de coupe est soit gagné, soit perdu."
   - name: "organigramme"
     label: "Organigramme"
-    description: "Ajouter ou supprimer des rôles et renseigner le prénom et la photo de chaque membre."
+    description: "Modifiez les responsables du club, leur prénom et leur photo. Les champs suivent le style des formulaires Résultats et Convocations."
     files:
       - name: "membres"
         label: "Membres du club"
@@ -51,8 +51,65 @@ collections:
             collapsed: true
             minimize_collapsed: true
             label_singular: "rôle"
-            summary: "{{fields.role}} — {{fields.name}}"
+            summary: "{{fields.role}} - {{fields.name}}"
+            hint: "Renseignez le rôle, le prénom et la photo. Utilisez les boutons pour ajouter, réordonner ou retirer une personne."
             fields:
               - { label: "Rôle", name: "role", widget: "string" }
               - { label: "Prénom(s) du/des membre(s)", name: "name", widget: "string", required: false, hint: "Laisser vide pour afficher « Prochainement »." }
               - { label: "Photo du membre", name: "photo", widget: "image", required: false }
+  - name: "planning"
+    label: "Planning des entraînements"
+    description: "Choisissez une catégorie pour modifier son année, ses horaires et son entraîneur."
+    files:
+      - name: "planning"
+        label: "Entraînements par catégorie"
+        file: "data/planning.json"
+        format: "json"
+        fields:
+          - label: "Planning par catégorie"
+            name: "categories"
+            widget: "planningByCategory"
+            hint: "Choisissez une catégorie, puis modifiez les champs clairement identifiés."
+  - name: "contacts"
+    label: "Contact et responsables"
+    description: "Modifiez les coordonnées affichées sur la page Contact et les responsables de chaque catégorie."
+    files:
+      - name: "contacts"
+        label: "Coordonnées et responsables"
+        file: "data/contacts.json"
+        format: "json"
+        fields:
+          - label: "Coordonnées de la page Contact"
+            name: "details"
+            widget: "clubContactDetails"
+            hint: "Ces champs alimentent la page Contact et le pied de page. Les liens de carte doivent commencer par https://."
+          - label: "Responsables par catégorie"
+            name: "categoryContacts"
+            widget: "categoryContacts"
+            hint: "Choisissez une catégorie et renseignez le nom ainsi que le numéro qui apparaîtront dans les contacts."
+          - label: "Direction et responsables du club"
+            name: "clubContacts"
+            widget: "clubContacts"
+            hint: "Modifiez les rôles, noms et numéros de téléphone affichés sous les coordonnées."
+  - name: "documents"
+    label: "Documents officiels"
+    description: "Ajouter, modifier ou supprimer les PDF mis à disposition des visiteurs du site."
+    media_folder: "documents"
+    public_folder: "/documents"
+    files:
+      - name: "documents"
+        label: "Documents du club"
+        file: "data/documents.json"
+        format: "json"
+        fields:
+          - label: "Documents"
+            name: "documents"
+            widget: "list"
+            add_to_top: true
+            collapsed: true
+            label_singular: "document"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "string", required: false }
+              - { label: "Fichier PDF", name: "file", widget: "file", hint: "Téléversez un fichier PDF. Il sera publié dans la rubrique Documents officiels." }

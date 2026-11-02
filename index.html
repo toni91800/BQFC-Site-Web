@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Boussy Quincy FC — Site officiel du club</title>
+<title>Boussy Quincy FC - Site officiel du club</title>
 <link rel="stylesheet" href="style.css">
 <meta name="google-site-verification" content="jT_Q2HrDLZja9VX6vXoFFzYNCfdoWo_ke16RSdkj8u0" />
 <meta name="description" content="Site officiel du Boussy Quincy FC, club de football amateur de Boussy-Saint-Antoine et Quincy-sous-Sénart : équipes, résultats, inscriptions, boutique et actualités.">
@@ -85,6 +85,7 @@
             <li><a href="#" data-page="club" data-sub="club-adhesion">Adhésion 2026/2027</a></li>
             <li><a href="#" data-page="club" data-sub="club-terrains">Les Terrains</a></li>
             <li><a href="#" data-page="club" data-sub="club-partenaires">Nos Partenaires</a></li>
+            <li><a href="#" data-page="club" data-sub="club-documents">Documents officiels</a></li>
           </ul>
         </li>
 
@@ -189,6 +190,7 @@
         <button data-target="club-adhesion">Adhésion 2026/2027</button>
         <button data-target="club-terrains">Les Terrains</button>
         <button data-target="club-partenaires">Nos Partenaires</button>
+        <button data-target="club-documents">Documents officiels</button>
       </div>
 
       <!-- Histoire -->
@@ -242,9 +244,10 @@
       <!-- Planning -->
       <div class="subpanel" id="club-planning">
         <h3>Planning des entraînements</h3>
+        <p class="form-note" id="planning-load-status" role="status" aria-live="polite">Chargement du planning…</p>
         <div style="overflow-x:auto;">
           <table class="plan">
-            <thead><tr><th>Catégorie</th><th>Jours &amp; horaires</th><th>Coach</th></tr></thead>
+            <thead><tr><th>Catégorie</th><th>Année(s)</th><th>Jours &amp; horaires</th><th>Coach</th></tr></thead>
             <tbody id="planning-body"></tbody>
           </table>
         </div>
@@ -412,6 +415,12 @@
         </div>
       </div>
 
+      <!-- Documents officiels -->
+      <div class="subpanel" id="club-documents">
+        <h3>Documents officiels du club</h3>
+        <p class="form-note" id="documents-load-status" role="status" aria-live="polite">Chargement des documents…</p>
+        <div class="documents-list" id="documents-list"></div>
+      </div>
 
     </div>
   </section>
@@ -472,13 +481,13 @@
       <div class="contact-grid">
         <div>
           <ul class="contact-info">
-            <li><span class="ico">📍</span><div><strong>Adresse</strong><br>1 Rue de Rochopt, 91800 Boussy-Saint-Antoine</div></li>
-            <li><span class="ico">✉️</span><div><strong>Email</strong><br>581835@lpiff.fr</div></li>
+            <li><span class="ico">📍</span><div><strong>Adresse</strong><br><span id="contact-address">Chargement…</span></div></li>
+            <li><span class="ico">✉️</span><div><strong>Email</strong><br><a id="contact-email"></a></div></li>
           </ul>
           <div class="map-embed-wrap">
-            <iframe class="map-embed" src="https://www.google.com/maps?q=48.6900747,2.5266134&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte d'accès au stade du Boussy Quincy FC"></iframe>
+            <iframe id="contact-map" class="map-embed" src="https://www.google.com/maps?q=48.6900747,2.5266134&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte d'accès au stade du Boussy Quincy FC"></iframe>
           </div>
-          <a class="map-link" href="https://maps.app.goo.gl/Ppfcj2v6Mo6HXnTDA" target="_blank" rel="noopener">Ouvrir l'itinéraire dans Google Maps ↗</a>
+          <a id="contact-map-link" class="map-link" href="https://maps.app.goo.gl/Ppfcj2v6Mo6HXnTDA" target="_blank" rel="noopener">Ouvrir l'itinéraire dans Google Maps ↗</a>
         </div>
         <div>
           <form id="contactForm" name="contact" method="POST" netlify netlify-honeypot="bot-field" action="/merci-contact.html">
@@ -513,6 +522,7 @@
 
       <!-- Contacts -->
       <div id="club-contacts">
+        <p class="form-note" id="contact-load-status" role="status" aria-live="polite">Chargement des coordonnées et des responsables…</p>
         <div class="contacts-section">
           <h3>Contacter les responsables des équipes</h3>
           <div class="contacts-grid" id="contacts-equipes"></div>
@@ -532,7 +542,7 @@
     <div class="footer-grid">
       <div>
         <h4>Boussy Quincy FC</h4>
-        <p>Club de football amateur — de l'école de Foot aux Vétérans. Formation, convivialité et esprit d'équipe depuis toujours.</p>
+        <p>Club de football amateur - de l'école de Foot aux Vétérans. Formation, convivialité et esprit d'équipe depuis toujours.</p>
         <div class="social-row">
           <a href="https://www.facebook.com/boussyquincyfc" target="_blank" rel="noopener" aria-label="Facebook">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M13.5 21v-8h2.68l.4-3.1h-3.08V7.9c0-.9.25-1.5 1.53-1.5h1.64V3.63C15.9 3.6 15 3.5 13.94 3.5c-2.2 0-3.7 1.34-3.7 3.8V9.9H7.55v3.1h2.69v8h3.26z"/></svg>
@@ -558,13 +568,13 @@
       <div>
         <h4>Contact</h4>
         <ul>
-          <li>Adresse : 1 Rue de Rochopt, 91800 Boussy-Saint-Antoine</li>
-          <li>Email : 581835@lpiff.fr</li>
+          <li>Adresse : <span id="footer-address">Chargement…</span></li>
+          <li>Email : <span id="footer-email">Chargement…</span></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© <span id="year"></span> Boussy Quincy FC — Tous droits réservés — v 1.1.0</span>
+      <span>© <span id="year"></span> Boussy Quincy FC - Tous droits réservés - v 1.1.0</span>
       <span>Site réalisé pour les licenciés et supporters du club</span>
     </div>
   </div>

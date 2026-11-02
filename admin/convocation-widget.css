@@ -87,6 +87,13 @@
   color: #514936;
 }
 
+.club-cms-editor small {
+  color: #6a604d;
+  font-size: .8rem;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
 .convocation-cms-team legend {
   padding: 0 .5rem;
   color: #201c14;
@@ -307,6 +314,19 @@ body:has(#nc-root) label[for^="roles-field-"] {
 
 body:has(#nc-root) [id^="roles-field-"] [class*="SortableListItem"] {
   margin-block: .75rem;
+  padding: 1rem;
+}
+
+body:has(#nc-root) [id^="roles-field-"] [class*="SortableListItem"] fieldset {
+  margin: 0;
+  border-color: #d8cfbc;
+  border-radius: 8px;
+  background: #fff;
+}
+
+body:has(#nc-root) [id^="roles-field-"] [class*="SortableListItem"] input {
+  box-sizing: border-box;
+  width: 100%;
 }
 
 body:has(#nc-root) button {
