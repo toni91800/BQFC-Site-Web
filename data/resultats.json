@@ -129,6 +129,16 @@
       "home": false,
       "goalsFor": 4,
       "goalsAgainst": 3
+    },
+    {
+      "competition": "championnat",
+      "team": "u15F",
+      "round": "J2",
+      "date": "2026-10-17",
+      "opponent": "Massy 91",
+      "home": false,
+      "goalsFor": 4,
+      "goalsAgainst": 3
     }
   ]
 }
