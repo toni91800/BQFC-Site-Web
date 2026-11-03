@@ -100,7 +100,102 @@ const RESULTAT_TEAM_OPTIONS = Object.fromEntries(
 );
  
 /* ---------- 2. Navigation principale (onglets + sous-onglets) ---------- */
+function routeFromPage(pageId, subId, compId, catId){
+  if(compId && catId) return `resultats/${compId}/${catId}`;
+  if(pageId === 'club'){
+    const subPage = subId ? subId.replace(/^club-/, '') : 'histoire';
+    return `club/${subPage}`;
+  }
+  if(pageId === 'equipes'){
+    const category = subId ? subId.replace(/^eq-/, '') : 'convocations';
+    return `equipes/${category}`;
+  }
+  if(pageId === 'resultats'){
+    const competition = COMPETITIONS[0];
+    return `resultats/${competition.id}/${RESULTAT_TEAMS[competition.id][0].id}`;
+  }
+  return pageId;
+}
+
+function navigateToRoute(route){
+  const pathname = `/${route.split('/').map(encodeURIComponent).join('/')}`;
+  if(window.location.pathname === pathname){
+    renderCurrentRoute();
+  } else {
+    window.history.pushState(null, '', `${pathname}${window.location.search}`);
+    renderCurrentRoute();
+  }
+}
+
+function getCurrentRoute(){
+  try{
+    return window.location.pathname
+      .replace(/^\/+|\/+$/g, '')
+      .split('/')
+      .filter(Boolean)
+      .map(decodeURIComponent);
+  } catch(error){
+    console.error('Unable to decode the current page URL:', error);
+    return [];
+  }
+}
+
+function renderCurrentRoute(){
+  const [pageId, sectionId, detailId] = getCurrentRoute();
+
+  if(pageId === 'actualites' || pageId === 'boutique' || pageId === 'contact'){
+    showPage(pageId);
+    return;
+  }
+
+  if(pageId === 'club'){
+    const subId = `club-${sectionId || 'histoire'}`;
+    const panel = document.getElementById(subId);
+    if(!panel){
+      showPage('accueil');
+      return;
+    }
+    showPage('club', subId);
+    if(sectionId === 'adhesion'){
+      showAdhesionPanel(detailId === 'ancien' ? 'ancien' : 'nouveau');
+    }
+    return;
+  }
+
+  if(pageId === 'equipes'){
+    const isConvocations = !sectionId || sectionId === 'convocations';
+    const subId = isConvocations ? 'eq-convocations' : `eq-${sectionId}`;
+    if(!document.getElementById(subId)){
+      showPage('accueil');
+      return;
+    }
+    showPage('equipes', subId);
+    if(isConvocations && detailId){
+      showConvocationCategory(detailId);
+    }
+    return;
+  }
+
+  if(pageId === 'resultats'){
+    const competitionId = sectionId || COMPETITIONS[0].id;
+    const teamId = detailId || RESULTAT_TEAMS[competitionId]?.[0]?.id;
+    const competitionPanel = document.getElementById(`comp-${competitionId}`);
+    const categoryPanel = document.getElementById(`res-${competitionId}-${teamId}`);
+    if(!competitionPanel || !categoryPanel){
+      showPage('accueil');
+      return;
+    }
+    showPage('resultats');
+    showCompPanel(competitionId);
+    showCatPanel(competitionPanel, `res-${competitionId}-${teamId}`);
+    return;
+  }
+
+  showPage('accueil');
+}
+
 function showPage(pageId, subId){
+  const previousPage = document.querySelector('.page.active');
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById(pageId);
   if(page) page.classList.add('active');
@@ -115,7 +210,9 @@ function showPage(pageId, subId){
   document.getElementById('mainNav').classList.remove('open');
   document.querySelectorAll('.main-nav li.open').forEach(li=>li.classList.remove('open'));
  
-  window.scrollTo({top:0, behavior:'smooth'});
+  if(previousPage !== page){
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
 }
  
 function showSubPanel(pageId, subId){
@@ -139,7 +236,7 @@ function buildEquipes(){
     const btn = document.createElement('button');
     btn.textContent = cat.label;
     btn.dataset.target = 'eq-'+cat.id;
-    btn.addEventListener('click', ()=>showSubPanel('equipes','eq-'+cat.id));
+    btn.addEventListener('click', ()=>navigateToRoute(`equipes/${cat.id}`));
     subtabs.appendChild(btn);
 
     const panel = document.createElement('div');
@@ -177,7 +274,7 @@ function buildEquipes(){
   convocationsButton.textContent = 'Convocations';
   convocationsButton.dataset.target = 'eq-convocations';
   convocationsButton.classList.add('active');
-  convocationsButton.addEventListener('click', ()=>showSubPanel('equipes', 'eq-convocations'));
+  convocationsButton.addEventListener('click', ()=>navigateToRoute('equipes/convocations'));
   subtabs.insertBefore(convocationsButton, subtabs.firstChild);
 
   const convocationsPanel = document.createElement('div');
@@ -197,6 +294,7 @@ function buildEquipes(){
     categoryTab.type = 'button';
     categoryTab.textContent = category.label;
     categoryTab.classList.toggle('active', categoryIndex === 0);
+    categoryTab.dataset.category = category.id;
     categoryTab.setAttribute('role', 'tab');
     categoryTab.setAttribute('aria-selected', String(categoryIndex === 0));
 
@@ -206,16 +304,7 @@ function buildEquipes(){
     categoryPanel.setAttribute('aria-label', `Convocations ${category.label}`);
     categoryPanel.id = `convocation-${category.id}`;
 
-    categoryTab.addEventListener('click', ()=>{
-      categoryTabs.querySelectorAll('button').forEach(tab=>{
-        const selected = tab === categoryTab;
-        tab.classList.toggle('active', selected);
-        tab.setAttribute('aria-selected', String(selected));
-      });
-      categoryPanels.querySelectorAll('.convocation-category-panel').forEach(panel=>{
-        panel.classList.toggle('active', panel === categoryPanel);
-      });
-    });
+    categoryTab.addEventListener('click', ()=>navigateToRoute(`equipes/convocations/${category.id}`));
 
     categoryTabs.appendChild(categoryTab);
     categoryPanels.appendChild(categoryPanel);
@@ -295,6 +384,25 @@ function renderConvocations(data){
       card.appendChild(playersSection);
       categoryPanel.appendChild(card);
     }
+  });
+}
+
+function showConvocationCategory(categoryId){
+  const categoryTabs = document.querySelector('#eq-convocations .subtabs-nested');
+  const categoryPanels = document.querySelector('#eq-convocations .convocation-category-panels');
+  if(!categoryTabs || !categoryPanels) return;
+  const selectedTab = [...categoryTabs.querySelectorAll('button')]
+    .find(tab=>tab.dataset.category === categoryId);
+  const selectedPanel = document.getElementById(`convocation-${categoryId}`);
+  if(!selectedTab || !selectedPanel) return;
+
+  categoryTabs.querySelectorAll('button').forEach(tab=>{
+    const selected = tab === selectedTab;
+    tab.classList.toggle('active', selected);
+    tab.setAttribute('aria-selected', String(selected));
+  });
+  categoryPanels.querySelectorAll('.convocation-category-panel').forEach(panel=>{
+    panel.classList.toggle('active', panel === selectedPanel);
   });
 }
 
@@ -633,6 +741,7 @@ async function loadResultats(){
     const data = validateResultats(await response.json());
     buildResultats(data);
     status.hidden = true;
+    if(getCurrentRoute()[0] === 'resultats') renderCurrentRoute();
   } catch(error){
     console.error('Unable to load results:', error);
     status.textContent = 'Les résultats ne sont pas accessibles actuellement. Veuillez réessayer plus tard.';
@@ -651,7 +760,9 @@ function buildResultats(allMatches){
     compBtn.textContent = comp.label;
     compBtn.dataset.target = 'comp-'+comp.id;
     if(ci===0) compBtn.classList.add('active');
-    compBtn.addEventListener('click', ()=> showCompPanel(comp.id));
+    compBtn.addEventListener('click', ()=>{
+      navigateToRoute(`resultats/${comp.id}/${RESULTAT_TEAMS[comp.id][0].id}`);
+    });
     compSubtabs.appendChild(compBtn);
  
     // --- panneau de 1er niveau, qui contiendra son propre sous-menu de catégories ---
@@ -682,7 +793,7 @@ function buildResultats(allMatches){
       catBtn.textContent = cat.label;
       catBtn.dataset.target = targetId;
       if(i===0) catBtn.classList.add('active');
-      catBtn.addEventListener('click', ()=> showCatPanel(compPanel, targetId));
+      catBtn.addEventListener('click', ()=>navigateToRoute(`resultats/${comp.id}/${cat.id}`));
       catSubtabs.appendChild(catBtn);
  
       // --- contenu des résultats pour cette catégorie, dans cette compétition ---
@@ -771,10 +882,7 @@ function showCatPanel(compPanelEl, targetId){
 /* Permet à n'importe quel lien du site (bouton "Voir les résultats", menu...)
    d'ouvrir directement une catégorie précise, dans une compétition précise. */
 function goToResultat(compId, catId){
-  showPage('resultats');
-  showCompPanel(compId);
-  const compPanel = document.getElementById('comp-'+compId);
-  if(compPanel) showCatPanel(compPanel, `res-${compId}-${catId}`);
+  navigateToRoute(`resultats/${compId}/${catId}`);
 }
 
 /* ---------- 5ter. Agenda : occupation des terrains (regroupée par terrain) ---------- */
@@ -816,9 +924,7 @@ function bindAdhesionTabs(){
   const nav = document.getElementById('adhesion-subtabs');
   if(!nav) return;
   nav.querySelectorAll('button').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      showAdhesionPanel(btn.dataset.adh);
-    });
+    btn.addEventListener('click', ()=>navigateToRoute(`club/adhesion/${btn.dataset.adh}`));
   });
 }
  
@@ -1036,11 +1142,11 @@ function bindNavLinks(){
 
       e.preventDefault();
       if(el.dataset.comp && el.dataset.cat){
-        goToResultat(el.dataset.comp, el.dataset.cat);
+        navigateToRoute(`resultats/${el.dataset.comp}/${el.dataset.cat}`);
         document.getElementById('mainNav').classList.remove('open');
         document.querySelectorAll('.main-nav li.open').forEach(li=>li.classList.remove('open'));
       } else {
-        showPage(el.dataset.page, el.dataset.sub || null);
+        navigateToRoute(routeFromPage(el.dataset.page, el.dataset.sub || null));
       }
     });
   });
@@ -1073,10 +1179,12 @@ function bindBurger(){
  
 /* ---------- 9. Sous-onglets statiques (Le Club) ---------- */
 function bindStaticSubtabs(){
-  document.querySelectorAll('.subtabs[data-page]').forEach(nav=>{
+  document.querySelectorAll('.subtabs[data-page="club"]').forEach(nav=>{
     const pageId = nav.dataset.page;
     nav.querySelectorAll('button').forEach(btn=>{
-      btn.addEventListener('click', ()=> showSubPanel(pageId, btn.dataset.target));
+      btn.addEventListener('click', ()=>{
+        navigateToRoute(routeFromPage(pageId, btn.dataset.target));
+      });
     });
   });
 }
@@ -1433,7 +1541,8 @@ document.addEventListener('DOMContentLoaded', ()=>{
   bindBurger();
   bindStaticSubtabs();
   bindInstagramFeed();
-  showPage('accueil');
+  window.addEventListener('popstate', renderCurrentRoute);
+  renderCurrentRoute();
 
   document.getElementById('year').textContent = new Date().getFullYear();
 });
