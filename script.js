@@ -696,6 +696,50 @@ async function loadDocuments(){
     status.setAttribute('role', 'alert');
   }
 }
+
+async function loadBuvetteProducts(){
+  const list = document.getElementById('buvette-products');
+  const status = document.getElementById('buvette-load-status');
+  if(!list || !status) return;
+
+  try{
+    const response = await fetch('/data/buvette.json', {cache: 'no-cache'});
+    if(!response.ok) throw new Error(`Chargement des produits de la buvette impossible (${response.status}).`);
+    const data = await response.json();
+    if(!data || !Array.isArray(data.products)){
+      throw new Error('Le fichier des produits de la buvette a un format invalide.');
+    }
+
+    data.products.forEach((product, index)=>{
+      if(
+        !product || typeof product.name !== 'string' || !product.name.trim() ||
+        typeof product.price !== 'string' || !product.price.trim()
+      ){
+        throw new Error(`Le produit numéro ${index + 1} contient un nom ou un prix invalide.`);
+      }
+    });
+
+    list.replaceChildren();
+    data.products.forEach(product=>{
+      const row = document.createElement('tr');
+      const name = document.createElement('td');
+      const price = document.createElement('td');
+      name.textContent = product.name.trim();
+      price.textContent = product.price.trim();
+      row.append(name, price);
+      list.appendChild(row);
+    });
+
+    status.hidden = data.products.length > 0;
+    if(!data.products.length){
+      status.textContent = 'Aucun produit disponible pour le moment.';
+    }
+  } catch(error){
+    console.error('Unable to load buvette products:', error);
+    status.textContent = 'Les produits de la buvette ne sont pas accessibles actuellement.';
+    status.setAttribute('role', 'alert');
+  }
+}
  
 function escapeHTML(value){
   return String(value).replace(/[&<>"']/g, character => ({
@@ -1131,7 +1175,7 @@ function buildDropdownsAndPlanning(){
  
 /* ---------- 5. Écouteurs génériques (data-page / data-sub / data-comp+data-cat) ---------- */
 function bindNavLinks(){
-  document.querySelectorAll('[data-page]').forEach(el=>{
+  document.querySelectorAll('a[data-page], button[data-page]').forEach(el=>{
     el.addEventListener('click', (e)=>{
       const parentMenuItem = el.closest('.main-nav > ul > li');
       if(
@@ -1530,6 +1574,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   loadPlanning();
   loadOrganigramme();
   loadDocuments();
+  loadBuvetteProducts();
   loadResultats();
   buildAgenda();
   bindAdhesionTabs();

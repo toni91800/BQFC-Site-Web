@@ -84,7 +84,7 @@
             <li><a href="#" data-page="club" data-sub="club-planning">Planning Entraînement</a></li>
             <li><a href="#" data-page="club" data-sub="club-agenda">Agenda</a></li>
             <li><a href="#" data-page="club" data-sub="club-adhesion">Adhésion 2026/2027</a></li>
-            <li><a href="#" data-page="club" data-sub="club-terrains">Les Terrains</a></li>
+            <li><a href="#" data-page="club" data-sub="club-terrains">Terrains</a></li>
             <li><a href="#" data-page="club" data-sub="club-partenaires">Nos Partenaires</a></li>
             <li><a href="#" data-page="club" data-sub="club-documents">Documents officiels</a></li>
           </ul>
@@ -189,7 +189,8 @@
         <button data-target="club-planning">Planning Entraînement</button>
         <button data-target="club-agenda">Agenda</button>
         <button data-target="club-adhesion">Adhésion 2026/2027</button>
-        <button data-target="club-terrains">Les Terrains</button>
+        <button data-target="club-terrains">Terrains</button>
+        <button data-target="club-buvette">Buvette</button>
         <button data-target="club-partenaires">Nos Partenaires</button>
         <button data-target="club-documents">Documents officiels</button>
       </div>
@@ -373,7 +374,7 @@
             <iframe class="terrain-map" src="https://www.google.com/maps?q=48.6900747,2.5266134&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte du terrain d'honneur, Boussy-Saint-Antoine"></iframe>
             <div class="info">
               <h4>Terrain synthétique Boussy</h4>
-              <p>Terrain synthétique, tribune et vestiaires, situé à Boussy-Saint-Antoine. Accueille les matchs Séniors et jeunes catégories.</p>
+              <p>Terrain principal (Stade de la Ferme) situé à Boussy-Saint-Antoine. Accueille les matchs et entraînements de toutes catégories.</p>
               <a class="map-link" href="https://maps.app.goo.gl/Ppfcj2v6Mo6HXnTDA" target="_blank" rel="noopener">Itinéraire vers ce terrain ↗</a>
             </div>
           </div>
@@ -382,18 +383,26 @@
             <iframe class="terrain-map" src="https://www.google.com/maps?q=48.6717833,2.5366331&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Carte du terrain synthétique, Quincy-sous-Sénart"></iframe>
             <div class="info">
               <h4>Terrain herbe naturelle Quincy</h4>
-              <p>Terrain annexe (Stade Maurice Perraguin), situé à Quincy-sous-Sénart. Utilisé pour les entraînements et les matchs des catégories jeunes.</p>
+              <p>Terrain annexe (Stade Maurice Perraguin) situé à Quincy-sous-Sénart. Utilisé pour certains entraînements des catégories jeunes.</p>
               <a class="map-link" href="https://maps.app.goo.gl/yGF1Gy6R7TjaHcYt9" target="_blank" rel="noopener">Itinéraire vers ce terrain ↗</a>
             </div>
           </div>
-          <div class="terrain-card">
-            <div class="photo">Photo de la buvette</div>
-            <div class="info">
-              <h4>Buvette</h4>
-              <p>Lieu de convivialité après les matchs pour les licenciés et bénévoles, sur le site du terrain à Boussy-Saint-Antoine.</p>
-            </div>
-          </div>
         </div>
+      </div>
+
+      <!-- Buvette -->
+      <div class="subpanel" id="club-buvette">
+        <h3>La buvette du club</h3>
+        <div class="buvette-table-wrap">
+          <table class="buvette-products">
+            <thead>
+              <tr><th scope="col">Produit</th><th scope="col">Prix</th></tr>
+            </thead>
+            <tbody id="buvette-products"></tbody>
+          </table>
+          <p class="form-note" id="buvette-load-status" role="status" aria-live="polite">Chargement des produits…</p>
+        </div>
+        <p><strong>Mode de paiement accepté :</strong> Espèces et Carte bancaire.</p>
       </div>
 
       <!-- Nos Partenaires -->

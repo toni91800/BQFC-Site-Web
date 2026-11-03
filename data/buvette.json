@@ -1,0 +1,11 @@
+{
+  "products": [
+    { "name": "Eau", "price": "1,50 €" },
+    { "name": "Canette", "price": "2,00 €" },
+    { "name": "Kinder Bueno", "price": "À définir" },
+    { "name": "Croques Monsieur", "price": "À définir" },
+    { "name": "Chips", "price": "À définir" },
+    { "name": "Crêpes", "price": "À définir" },
+    { "name": "Gâteau fait maison (si disponible)", "price": "À définir" }
+  ]
+}

@@ -542,10 +542,87 @@
     },
   });
 
+  const BuvetteProductsControl = createClass({
+    getProducts(){
+      const products = toPlain(this.props.value);
+      return Array.isArray(products) ? products : [];
+    },
+
+    updateProduct(productIndex, changes){
+      const products = this.getProducts().map(product => ({...product}));
+      products[productIndex] = {...products[productIndex], ...changes};
+      this.props.onChange(products);
+    },
+
+    addProduct(){
+      this.props.onChange([...this.getProducts(), {name: '', price: ''}]);
+    },
+
+    moveProduct(productIndex, offset){
+      const products = [...this.getProducts()];
+      const targetIndex = productIndex + offset;
+      if(targetIndex < 0 || targetIndex >= products.length) return;
+      [products[productIndex], products[targetIndex]] = [products[targetIndex], products[productIndex]];
+      this.props.onChange(products);
+    },
+
+    removeProduct(productIndex){
+      this.props.onChange(this.getProducts().filter((product, index) => index !== productIndex));
+    },
+
+    render(){
+      const products = this.getProducts();
+      const field = (productIndex, key, label) => h('label', {className: 'results-cms-field'}, [
+        h('span', {key: 'label'}, label),
+        h('input', {
+          key: 'input',
+          type: 'text',
+          value: products[productIndex]?.[key] || '',
+          onChange: event => this.updateProduct(productIndex, {[key]: event.target.value}),
+        }),
+      ]);
+
+      return h('div', {className: 'results-cms-editor'}, [
+        h('p', {key: 'help', className: 'results-cms-help'}, 'Modifiez les produits et les prix affichés dans le sous-onglet Buvette.'),
+        ...products.map((product, productIndex) => h('fieldset', {
+          key: `product-${productIndex}`,
+          className: 'results-cms-match',
+        }, [
+          h('legend', {key: 'legend'}, `Produit ${productIndex + 1}`),
+          field(productIndex, 'name', 'Nom du produit'),
+          field(productIndex, 'price', 'Prix'),
+          h('button', {
+            key: 'move-up',
+            type: 'button',
+            disabled: productIndex === 0,
+            onClick: () => this.moveProduct(productIndex, -1),
+          }, 'Monter'),
+          h('button', {
+            key: 'move-down',
+            type: 'button',
+            disabled: productIndex === products.length - 1,
+            onClick: () => this.moveProduct(productIndex, 1),
+          }, 'Descendre'),
+          h('button', {
+            key: 'remove',
+            type: 'button',
+            onClick: () => this.removeProduct(productIndex),
+          }, 'Supprimer ce produit'),
+        ])),
+        h('button', {
+          key: 'add',
+          type: 'button',
+          onClick: this.addProduct,
+        }, 'Ajouter un produit'),
+      ]);
+    },
+  });
+
   window.CMS.registerWidget('convocationCategories', ConvocationCategoriesControl);
   window.CMS.registerWidget('resultsByCategory', ResultsByCategoryControl);
   window.CMS.registerWidget('planningByCategory', PlanningByCategoryControl);
   window.CMS.registerWidget('categoryContacts', CategoryContactsControl);
   window.CMS.registerWidget('clubContactDetails', ClubContactDetailsControl);
   window.CMS.registerWidget('clubContacts', ClubContactsControl);
+  window.CMS.registerWidget('buvetteProducts', BuvetteProductsControl);
 })();
