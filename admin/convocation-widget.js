@@ -543,35 +543,68 @@
   });
 
   const BuvetteProductsControl = createClass({
-    getProducts(){
-      const products = toPlain(this.props.value);
-      return Array.isArray(products) ? products : [];
+    getInitialState(){
+      return {categoryIndex: 0};
+    },
+
+    getCategories(){
+      const categories = toPlain(this.props.value);
+      return Array.isArray(categories) ? categories : [];
+    },
+
+    getCategory(){
+      return this.getCategories()[this.state.categoryIndex] || {name: '', products: []};
+    },
+
+    updateCategory(changes){
+      const categories = this.getCategories().map(category => ({...category}));
+      categories[this.state.categoryIndex] = {...this.getCategory(), ...changes};
+      this.props.onChange(categories);
     },
 
     updateProduct(productIndex, changes){
-      const products = this.getProducts().map(product => ({...product}));
+      const category = this.getCategory();
+      const products = category.products.map(product => ({...product}));
       products[productIndex] = {...products[productIndex], ...changes};
-      this.props.onChange(products);
+      this.updateCategory({products});
+    },
+
+    addCategory(){
+      const categories = [...this.getCategories(), {name: '', products: []}];
+      this.props.onChange(categories);
+      this.setState({categoryIndex: categories.length - 1});
+    },
+
+    removeCategory(){
+      const categories = this.getCategories();
+      const category = categories[this.state.categoryIndex];
+      if(category.products.length && !window.confirm(`Supprimer la catégorie « ${category.name} » et tous ses produits ?`)) return;
+      this.props.onChange(categories.filter((item, index) => index !== this.state.categoryIndex));
+      this.setState({categoryIndex: Math.max(0, this.state.categoryIndex - 1)});
     },
 
     addProduct(){
-      this.props.onChange([...this.getProducts(), {name: '', price: ''}]);
+      this.updateCategory({products: [...this.getCategory().products, {name: '', price: '', detail: ''}]});
     },
 
     moveProduct(productIndex, offset){
-      const products = [...this.getProducts()];
+      const products = [...this.getCategory().products];
       const targetIndex = productIndex + offset;
       if(targetIndex < 0 || targetIndex >= products.length) return;
       [products[productIndex], products[targetIndex]] = [products[targetIndex], products[productIndex]];
-      this.props.onChange(products);
+      this.updateCategory({products});
     },
 
     removeProduct(productIndex){
-      this.props.onChange(this.getProducts().filter((product, index) => index !== productIndex));
+      this.updateCategory({
+        products: this.getCategory().products.filter((product, index) => index !== productIndex),
+      });
     },
 
     render(){
-      const products = this.getProducts();
+      const categories = this.getCategories();
+      const category = this.getCategory();
+      const products = category.products;
       const field = (productIndex, key, label) => h('label', {className: 'results-cms-field'}, [
         h('span', {key: 'label'}, label),
         h('input', {
@@ -582,8 +615,33 @@
         }),
       ]);
 
-      return h('div', {className: 'results-cms-editor'}, [
-        h('p', {key: 'help', className: 'results-cms-help'}, 'Modifiez les produits et les prix affichés dans le sous-onglet Buvette.'),
+      return h('div', {className: 'results-cms-editor club-cms-editor'}, [
+        h('p', {key: 'help', className: 'results-cms-help'}, 'Choisissez une catégorie, puis modifiez les produits affichés dans son tableau.'),
+        h('label', {key: 'category-selector', className: 'results-cms-selector'}, [
+          h('span', {key: 'label'}, 'Catégorie'),
+          h('select', {
+            key: 'select',
+            value: String(this.state.categoryIndex),
+            onChange: event => this.setState({categoryIndex: Number(event.target.value)}),
+          }, categories.map((item, index) =>
+            h('option', {key: `category-${index}`, value: String(index)}, item.name || `Catégorie ${index + 1}`)
+          )),
+        ]),
+        h('label', {key: 'category-name', className: 'results-cms-field'}, [
+          h('span', {key: 'label'}, 'Nom de la catégorie'),
+          h('input', {
+            key: 'input',
+            type: 'text',
+            value: category.name || '',
+            onChange: event => this.updateCategory({name: event.target.value}),
+          }),
+        ]),
+        h('button', {
+          key: 'remove-category',
+          type: 'button',
+          disabled: categories.length <= 1,
+          onClick: this.removeCategory,
+        }, 'Supprimer cette catégorie'),
         ...products.map((product, productIndex) => h('fieldset', {
           key: `product-${productIndex}`,
           className: 'results-cms-match',
@@ -591,6 +649,7 @@
           h('legend', {key: 'legend'}, `Produit ${productIndex + 1}`),
           field(productIndex, 'name', 'Nom du produit'),
           field(productIndex, 'price', 'Prix'),
+          field(productIndex, 'detail', 'Précision (facultative)'),
           h('button', {
             key: 'move-up',
             type: 'button',
@@ -614,6 +673,11 @@
           type: 'button',
           onClick: this.addProduct,
         }, 'Ajouter un produit'),
+        h('button', {
+          key: 'add-category',
+          type: 'button',
+          onClick: this.addCategory,
+        }, 'Ajouter une catégorie'),
       ]);
     },
   });

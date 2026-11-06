@@ -19,9 +19,9 @@ collections:
         format: "json"
         fields:
           - label: "Produits"
-            name: "products"
+            name: "categories"
             widget: "buvetteProducts"
-            hint: "Renseignez le nom et le prix de chaque produit. Les changements seront publiés sur le site après enregistrement."
+            hint: "Gérez les catégories et les produits de chaque tableau. Les changements seront publiés sur le site après enregistrement."
   - name: "convocations"
     label: "Convocations"
     description: "Modifier les informations de match et les joueurs/joueuses convoqués. Le bouton d'effacement est disponible dans chaque catégorie."

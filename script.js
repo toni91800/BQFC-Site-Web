@@ -706,32 +706,79 @@ async function loadBuvetteProducts(){
     const response = await fetch('/data/buvette.json', {cache: 'no-cache'});
     if(!response.ok) throw new Error(`Chargement des produits de la buvette impossible (${response.status}).`);
     const data = await response.json();
-    if(!data || !Array.isArray(data.products)){
-      throw new Error('Le fichier des produits de la buvette a un format invalide.');
+    if(!data || !Array.isArray(data.categories)){
+      throw new Error('Le fichier de la buvette ne contient pas de liste de catégories valide.');
     }
 
-    data.products.forEach((product, index)=>{
-      if(
-        !product || typeof product.name !== 'string' || !product.name.trim() ||
-        typeof product.price !== 'string' || !product.price.trim()
-      ){
-        throw new Error(`Le produit numéro ${index + 1} contient un nom ou un prix invalide.`);
+    data.categories.forEach((category, categoryIndex)=>{
+      if(!category || typeof category.name !== 'string' || !category.name.trim() || !Array.isArray(category.products)){
+        throw new Error(`La catégorie numéro ${categoryIndex + 1} contient un nom ou une liste de produits invalide.`);
+      }
+      category.products.forEach((product, productIndex)=>{
+        if(
+          !product || typeof product.name !== 'string' || !product.name.trim() ||
+          typeof product.price !== 'string' || !product.price.trim() ||
+          (product.detail !== undefined && typeof product.detail !== 'string')
+        ){
+          throw new Error(`Le produit ${productIndex + 1} de la catégorie "${category.name}" est invalide.`);
+        }
+      });
+    });
+
+    const columns = Array.from({length: 3}, ()=>{
+      const column = document.createElement('div');
+      column.className = 'buvette-column';
+      return column;
+    });
+    const formula = [];
+
+    data.categories.forEach(category=>{
+      const section = document.createElement('section');
+      section.className = 'buvette-category';
+      const heading = document.createElement('h4');
+      heading.textContent = category.name.trim();
+      const table = document.createElement('table');
+      table.className = 'buvette-products';
+      table.setAttribute('aria-label', `${category.name.trim()} : produits et prix`);
+      table.innerHTML = '<thead><tr><th scope="col">Produit</th><th scope="col">Prix</th></tr></thead>';
+      const body = document.createElement('tbody');
+
+      category.products.forEach(product=>{
+        const row = document.createElement('tr');
+        const name = document.createElement('td');
+        const price = document.createElement('td');
+        name.textContent = product.name.trim();
+        if(product.detail?.trim()){
+          const detail = document.createElement('small');
+          detail.className = 'buvette-product-detail';
+          detail.textContent = product.detail.trim();
+          name.appendChild(detail);
+        }
+        price.textContent = product.price.trim();
+        row.append(name, price);
+        body.appendChild(row);
+      });
+
+      table.appendChild(body);
+      section.append(heading, table);
+
+      const normalizedName = category.name.normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase();
+      if(normalizedName === 'formule'){
+        section.classList.add('buvette-formula');
+        formula.push(section);
+      } else if(normalizedName === 'boissons fraiches'){
+        columns[0].appendChild(section);
+      } else if(normalizedName === 'viennoiseries (le matin)' || normalizedName === 'barres chocolatees & bonbons'){
+        columns[2].appendChild(section);
+      } else {
+        columns[1].appendChild(section);
       }
     });
 
-    list.replaceChildren();
-    data.products.forEach(product=>{
-      const row = document.createElement('tr');
-      const name = document.createElement('td');
-      const price = document.createElement('td');
-      name.textContent = product.name.trim();
-      price.textContent = product.price.trim();
-      row.append(name, price);
-      list.appendChild(row);
-    });
-
-    status.hidden = data.products.length > 0;
-    if(!data.products.length){
+    list.replaceChildren(...columns, ...formula);
+    const productCount = data.categories.reduce((total, category)=>total + category.products.length, 0);
+    status.hidden = productCount > 0;
+    if(!productCount){
       status.textContent = 'Aucun produit disponible pour le moment.';
     }
   } catch(error){

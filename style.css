@@ -421,11 +421,32 @@ table.plan tbody tr:nth-child(even){ background:#f4efe2; }
 .terrain-card h4{ font-size:1.05rem; margin-bottom:6px; }
 .terrain-card p{ font-size:.88rem; color:#5a5142; margin-bottom:8px; }
 .terrain-card .terrain-map{ width:100%; aspect-ratio:16/9; border:1px solid #e6ddc9; display:block; margin-bottom:0; }
-.buvette-table-wrap{ overflow-x:auto; margin-bottom:24px; }
+.buvette-tables{
+  display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  align-items:start; column-gap:16px; row-gap:12px; margin-bottom:24px;
+}
+.buvette-column{ display:flex; flex-direction:column; gap:12px; }
+.buvette-category{ overflow:hidden; padding:0; border:1px solid #e6ddc9; background:var(--white); }
+.buvette-category h4{
+  display:flex; align-items:center; min-height:40px; margin:0; padding:6px 10px;
+  background:var(--black); color:var(--gold);
+  font-family:var(--font-display); font-size:1rem; font-weight:400; letter-spacing:.04em; text-transform:uppercase;
+}
 .buvette-products{ width:100%; border-collapse:collapse; }
-.buvette-products th, .buvette-products td{ padding:12px 14px; border-bottom:1px solid #e6ddc9; text-align:left; }
-.buvette-products thead th{ background:var(--black); color:var(--gold); font-family:var(--font-display); font-weight:400; letter-spacing:.04em; text-transform:uppercase; }
+.buvette-products th, .buvette-products td{ padding:4px 10px; border-bottom:1px solid #e6ddc9; text-align:left; }
+.buvette-products thead th{
+  position:absolute; width:1px; height:1px; padding:0; overflow:hidden;
+  clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
 .buvette-products tbody tr:nth-child(even){ background:#f4efe2; }
+.buvette-products tbody tr:last-child td{ padding-bottom:0; border-bottom:0; }
+.buvette-products td:last-child, .buvette-products th:last-child{ text-align:right; white-space:nowrap; }
+.buvette-product-detail{ display:block; margin-top:3px; color:#6a604d; font-size:.78rem; }
+.buvette-formula{ grid-column:1 / -1; }
+@media (max-width:720px){
+  .buvette-tables{ grid-template-columns:1fr; }
+  .buvette-formula{ grid-column:auto; }
+}
 
 /* équipes */
 .team-card{

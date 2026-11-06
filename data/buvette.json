@@ -1,11 +1,68 @@
 {
-  "products": [
-    { "name": "Eau", "price": "1,50 €" },
-    { "name": "Canette", "price": "2,00 €" },
-    { "name": "Kinder Bueno", "price": "À définir" },
-    { "name": "Croques Monsieur", "price": "À définir" },
-    { "name": "Chips", "price": "À définir" },
-    { "name": "Crêpes", "price": "À définir" },
-    { "name": "Gâteau fait maison (si disponible)", "price": "À définir" }
+  "categories": [
+    {
+      "name": "Boissons fraîches",
+      "products": [
+        { "name": "Coca", "price": "1,50 €" },
+        { "name": "Coca Zéro", "price": "1,50 €" },
+        { "name": "Ice Tea", "price": "1,50 €" },
+        { "name": "Oasis", "price": "1,50 €" },
+        { "name": "Autres sodas (canette 33 cl)", "price": "1,50 €" },
+        { "name": "Boisson énergisante", "price": "2,50 €", "detail": "Red Bull 25 cl" },
+        { "name": "Perrier", "price": "1,50 €" },
+        { "name": "Capri-Sun", "price": "1,00 €" },
+        { "name": "Eau 50 cl", "price": "1,00 €" }
+      ]
+    },
+    {
+      "name": "Boissons chaudes",
+      "products": [
+        { "name": "Café", "price": "1,00 €" },
+        { "name": "Thé", "price": "1,00 €" },
+        { "name": "Chocolat chaud", "price": "1,50 €" }
+      ]
+    },
+    {
+      "name": "Viennoiseries (le matin)",
+      "products": [
+        { "name": "Croissant", "price": "1,00 €" },
+        { "name": "Pain au chocolat", "price": "1,00 €" }
+      ]
+    },
+    {
+      "name": "Salé",
+      "products": [
+        { "name": "Croque-monsieur", "price": "3,00 €", "detail": "Poulet halal, fromage" },
+        { "name": "Lay's", "price": "1,50 €", "detail": "Barbecue ou nature" }
+      ]
+    },
+    {
+      "name": "Crêpes & gâteaux",
+      "products": [
+        { "name": "Crêpe au sucre", "price": "1,00 €" },
+        { "name": "Crêpe Nutella", "price": "1,50 €" },
+        { "name": "Part de gâteau", "price": "1,50 €" }
+      ]
+    },
+    {
+      "name": "Barres chocolatées & bonbons",
+      "products": [
+        { "name": "Kinder Bueno", "price": "1,50 €" },
+        { "name": "Mars", "price": "1,00 €" },
+        { "name": "Sachet de bonbons", "price": "1,00 €" },
+        { "name": "Lion", "price": "1,00 €" },
+        { "name": "Snickers", "price": "1,00 €" }
+      ]
+    },
+    {
+      "name": "Formule",
+      "products": [
+        {
+          "name": "Croque + Canette",
+          "price": "4,00 €",
+          "detail": "1 croque-monsieur + 1 canette 33 cl au choix (hors Red Bull)"
+        }
+      ]
+    }
   ]
 }
