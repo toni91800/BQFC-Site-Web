@@ -104,6 +104,7 @@ function routeFromPage(pageId, subId, compId, catId){
   if(compId && catId) return `resultats/${compId}/${catId}`;
   if(pageId === 'club'){
     const subPage = subId ? subId.replace(/^club-/, '') : 'histoire';
+    if(subPage === 'organigramme') return 'club/direction';
     return `club/${subPage}`;
   }
   if(pageId === 'equipes'){
@@ -149,14 +150,18 @@ function renderCurrentRoute(){
   }
 
   if(pageId === 'club'){
-    const subId = `club-${sectionId || 'histoire'}`;
+    const section = sectionId === 'organigramme' ? 'direction' : (sectionId || 'histoire');
+    if(sectionId === 'organigramme'){
+      window.history.replaceState(null, '', `/club/direction${window.location.search}${window.location.hash}`);
+    }
+    const subId = section === 'direction' ? 'club-organigramme' : `club-${section}`;
     const panel = document.getElementById(subId);
     if(!panel){
       showPage('accueil');
       return;
     }
     showPage('club', subId);
-    if(sectionId === 'adhesion'){
+    if(section === 'adhesion'){
       showAdhesionPanel(detailId === 'ancien' ? 'ancien' : 'nouveau');
     }
     return;
