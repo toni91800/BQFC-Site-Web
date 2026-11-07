@@ -2,47 +2,42 @@
   "roles": [
     {
       "role": "Président",
-      "name": "",
+      "name": "Malcom KACOU",
       "photo": ""
     },
     {
-      "role": "Vice-Président",
-      "name": "",
+      "role": "Vice-président",
+      "name": "Pascal MADORRE",
       "photo": ""
     },
     {
-      "role": "Trésorier",
-      "name": "",
+      "role": "Trésorier & Secrétaire",
+      "name": "Fatma JEBARI",
       "photo": ""
     },
     {
-      "role": "Secrétaire",
-      "name": "",
+      "role": "Secrétaire Adjoint & Intendant",
+      "name": "Florian MOLINIER",
       "photo": ""
     },
     {
-      "role": "Directeur sportif",
-      "name": "",
+      "role": "Directeur Sportif",
+      "name": "Aymard SARAGA",
       "photo": ""
     },
     {
-      "role": "Responsable Écoles de foot",
-      "name": "",
+      "role": "Communication & Logistique",
+      "name": "Toni FERNANDES",
       "photo": ""
     },
     {
-      "role": "Responsable Technique",
-      "name": "",
+      "role": "Référent Vie du Club",
+      "name": "Bosco KALERE",
       "photo": ""
     },
     {
-      "role": "Responsable Communication",
-      "name": "",
-      "photo": ""
-    },
-    {
-      "role": "Responsable Partenariats",
-      "name": "",
+      "role": "Travaux, Matériel & Installations",
+      "name": "Fabien CONFESSATI",
       "photo": ""
     }
   ]

@@ -594,10 +594,12 @@ async function loadOrganigramme(){
       throw new Error('Le fichier de l’organigramme a un format invalide.');
     }
 
-    const roles = data.roles.filter(item =>
-      item && typeof item.role === 'string' && item.role.trim()
-    );
     grid.replaceChildren();
+    const roles = data.roles.filter(item =>
+      item && typeof item.role === 'string' && item.role.trim() &&
+      typeof item.name === 'string' && item.name.trim() &&
+      (item.photo === undefined || typeof item.photo === 'string')
+    );
     roles.forEach(item => {
       const card = document.createElement('article');
       card.className = 'org-card';
@@ -611,17 +613,16 @@ async function loadOrganigramme(){
         image.loading = 'lazy';
         avatar.appendChild(image);
       }
+      card.appendChild(avatar);
 
       const role = document.createElement('div');
       role.className = 'role';
-      role.textContent = item.role;
+      role.textContent = item.role.trim();
       const name = document.createElement('div');
       name.className = 'name';
-      name.textContent = typeof item.name === 'string' && item.name.trim()
-        ? item.name.trim()
-        : 'Prochainement';
+      name.textContent = item.name.trim();
 
-      card.append(avatar, role, name);
+      card.append(role, name);
       grid.appendChild(card);
     });
 

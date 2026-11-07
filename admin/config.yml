@@ -49,26 +49,26 @@ collections:
             widget: "resultsByCategory"
             hint: "Sélectionnez d'abord la compétition et l'équipe. Un résultat de coupe est soit gagné, soit perdu."
   - name: "organigramme"
-    label: "Organigramme"
-    description: "Modifiez les responsables du club, leur prénom et leur photo. Les champs suivent le style des formulaires Résultats et Convocations."
+    label: "Direction"
+    description: "Modifiez les rôles, les noms et les photos des membres de la direction du club."
     files:
       - name: "membres"
         label: "Membres du club"
         file: "data/organigramme.json"
         format: "json"
         fields:
-          - label: "Rôles de l'organigramme"
+          - label: "Membres de la direction"
             name: "roles"
             widget: "list"
             add_to_top: true
             collapsed: true
             minimize_collapsed: true
-            label_singular: "rôle"
+            label_singular: "membre"
             summary: "{{fields.role}} - {{fields.name}}"
-            hint: "Renseignez le rôle, le prénom et la photo. Utilisez les boutons pour ajouter, réordonner ou retirer une personne."
+            hint: "Renseignez le rôle, le nom et, si vous le souhaitez, une photo pour chaque membre."
             fields:
               - { label: "Rôle", name: "role", widget: "string" }
-              - { label: "Prénom(s) du/des membre(s)", name: "name", widget: "string", required: false, hint: "Laisser vide pour afficher « Prochainement »." }
+              - { label: "Nom", name: "name", widget: "string" }
               - { label: "Photo du membre", name: "photo", widget: "image", required: false }
   - name: "planning"
     label: "Planning des entraînements"
