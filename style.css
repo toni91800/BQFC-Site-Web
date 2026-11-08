@@ -339,8 +339,8 @@ main section:nth-of-type(even){ background:var(--white); }
 .history-photo-card{
   margin:0; padding:12px; background:var(--white); border:1px solid #e6ddc9; text-align:center;
 }
-.history-photo-card .photo{ aspect-ratio:4/3; }
-.history-photo-card figcaption{ padding-top:10px; color:#5a5142; font-size:.78rem; line-height:1.45; }
+.history-photo-card .photo{ aspect-ratio:4/3; background:var(--white); border:0; overflow:hidden; }
+.history-photo-card figcaption{ padding-top:2px; color:#5a5142; font-size:.78rem; line-height:1.45; }
 .history-logos{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
 .history-logo-card{
   display:flex; flex-direction:column; align-items:center; justify-content:space-between; gap:10px;
