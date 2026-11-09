@@ -239,6 +239,46 @@
       "home": false,
       "goalsFor": 3,
       "goalsAgainst": 3
+    },
+    {
+      "competition": "championnat",
+      "team": "u14",
+      "round": "J3",
+      "date": "2026-11-07",
+      "opponent": "Vigneux FCO",
+      "home": true,
+      "goalsFor": 2,
+      "goalsAgainst": 2
+    },
+    {
+      "competition": "championnat",
+      "team": "u15F",
+      "round": "J3",
+      "date": "2026-11-07",
+      "opponent": "Morangis Chilly FC",
+      "home": true,
+      "goalsFor": 6,
+      "goalsAgainst": 0
+    },
+    {
+      "competition": "coupe",
+      "team": "u14",
+      "round": "1",
+      "date": "2026-10-17",
+      "opponent": "Soisy Sur Seine",
+      "home": false,
+      "goalsFor": 5,
+      "goalsAgainst": 3
+    },
+    {
+      "competition": "championnat",
+      "team": "u18",
+      "round": "J4",
+      "date": "2026-11-01",
+      "opponent": "Morsang sur Orge FC",
+      "home": true,
+      "goalsFor": 1,
+      "goalsAgainst": 3
     }
   ]
 }
