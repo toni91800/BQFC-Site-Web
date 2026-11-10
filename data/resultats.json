@@ -279,6 +279,36 @@
       "home": true,
       "goalsFor": 1,
       "goalsAgainst": 3
+    },
+    {
+      "competition": "championnat",
+      "team": "seniorsF",
+      "round": "J2",
+      "date": "2026-11-07",
+      "opponent": "Evry FC",
+      "home": true,
+      "goalsFor": 1,
+      "goalsAgainst": 5
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors1",
+      "round": "J6",
+      "date": "2026-11-08",
+      "opponent": "Morsang sur Orge FC",
+      "home": false,
+      "goalsFor": 1,
+      "goalsAgainst": 5
+    },
+    {
+      "competition": "championnat",
+      "team": "seniors2",
+      "round": "J3",
+      "date": "2026-11-08",
+      "opponent": "Morsang sur Orge FC",
+      "home": true,
+      "goalsFor": 1,
+      "goalsAgainst": 2
     }
   ]
 }
