@@ -1,25 +1,13 @@
 {
   "links": {
     "championnat": {
-      "u14": {
-        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/classement",
-        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/saison"
+      "seniorsF": {
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEF_9/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEF_9/saison"
       },
       "u15F": {
         "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15F_10/classement",
         "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15F_10/saison"
-      },
-      "u16": {
-        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/classement",
-        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/saison"
-      },
-      "u18": {
-        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U19_1/classement",
-        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U19_1/saison"
-      },
-      "seniorsF": {
-        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEF_9/classement",
-        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEF_9/saison"
       },
       "seniors1": {
         "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_2/classement",
@@ -36,6 +24,18 @@
       "veterans35": {
         "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_4/saison",
         "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_4/classement"
+      },
+      "u14": {
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/saison"
+      },
+      "u16": {
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/saison"
+      },
+      "u18": {
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U19_1/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U19_1/saison"
       }
     },
     "coupe": {
@@ -57,7 +57,7 @@
       },
       "veterans55": {
         "ranking": "",
-        "calendar": ""
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_6/saison"
       }
     }
   },
@@ -400,6 +400,16 @@
       "opponent": "Verrieres Le Buisson",
       "home": false,
       "goalsFor": 2,
+      "goalsAgainst": 4
+    },
+    {
+      "competition": "coupe",
+      "team": "veterans55",
+      "round": "Seizième de finale",
+      "date": "2026-11-08",
+      "opponent": "Villejust Avenir",
+      "home": true,
+      "goalsFor": 5,
       "goalsAgainst": 4
     }
   ]
