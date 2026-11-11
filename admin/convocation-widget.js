@@ -341,6 +341,67 @@
     },
   });
 
+  const ResultsLinksByCategoryControl = createClass({
+    getInitialState(){
+      return {categoryIndex: 0};
+    },
+
+    getLinks(){
+      const links = toPlain(this.props.value);
+      return links && typeof links === 'object' && !Array.isArray(links) ? links : {};
+    },
+
+    updateLink(field, value){
+      const category = RESULT_CATEGORIES[this.state.categoryIndex];
+      const links = this.getLinks();
+      const competitionLinks = links[category.competition] || {};
+      this.props.onChange({
+        ...links,
+        [category.competition]: {
+          ...competitionLinks,
+          [category.team]: {
+            ...(competitionLinks[category.team] || {}),
+            [field]: value,
+          },
+        },
+      });
+    },
+
+    render(){
+      const category = RESULT_CATEGORIES[this.state.categoryIndex];
+      const links = this.getLinks()[category.competition]?.[category.team] || {};
+      const field = (key, label) => h('label', {key, className: 'results-cms-field'}, [
+        h('span', {key: 'label'}, label),
+        h('input', {
+          key: 'input',
+          type: 'url',
+          value: links[key] || '',
+          placeholder: 'https://…',
+          onChange: event => this.updateLink(key, event.target.value),
+        }),
+      ]);
+
+      return h('div', {className: 'results-cms-editor'}, [
+        h('p', {key: 'help', className: 'results-cms-help'}, 'Choisissez une compétition et une équipe, puis modifiez ou effacez les liens affichés sous ses résultats.'),
+        h('label', {key: 'category-label', className: 'results-cms-selector'}, [
+          h('span', {key: 'label'}, 'Compétition et équipe'),
+          h('select', {
+            key: 'select',
+            value: String(this.state.categoryIndex),
+            onChange: event => this.setState({categoryIndex: Number(event.target.value)}),
+          }, RESULT_CATEGORIES.map((item, index) =>
+            h('option', {key: `${item.competition}-${item.team}`, value: String(index)}, item.label)
+          )),
+        ]),
+        h('fieldset', {key: 'links', className: 'results-cms-match'}, [
+          h('legend', {key: 'legend'}, `Liens - ${category.label}`),
+          field('ranking', 'Lien du classement'),
+          field('calendar', 'Lien du calendrier'),
+        ]),
+      ]);
+    },
+  });
+
   const PlanningByCategoryControl = createClass({
     getInitialState(){
       return {categoryId: CLUB_CATEGORIES[0].id};
@@ -684,6 +745,7 @@
 
   window.CMS.registerWidget('convocationCategories', ConvocationCategoriesControl);
   window.CMS.registerWidget('resultsByCategory', ResultsByCategoryControl);
+  window.CMS.registerWidget('resultsLinksByCategory', ResultsLinksByCategoryControl);
   window.CMS.registerWidget('planningByCategory', PlanningByCategoryControl);
   window.CMS.registerWidget('categoryContacts', CategoryContactsControl);
   window.CMS.registerWidget('clubContactDetails', ClubContactDetailsControl);

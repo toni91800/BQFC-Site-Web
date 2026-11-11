@@ -64,35 +64,6 @@ const RESULTAT_TEAMS = {
   ],
 };
 
-const DISTRICT_RESULTS_URLS = {
-  u14: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3",
-  u15F: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1",
-  u16: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4",
-  u18: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2",
-  seniorsF: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1",
-  seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2",
-  seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5",
-  veterans55: "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS",
-};
-
-const DISTRICT_CALENDAR_URLS = {
-  u14: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3%20POULE%20C",
-  u15F: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1%20POULE%20B",
-  u16: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4%20POULE%20B",
-  u18: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2%20POULE%20A",
-  seniorsF: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1%20POULE%20UNIQUE",
-  seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2%20POULE%20B",
-  seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5%20POULE%20A",
-  veterans55: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS%20POULE%20A",
-};
-
-const DISTRICT_CUP_CALENDAR_URLS = {
-  u14: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=458608&stage=1&group=1&label=COUPE%20ESSONNE%20U14%20POULE%20UNIQUE",
-  u16: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456479&stage=1&group=1&label=COUPE%20ESSONNE%20U16%20POULE%20UNIQUE",
-  seniors1: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456417&stage=1&group=1&label=COUPE%20ESSONNE%20SENIORS%20POULE%20UNIQUE",
-  seniors2: "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456448&stage=1&group=1&label=COUPE%20DISTRICT%20SENIORS%20POULE%20UNIQUE",
-};
-
 const EQUIPES_PAR_CATEGORIE = {u6u7:4, u8:2, u9:2, u10:2, u11:2, u12:2, u13:2, seniors: 2 };
 
 const RESULTAT_TEAM_OPTIONS = Object.fromEntries(
@@ -810,7 +781,38 @@ function validateResultats(data){
   }
   const allowedCompetitions = new Set(COMPETITIONS.map(competition => competition.id));
   const allowedTeams = new Set(Object.keys(RESULTAT_TEAM_OPTIONS));
-  return data.matches.map((match, index)=>{
+  const links = data.links === undefined ? {} : data.links;
+  if(!links || typeof links !== 'object' || Array.isArray(links)){
+    throw new Error('Les liens des résultats sont invalides.');
+  }
+  for(const [competition, teams] of Object.entries(links)){
+    if(!allowedCompetitions.has(competition) || !teams || typeof teams !== 'object' || Array.isArray(teams)){
+      throw new Error('Les liens des résultats contiennent une compétition invalide.');
+    }
+    for(const [team, teamLinks] of Object.entries(teams)){
+      if(!allowedTeams.has(team) || !teamLinks || typeof teamLinks !== 'object' || Array.isArray(teamLinks)){
+        throw new Error('Les liens des résultats contiennent une équipe invalide.');
+      }
+      for(const field of ['ranking', 'calendar']){
+        const url = teamLinks[field] === undefined ? '' : teamLinks[field];
+        if(typeof url !== 'string'){
+          throw new Error(`Le lien ${field} de ${team} doit être une adresse web.`);
+        }
+        if(url){
+          let parsedUrl;
+          try{
+            parsedUrl = new URL(url);
+          } catch{
+            throw new Error(`Le lien ${field} de ${team} n'est pas une adresse web valide.`);
+          }
+          if(!['http:', 'https:'].includes(parsedUrl.protocol)){
+            throw new Error(`Le lien ${field} de ${team} doit commencer par http:// ou https://.`);
+          }
+        }
+      }
+    }
+  }
+  const matches = data.matches.map((match, index)=>{
     const parsedDate = typeof match?.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(match.date)
       ? new Date(`${match.date}T00:00:00Z`)
       : null;
@@ -828,6 +830,7 @@ function validateResultats(data){
     }
     return match;
   });
+  return {matches, links};
 }
 
 async function loadResultats(){
@@ -836,7 +839,7 @@ async function loadResultats(){
     const response = await fetch('/data/resultats.json');
     if(!response.ok) throw new Error(`Chargement des résultats impossible (${response.status}).`);
     const data = validateResultats(await response.json());
-    buildResultats(data);
+    buildResultats(data.matches, data.links);
     status.hidden = true;
     if(getCurrentRoute()[0] === 'resultats') renderCurrentRoute();
   } catch(error){
@@ -847,7 +850,7 @@ async function loadResultats(){
 }
 
 /* ---------- 4. Génération dynamique : Résultats (Championnat / Coupe > catégories) ---------- */
-function buildResultats(allMatches){
+function buildResultats(allMatches, allLinks){
   const compSubtabs = document.getElementById('resultats-comp-subtabs');
   const compPanels  = document.getElementById('resultats-comp-panels');
  
@@ -918,17 +921,14 @@ function buildResultats(allMatches){
       const competitionMention = mention
         ? `<span class="results-division">${mention}</span>`
         : '';
-      const districtUrl = comp.id === 'championnat' ? DISTRICT_RESULTS_URLS[cat.id] : null;
-      const calendarUrl = comp.id === 'coupe'
-        ? DISTRICT_CUP_CALENDAR_URLS[cat.id]
-        : DISTRICT_CALENDAR_URLS[cat.id];
-      const districtLink = comp.id === 'coupe'
-        ? (calendarUrl
-          ? `<p class="district-results-link">Plus de détails sur le <a href="${calendarUrl}" target="_blank" rel="noopener noreferrer">calendrier</a> de l'équipe sur le site du District de l’Essonne.</p>`
-          : '')
-        : (districtUrl
-          ? `<p class="district-results-link">Plus de détails sur le <a href="${districtUrl}" target="_blank" rel="noopener noreferrer">classement</a>${calendarUrl ? ` et le <a href="${calendarUrl}" target="_blank" rel="noopener noreferrer">calendrier</a>` : ''} de l'équipe sur le site du District de l’Essonne ↗</p>`
-          : '');
+      const teamLinks = allLinks[comp.id]?.[cat.id] || {};
+      const externalLinks = [
+        {label: 'classement', url: teamLinks.ranking},
+        {label: 'calendrier', url: teamLinks.calendar},
+      ].filter(link => link.url);
+      const districtLink = externalLinks.length
+        ? `<p class="district-results-link">Plus de détails sur le ${externalLinks.map(link => `<a href="${escapeHTML(link.url)}" target="_blank" rel="noopener noreferrer">${link.label}</a>`).join(' et ')} de l'équipe sur le site du District de l’Essonne ↗</p>`
+        : '';
       const summaryClass = comp.id === 'coupe' ? 'results-summary results-summary-cup' : 'results-summary';
       catPanel.innerHTML = `
         <h3 class="results-title">${cat.label} - ${comp.label}${competitionMention}</h3>

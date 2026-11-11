@@ -1,4 +1,58 @@
 {
+  "links": {
+    "championnat": {
+      "u14": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3%20POULE%20C"
+      },
+      "u15F": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1%20POULE%20B"
+      },
+      "u16": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4%20POULE%20B"
+      },
+      "u18": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2%20POULE%20A"
+      },
+      "seniorsF": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1%20POULE%20UNIQUE"
+      },
+      "seniors1": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2%20POULE%20B"
+      },
+      "seniors2": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5%20POULE%20A"
+      },
+      "veterans55": {
+        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS%20POULE%20A"
+      }
+    },
+    "coupe": {
+      "u14": {
+        "ranking": "",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=458608&stage=1&group=1&label=COUPE%20ESSONNE%20U14%20POULE%20UNIQUE"
+      },
+      "u16": {
+        "ranking": "",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456479&stage=1&group=1&label=COUPE%20ESSONNE%20U16%20POULE%20UNIQUE"
+      },
+      "seniors1": {
+        "ranking": "",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456417&stage=1&group=1&label=COUPE%20ESSONNE%20SENIORS%20POULE%20UNIQUE"
+      },
+      "seniors2": {
+        "ranking": "",
+        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456448&stage=1&group=1&label=COUPE%20DISTRICT%20SENIORS%20POULE%20UNIQUE"
+      }
+    }
+  },
   "matches": [
     {
       "home": false,
