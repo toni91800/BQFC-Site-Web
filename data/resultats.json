@@ -2,54 +2,54 @@
   "links": {
     "championnat": {
       "u14": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456310&stage=1&group=3&label=U14%20D3%20POULE%20C"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/saison"
       },
       "u15F": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456387&stage=1&group=2&label=U15%20F%20%C3%80%2011%20D1%20POULE%20B"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15F_10/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15F_10/saison"
       },
       "u16": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456268&stage=1&group=2&label=U16%20D4%20POULE%20B"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/saison"
       },
       "u18": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456221&stage=1&group=1&label=U18%20D2%20POULE%20A"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U19_1/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U19_1/saison"
       },
       "seniorsF": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456346&stage=1&group=1&label=SENIORS%20F%20%C3%80%2011%20D1%20POULE%20UNIQUE"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEF_9/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEF_9/saison"
       },
       "seniors1": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455671&stage=1&group=2&label=SENIORS%20D2%20POULE%20B"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_2/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_2/saison"
       },
       "seniors2": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=455681&stage=1&group=1&label=SENIORS%20D5%20POULE%20A"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_3/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_3/saison"
       },
       "veterans55": {
-        "ranking": "https://essonne.fff.fr/recherche-clubs?subtab=ranking&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456217&stage=1&group=1&label=CRIT%C3%89RIUM%2055%20ANS%20POULE%20A"
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_6/classement",
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_6/saison"
       }
     },
     "coupe": {
       "u14": {
         "ranking": "",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=458608&stage=1&group=1&label=COUPE%20ESSONNE%20U14%20POULE%20UNIQUE"
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U15_8/saison"
       },
       "u16": {
         "ranking": "",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456479&stage=1&group=1&label=COUPE%20ESSONNE%20U16%20POULE%20UNIQUE"
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_U17_7/saison"
       },
       "seniors1": {
         "ranking": "",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456417&stage=1&group=1&label=COUPE%20ESSONNE%20SENIORS%20POULE%20UNIQUE"
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_2/saison"
       },
       "seniors2": {
         "ranking": "",
-        "calendar": "https://essonne.fff.fr/recherche-clubs?subtab=calendar&tab=resultats&scl=186863&competition=456448&stage=1&group=1&label=COUPE%20DISTRICT%20SENIORS%20POULE%20UNIQUE"
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_3/saison"
       }
     }
   },
