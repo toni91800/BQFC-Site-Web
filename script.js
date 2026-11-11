@@ -1,5 +1,5 @@
 /* =========================================================
-   FC BOUSSY QUINCY - script.js
+   FC BOUSSY-QUINCY - script.js
    Gère : navigation principale, sous-onglets, et génération
    dynamique des pages "Les équipes" et "Résultats" à partir
    d'une seule liste de catégories (facile à modifier).
@@ -62,6 +62,7 @@ const RESULTAT_TEAMS = {
     { id: "u16", label: "U16", competition: "Coupe Essonne" },
     { id: "seniors1", label: "Séniors 1", competition: "Coupe Essonne" },
     { id: "seniors2", label: "Séniors 2", competition: "Coupe District" },
+    { id: "veterans55", label: "Vétérans +55", competition: "Coupe" },
   ],
 };
 
@@ -908,9 +909,9 @@ function buildResultats(allMatches, allLinks){
         else { label='-'; }
         return `<tr>
           <td>${escapeHTML(m.round)}</td><td>${m.date ? escapeHTML(m.date.split('-').reverse().join('/')) : '-'}</td>
-          <td>${m.home ? 'Boussy Quincy FC' : escapeHTML(m.opponent)}</td>
+          <td>${m.home ? 'Boussy-Quincy FC' : escapeHTML(m.opponent)}</td>
           <td class="score">${m.home ? m.goalsFor : m.goalsAgainst} - ${m.home ? m.goalsAgainst : m.goalsFor}</td>
-          <td>${m.home ? escapeHTML(m.opponent) : 'Boussy Quincy FC'}</td>
+          <td>${m.home ? escapeHTML(m.opponent) : 'Boussy-Quincy FC'}</td>
           <td class="${cls}">${label}</td>
         </tr>`;
       }).join('');

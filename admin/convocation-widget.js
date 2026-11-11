@@ -31,6 +31,7 @@
     {competition: 'coupe', team: 'u16', label: 'Coupe - U16'},
     {competition: 'coupe', team: 'seniors1', label: 'Coupe - Séniors 1'},
     {competition: 'coupe', team: 'seniors2', label: 'Coupe - Séniors 2'},
+    {competition: 'coupe', team: 'veterans55', label: 'Coupe - Vétérans +55'},
   ];
   const CLUB_CATEGORIES = [
     {id: 'u6u7', label: 'U6 - U7'},
@@ -325,7 +326,7 @@
             }),
             h('span', {key: 'label'}, 'Match à domicile'),
           ]),
-          field(matchIndex, 'goalsFor', 'Buts du Boussy Quincy FC', 'number', 0),
+          field(matchIndex, 'goalsFor', 'Buts du Boussy-Quincy FC', 'number', 0),
           field(matchIndex, 'goalsAgainst', 'Buts de l’adversaire', 'number', 0),
           h('button', {
             key: 'remove',
