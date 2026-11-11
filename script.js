@@ -54,6 +54,7 @@ const RESULTAT_TEAMS = {
     { id: "seniorsF", label: "Séniors F", division: "D1" },
     { id: "seniors1", label: "Séniors 1", division: "D2 Poule B" },
     { id: "seniors2", label: "Séniors 2", division: "D5 Poule A" },
+    { id: "veterans35", label: "Vétérans +35", division: "Vétérans D3 Poule C" },
     { id: "veterans55", label: "Vétérans +55", division: "Critérium 55 ans Poule A" },
   ],
   coupe: [

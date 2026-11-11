@@ -25,6 +25,7 @@
     {competition: 'championnat', team: 'seniorsF', label: 'Championnat - Séniors F'},
     {competition: 'championnat', team: 'seniors1', label: 'Championnat - Séniors 1'},
     {competition: 'championnat', team: 'seniors2', label: 'Championnat - Séniors 2'},
+    {competition: 'championnat', team: 'veterans35', label: 'Championnat - Vétérans +35'},
     {competition: 'championnat', team: 'veterans55', label: 'Championnat - Vétérans +55'},
     {competition: 'coupe', team: 'u14', label: 'Coupe - U14'},
     {competition: 'coupe', team: 'u16', label: 'Coupe - U16'},
