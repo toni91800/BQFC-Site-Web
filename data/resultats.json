@@ -32,6 +32,10 @@
       "veterans55": {
         "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_6/classement",
         "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_6/saison"
+      },
+      "veterans35": {
+        "calendar": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_4/saison",
+        "ranking": "https://epreuves.fff.fr/competition/club/581835-boussy-quincy-football-club/equipe/2026_186863_SEM_4/classement"
       }
     },
     "coupe": {
@@ -363,6 +367,36 @@
       "home": true,
       "goalsFor": 1,
       "goalsAgainst": 2
+    },
+    {
+      "competition": "championnat",
+      "team": "veterans35",
+      "round": "J1",
+      "date": "2026-10-04",
+      "opponent": "Saclas Mereville US",
+      "home": false,
+      "goalsFor": 1,
+      "goalsAgainst": 1
+    },
+    {
+      "competition": "championnat",
+      "team": "veterans35",
+      "round": "J2",
+      "date": "2026-10-18",
+      "opponent": "Bergeries AS",
+      "home": true,
+      "goalsFor": 9,
+      "goalsAgainst": 4
+    },
+    {
+      "competition": "championnat",
+      "team": "veterans35",
+      "round": "J3",
+      "date": "2026-11-01",
+      "opponent": "Verrieres Le Buisson",
+      "home": false,
+      "goalsFor": 2,
+      "goalsAgainst": 4
     }
   ]
 }
