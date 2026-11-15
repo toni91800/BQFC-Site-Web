@@ -283,7 +283,10 @@
       <!-- Adhésion 2026/2027 -->
       <div class="subpanel" id="club-adhesion">
         <h3>Adhésion 2026/2027</h3>
- 
+        <p id="adhesion-status-error" class="form-error" role="alert" hidden></p>
+        <p id="adhesion-status-loading" class="form-note" role="status">Chargement du statut des adhésions…</p>
+
+        <div id="adhesion-open-content" hidden>
         <div class="subtabs subtabs-nested" id="adhesion-subtabs">
           <button class="active" data-adh="nouveau">Nouveaux joueurs / joueuses</button>
           <button data-adh="ancien">Déjà licencié(e) au club</button>
@@ -365,6 +368,10 @@
  
           <iframe id="haWidgetAncien" allow="payment 'self' https://paymenthub.helloassopay.com https://helloasso.com" allowtransparency="true" scrolling="auto" src="https://www.helloasso.com/associations/boussy-quincy-fc/adhesions/adhesion-2026-2027-sport/widget" style="width: 100%; height: 750px; border: none; margin-top:20px;" onload="window.addEventListener('message', function(e) { const dataHeight = e.data.height; const haWidgetElement = document.getElementById('haWidgetAncien'); 
           if (dataHeight > parseFloat(haWidgetElement.height || 0)) { haWidgetElement.height = dataHeight + 'px';}})"></iframe>
+        </div>
+        </div>
+        <div id="adhesion-closed-message" class="adhesion-note" hidden>
+          Les adhésions sont clôturées pour cette année et rouvriront en mai 2027 pour la saison 2027-2028.
         </div>
       </div>
             

@@ -52,6 +52,21 @@ collections:
             name: "links"
             widget: "resultsLinksByCategory"
             hint: "En bas de la saisie des matchs, choisissez une compétition et une équipe pour modifier ou effacer ses liens externes."
+  - name: "adhesion"
+    label: "Adhésion 2026/2027"
+    description: "Choisir l'affichage de la page d'adhésion : formulaire ouvert ou message de fermeture."
+    files:
+      - name: "statut"
+        label: "Affichage des adhésions"
+        file: "data/adhesion.json"
+        format: "json"
+        fields:
+          - label: "Affichage"
+            name: "status"
+            widget: "select"
+            options:
+              - { label: "Afficher les formulaires d'adhésion", value: "open" }
+              - { label: "Afficher le message de fermeture", value: "closed" }
   - name: "organigramme"
     label: "Direction"
     description: "Modifiez les rôles, les noms et les photos des membres de la direction du club."

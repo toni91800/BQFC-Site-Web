@@ -472,6 +472,11 @@ table.plan tbody tr:nth-child(even){ background:#f4efe2; }
 @media (max-width:720px){ .team-card{ grid-template-columns:1fr; } .team-card .photo{ min-height:170px; } }
 
 .subtabs-nested{ margin:18px 0 24px; }
+#adhesion-open-content[hidden],
+#adhesion-closed-message[hidden],
+#adhesion-status-error[hidden],
+#adhesion-status-loading[hidden]{ display:none !important; }
+#adhesion-status-error:not([hidden]){ display:block; }
 .convocation-category-panel{ display:none; }
 .convocation-category-panel.active{ display:grid; grid-template-columns:repeat(auto-fit,minmax(270px,1fr)); gap:16px; }
 .convocation-card{ padding:20px; background:var(--white); border:1px solid #e6ddc9; }

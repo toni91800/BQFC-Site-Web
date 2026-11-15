@@ -1019,6 +1019,33 @@ function showAdhesionPanel(adhId){
   });
 }
 
+async function loadAdhesionStatus(){
+  const openContent = document.getElementById('adhesion-open-content');
+  const closedMessage = document.getElementById('adhesion-closed-message');
+  const error = document.getElementById('adhesion-status-error');
+  const loading = document.getElementById('adhesion-status-loading');
+  if(!openContent || !closedMessage || !error || !loading) return;
+
+  try{
+    const response = await fetch('/data/adhesion.json', {cache: 'no-cache'});
+    if(!response.ok) throw new Error(`Chargement du statut des adhésions impossible (${response.status}).`);
+    const data = await response.json();
+    if(!data || !['open', 'closed'].includes(data.status)){
+      throw new Error('Le statut des adhésions est invalide.');
+    }
+    openContent.hidden = data.status === 'closed';
+    closedMessage.hidden = data.status !== 'closed';
+    loading.hidden = true;
+  } catch(loadError){
+    console.error('Unable to load adhesion status:', loadError);
+    openContent.hidden = false;
+    closedMessage.hidden = true;
+    loading.hidden = true;
+    error.textContent = 'Le statut des adhésions n’a pas pu être chargé. Le formulaire reste affiché.';
+    error.hidden = false;
+  }
+}
+
 function bindAdhesionTabs(){
   const nav = document.getElementById('adhesion-subtabs');
   if(!nav) return;
@@ -1631,6 +1658,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   loadDocuments();
   loadBuvetteProducts();
   loadResultats();
+  loadAdhesionStatus();
   buildAgenda();
   bindAdhesionTabs();
   bindPreinscriptionForm();
